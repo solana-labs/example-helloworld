@@ -1,4 +1,5 @@
 [![Build status][travis-image]][travis-url]
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld) 
 
 [travis-image]: https://travis-ci.org/solana-labs/example-helloworld.svg?branch=master
 [travis-url]: https://travis-ci.org/solana-labs/example-helloworld
@@ -38,6 +39,8 @@ The project comprises of:
   - [Expand your skills with advanced examples](#expand-your-skills-with-advanced-examples)
 
 ## Quick Start
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
 
 The following dependencies are required to build and run this example,
 depending on your OS, they may already be installed:
