@@ -16,5 +16,5 @@ github:
     # add a check to pull requests (defaults to true)
     addCheck: true
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
-    addComment: true
+    addComment: false
 
