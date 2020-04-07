@@ -137,6 +137,9 @@ export async function sayHello(): Promise<void> {
  */
 export async function reportHellos(): Promise<void> {
   const accountInfo = await connection.getAccountInfo(greetedPubkey);
+  if (accountInfo === null) {
+    throw 'Error: cannot find the greeted account';
+  }
   const info = greetedAccountDataLayout.decode(Buffer.from(accountInfo.data));
   console.log(
     greetedPubkey.toBase58(),

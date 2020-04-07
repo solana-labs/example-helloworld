@@ -12,7 +12,7 @@ import {
 } from './hello_world';
 
 async function main() {
-  console.log('Let\'s say hello to a Solana account...');
+  console.log("Let's say hello to a Solana account...");
 
   // Establish connection to the cluster
   await establishConnection();
@@ -26,7 +26,7 @@ async function main() {
   // Find out how many times that account has been greeted
   await reportHellos();
 
-  console.log("Success");
+  console.log('Success');
 }
 
 main()
