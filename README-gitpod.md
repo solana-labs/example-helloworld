@@ -12,13 +12,13 @@ to build, deploy, and interact with programs on the Solana blockchain.
 The project comprises of:
 
 * An on-chain hello world program
-* Client that can send a "hello" to an account and get back the number of times hello has been sent
+* A client that can send a "hello" to an account and get back the number of times "hello" has been sent
 
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
-    - [Expected output](#expected-output)
+    - [Example expected output](#example-expected-output)
     - [Customizing the Program](#customizing-the-program)
   - [Learn about Solana](#learn-about-solana)
   - [Learn about the on-chain program](#learn-about-the-on-chain-program)
@@ -26,7 +26,7 @@ The project comprises of:
 
 ## Quick Start
 
-This example by default points to the public Solana devnet
+This example connects to the public Solana `devnet` cluster by default
 
 Run the client to load and interact with the on-chain program:
 ```bash
@@ -37,7 +37,7 @@ $ npm run start
 
 ```bash
 Lets say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { 'solana-core': '1.1.1' }
+Connection to cluster established: http://localhost:8899 { 'solana-core': '1.1.2' }
 Loading hello world program...
 Program loaded to account 47bZX1D1tdmw3KWTo5MfBrAwwHBJQQzQL4VnNGT7HtyQ
 Creating account Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk to say hello to
@@ -48,19 +48,13 @@ Success
 
 ### Customizing the Program
 
-To customize the example, make changes to the files under `/src`.  
-
-If you change files under `/src/program` you will need to rebuild the on-chain program
-```bash
-$ npm run build:program
-```
+To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](#Build-the-on-chain-program)
 
 Now when you rerun `npm run start`, you should see the results of your changes.
 
-## Learn about Solana
+## [Learn about Solana](README.md#learn-about-solana)
 
-More information about how Solana works is available in the [Book](https://docs.solana.com/)
+## [Learn about the client](README.md#learn-about-the-client)
 
 ## [Learn about the on-chain program](README.md#learn-about-the-on-chain-program)
 
-## [Learn about the client](README.md#learn-about-the-client)
