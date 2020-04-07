@@ -27,5 +27,5 @@ install:
 
 script:
   - npm run build:program
-  - cargo test --manifest-path=src/program-test/Cargo.toml
-  - npm run test
+  - npm run lint
+  - npm run flow

@@ -98,7 +98,7 @@ Success
 #### Not seeing the expected output?
 
 - Ensure you've [Started the local cluster](Start-local-solana-cluster) and [Built the on-chain program](Build-the-on-chain-program).
-- Ensure Docker us running.  You might try bumping up its resource settings, 16 GB of memory and 3 GB of Swap should help.
+- Ensure Docker us running.  You might try bumping up its resource settings, 8 GB of memory and 3 GB of Swap should help.
 - Inspect the Solana cluster logs looking for any failed transactions or failed on-chain programs
   - Expand the log filter and restart the cluster to see more detail
     - ```bash
