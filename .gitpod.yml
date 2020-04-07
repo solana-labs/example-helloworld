@@ -1,0 +1,21 @@
+tasks:
+  - init: |
+      npm install
+      npm run build:program
+    command: |
+      export LIVE=1
+      gp open README-gitpod.md
+image: gitpod/workspace-full
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: false
+
