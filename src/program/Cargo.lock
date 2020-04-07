@@ -267,9 +267,9 @@ dependencies = [
 
 [[package]]
 name = "solana-sdk"
-version = "1.1.1"
+version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d8343657849df093cfe3f024da88c46ffec41dbfaa579e25e24057d1b987b8e4"
+checksum = "9912304a32e6d1e4719e548ba485dbdc45201c55cee89358c824e86034f31292"
 dependencies = [
  "bincode",
  "bs58",
@@ -292,13 +292,13 @@ dependencies = [
 
 [[package]]
 name = "solana-sdk-bpf-test"
-version = "1.1.1"
+version = "1.1.2"
 
 [[package]]
 name = "solana-sdk-macro"
-version = "1.1.1"
+version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2d04c4431d64f1f61df85cdf38c2c0737840d7b061afea6b95d0c9afcd9e1b6d"
+checksum = "e106dae87a97c8373a041c4e7ade2d5db994b4218ab72756f923429f8c69ab86"
 dependencies = [
  "bs58",
  "proc-macro2",
