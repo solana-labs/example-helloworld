@@ -25,6 +25,8 @@ async function main() {
 
   // Find out how many times that account has been greeted
   await reportHellos();
+
+  console.log("Success");
 }
 
 main()
