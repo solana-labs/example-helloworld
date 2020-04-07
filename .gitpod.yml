@@ -1,6 +1,7 @@
 tasks:
-  - init: gp open README-gitpod.md
-    command: export LIVE=1
-    command: npm install
-    command: npm run build:program
+  - init: |
+      npm install
+      npm run build:program
+      export LIVE=1
+    command: gp open README-gitpod.md
 image: gitpod/workspace-full
