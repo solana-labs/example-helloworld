@@ -11,8 +11,8 @@ entrypoint!(process_instruction);
 // Program entrypoint's implementation
 fn process_instruction<'a>(
     program_id: &Pubkey, // Public key of the account the hello world program was loaded into
-    accounts: &'a [AccountInfo<'a>], // The accoun to say hello to
-    _instruction_data: &[u8], // Ignored, all instructions are hellos
+    accounts: &'a [AccountInfo<'a>], // The account to say hello to
+    _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
 ) -> ProgramResult {
     // Iterating accounts is safer then indexing
     let accounts_iter = &mut accounts.iter();
