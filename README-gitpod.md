@@ -23,34 +23,22 @@ The project comprises of:
   - [Learn about Solana](#learn-about-solana)
   - [Learn about the client](#learn-about-the-client)
   - [Learn about the on-chain program](#learn-about-the-on-chain-program)
+  - [Expand your skills with advanced examples](#expand-your-skills-with-advanced-examples)
 
 ## Quick Start
 
-This example connects to the public Solana `devnet` cluster by default
+Using this example in Gitpod connects to the public Solana `devnet` cluster.  Gitpod does not support Docker so running a local cluster is not supported.  
 
 Run the client to load and interact with the on-chain program:
 ```bash
 $ npm run start
 ```
 
-### Expected output
+The remaining sections of this document point back to the non-Gitpod version of the README for more information.  Just remember, using Docker or running a local cluster is not supported if you are using Gitpod.
 
-```bash
-Lets say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { 'solana-core': '1.1.2' }
-Loading hello world program...
-Program loaded to account 47bZX1D1tdmw3KWTo5MfBrAwwHBJQQzQL4VnNGT7HtyQ
-Creating account Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk to say hello to
-Saying hello to Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk
-Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk has been greeted 1 times
-Success
-```
+### [Expected output](README.md#expected-output)
 
-### Customizing the Program
-
-To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](README.md#build-the-on-chain-program)
-
-Now when you rerun `npm run start`, you should see the results of your changes.
+### [Customizing the Program](README.md#Customizing-the-Program)
 
 ## [Learn about Solana](README.md#learn-about-solana)
 
@@ -58,3 +46,4 @@ Now when you rerun `npm run start`, you should see the results of your changes.
 
 ## [Learn about the on-chain program](README.md#learn-about-the-on-chain-program)
 
+## [Expand your skills with advanced examples](README.md#expand-your-skills-with-advanced-examples)

@@ -20,8 +20,8 @@ The project comprises of:
   - [Quick Start](#quick-start)
     - [Start local Solana cluster](#start-local-solana-cluster)
     - [Build the on-chain program](#build-the-on-chain-program)
-    - [Run client](#run-client)
-    - [Example expected output](#example-expected-output)
+    - [Run the client](#run-the-client)
+    - [Expected output](#expected-output)
       - [Not seeing the expected output?](#not-seeing-the-expected-output)
     - [Customizing the Program](#customizing-the-program)
   - [Learn about Solana](#learn-about-solana)
@@ -90,13 +90,15 @@ $ npm run localnet:down
 $ npm run build:program
 ```
 
-### Run client
+### Run the client
 
 ```bash
 $ npm run start
 ```
 
-### Example expected output
+### Expected output
+
+Public key values will differ:
 
 ```bash
 Lets say hello to a Solana account...
@@ -238,6 +240,6 @@ $ export LIVE=1
 
 There is lots more to learn; The following examples demonstrate more advanced features like custom errors, advanced account handling, suggestions for data serialization, benchmarking, etc..
 
-- [ERC20-like Token](https://github.com/solana-labs/example-token)
+- [ERC-20-like Token](https://github.com/solana-labs/example-token)
 - [TicTacToe](https://github.com/solana-labs/example-tictactoe)
 - [MessageFeed](https://github.com/solana-labs/example-messagefeed)
