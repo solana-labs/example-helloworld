@@ -27,7 +27,7 @@ The project comprises of:
 
 ## Quick Start
 
-Using this example in Gitpod connects to the public Solana `devnet` cluster.  Gitpod does not support Docker in Docker so running a local cluster is not supported.  
+Using this example in Gitpod connects to the public Solana `devnet` cluster.  Gitpod does not support Docker so running a local cluster is not supported.  
 
 Run the client to load and interact with the on-chain program:
 ```bash
