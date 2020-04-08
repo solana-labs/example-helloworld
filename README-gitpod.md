@@ -4,7 +4,7 @@
 [travis-image]: https://travis-ci.org/solana-labs/example-helloworld.svg?branch=master
 [travis-url]: https://travis-ci.org/solana-labs/example-helloworld
 
-# Hello world on Solana
+# Hello world on Solana (Gitpod version)
 
 This project demonstrates how to use the [Solana Javascript API](https://github.com/solana-labs/solana-web3.js)
 to build, deploy, and interact with programs on the Solana blockchain.
@@ -15,14 +15,14 @@ The project comprises of:
 * A client that can send a "hello" to an account and get back the number of times "hello" has been sent
 
 ## Table of Contents
-- [Hello world on Solana](#hello-world-on-solana)
+- [Hello world on Solana (Gitpod version)](#hello-world-on-solana-gitpod-version)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
-    - [Example expected output](#example-expected-output)
+    - [Expected output](#expected-output)
     - [Customizing the Program](#customizing-the-program)
   - [Learn about Solana](#learn-about-solana)
-  - [Learn about the on-chain program](#learn-about-the-on-chain-program)
   - [Learn about the client](#learn-about-the-client)
+  - [Learn about the on-chain program](#learn-about-the-on-chain-program)
 
 ## Quick Start
 
@@ -48,7 +48,7 @@ Success
 
 ### Customizing the Program
 
-To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](#Build-the-on-chain-program)
+To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](README.md#build-the-on-chain-program)
 
 Now when you rerun `npm run start`, you should see the results of your changes.
 

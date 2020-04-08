@@ -3,6 +3,7 @@ tasks:
       npm install
       npm run build:program
     command: |
+      rustup toolchain link bpf node_modules/@solana/web3.js/bpf-sdk/dependencies/rust-bpf
       export LIVE=1
       gp open README-gitpod.md
 image: gitpod/workspace-full
@@ -11,7 +12,7 @@ github:
     # enable for the master/default branch (defaults to true)
     master: true
     # enable for all branches in this repo (defaults to false)
-    branches: true
+    branches: false
     # enable for pull requests coming from this repo (defaults to true)
     pullRequests: true
     # add a check to pull requests (defaults to true)

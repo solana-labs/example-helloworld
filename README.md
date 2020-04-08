@@ -40,8 +40,18 @@ The project comprises of:
 
 ## Quick Start
 
+<<<<<<< HEAD
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
 
+=======
+<<<<<<< Updated upstream
+=======
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+
+If you decide to open in Gitpod then refer to [README-gitpod.md](README-gitpod.md), otherwise continue reading.
+
+>>>>>>> Stashed changes
+>>>>>>> Feedback
 The following dependencies are required to build and run this example,
 depending on your OS, they may already be installed:
 
@@ -109,7 +119,7 @@ Success
 
 #### Not seeing the expected output?
 
-- Ensure you've [Started the local cluster](Start-local-solana-cluster) and [Built the on-chain program](Build-the-on-chain-program).
+- Ensure you've [started the local cluster](#start-local-solana-cluster) and [built the on-chain program](#build-the-on-chain-program).
 - Ensure Docker is running.  You might try bumping up its resource settings, 8 GB of memory and 3 GB of swap should help.
 - Inspect the Solana cluster logs looking for any failed transactions or failed on-chain programs
   - Expand the log filter and restart the cluster to see more detail
@@ -120,7 +130,7 @@ Success
 
 ### Customizing the Program
 
-To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](#Build-the-on-chain-program)
+To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](#build-the-on-chain-program)
 
 Now when you rerun `npm run start`, you should see the results of your changes.
 
