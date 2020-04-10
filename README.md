@@ -94,7 +94,7 @@ $ eval "$(docker-machine env default)"
 
 NOTE: Later, you can run `docker-machine stop default` to stop the docker machine.
 
-Sources for Mac users:
+Resources for Mac users:
 - https://medium.com/@yutafujii_59175/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
 - https://stackoverflow.com/questions/32174560/port-forwarding-in-docker-machine
 
@@ -124,7 +124,7 @@ $ npm run localnet:down
 ```
 
 ### Build the on-chain program
-
+STUCK HERE
 ```bash
 $ npm run build:program
 ```
