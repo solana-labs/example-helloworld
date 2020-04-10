@@ -146,7 +146,7 @@ The client in this example is written in JavaScript using:
 
 ### Entrypoint
 
-The [client's entrypoint]([src/client/main.js](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)) does four things
+The [client's entrypoint](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14) does four things
 
 ### Establish a connection to the cluster
 
