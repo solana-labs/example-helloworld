@@ -73,22 +73,27 @@ Fetch the `npm` dependencies, including `@solana/web3.js`, by running:
 ```bash
 $ npm install
 ```
-
-### Start Docker
+### Docker
 Docker runs as a service and it needs to be running before you can start the
 Solana cluster. The exact start method depends on your system and how you
-installed docker. For example, if you are using HomeBrew on a Mac, the commands
-are:
+installed docker.
+
+### Install and Start Docker On A Mac
+If you are using HomeBrew on a Mac, the commands are:
 
 ```bash
 $ brew install docker
 $ brew install docker-machine
+# The next two commands to install virtualbox & create a machine may need a
+# password. You may also need to address a System Preference setting and
+# re-try the installation.
 $ brew cask install virtualbox
-  # -> need password
-  # -> possibly need to address System Preference setting and reinstall
-$ docker-machine create --driver virtualbox --insecure-registry localhost default
+$ docker-machine create --driver virtualbox default
+# To see config info:
 $ docker-machine env default
+# Port forwarding of 8899 from your OS to the Docker machine:
 $ docker-machine ssh default -f -N -L 8899:localhost:8899
+# To configure your shell to use the docker-machine
 $ eval "$(docker-machine env default)"
 ```
 
@@ -124,7 +129,6 @@ $ npm run localnet:down
 ```
 
 ### Build the on-chain program
-STUCK HERE
 ```bash
 $ npm run build:program
 ```
