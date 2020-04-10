@@ -242,6 +242,8 @@ $ npm run clean:store
 $ export LIVE=1
 ```
 
+Use the environment variable `CLUSTER` to choose a different Solana cluster.
+
 ## Expand your skills with advanced examples
 
 There is lots more to learn; The following examples demonstrate more advanced features like custom errors, advanced account handling, suggestions for data serialization, benchmarking, etc..

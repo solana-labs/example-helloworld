@@ -5,6 +5,7 @@ import {
   Connection,
   BpfLoader,
   PublicKey,
+  LAMPORTS_PER_SOL,
   SystemProgram,
   TransactionInstruction,
   Transaction,
@@ -21,6 +22,11 @@ import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
  * Connection to the network
  */
 let connection: Connection;
+
+/**
+ * Connection to the network
+ */
+let payerAccount: Account;
 
 /**
  * Hello world's program id
@@ -49,6 +55,46 @@ export async function establishConnection(): Promise<void> {
 }
 
 /**
+ * Establish an account to pay for everything
+ */
+export async function establishPayer(): Promise<void> {
+  if (!payerAccount) {
+    let fees = 0;
+    const {feeCalculator} = await connection.getRecentBlockhash();
+
+    // Calculate the cost to load the program
+    const data = await fs.readFile(
+      'src/program/target/bpfel-unknown-unknown/release/solana_bpf_helloworld.so',
+    );
+    const NUM_RETRIES = 500; // allow some number of retries
+    fees +=
+      feeCalculator.lamportsPerSignature *
+        (BpfLoader.getMinNumSignatures(data.length) + NUM_RETRIES) +
+      (await connection.getMinimumBalanceForRentExemption(data.length));
+
+    // Calculate the cost to fund the greeter account
+    fees += await await connection.getMinimumBalanceForRentExemption(
+      greetedAccountDataLayout.span,
+    );
+
+    // Calculate the cost of sending the transactions
+    fees += feeCalculator.lamportsPerSignature * 100; // wag
+
+    // Fund a new payer via airdrop
+    payerAccount = await newAccountWithLamports(connection, fees);
+  }
+
+  const lamports = await connection.getBalance(payerAccount.publicKey);
+  console.log(
+    'Using account',
+    payerAccount.publicKey.toBase58(),
+    'containing',
+    lamports / LAMPORTS_PER_SOL,
+    'Sol to pay for fees',
+  );
+}
+
+/**
  * Load the hello world BPF program if not already loaded
  */
 export async function loadProgram(): Promise<void> {
@@ -66,34 +112,24 @@ export async function loadProgram(): Promise<void> {
     // try to load the program
   }
 
-  // Read the BPF program bytes
+  // Load the program
+  console.log('Loading hello world program...');
   const data = await fs.readFile(
     'src/program/target/bpfel-unknown-unknown/release/solana_bpf_helloworld.so',
   );
-
-  // Calculate the cost to load the program
-  const {feeCalculator} = await connection.getRecentBlockhash();
-  const NUM_RETRIES = 500; // allow some number of retries
-  let cost =
-    feeCalculator.lamportsPerSignature *
-      (BpfLoader.getMinNumSignatures(data.length) + NUM_RETRIES) +
-    (await connection.getMinimumBalanceForRentExemption(data.length));
-  const bpf_payer = await newAccountWithLamports(connection, cost);
-
-  // Load the program
-  console.log('Loading hello world program...');
-  programId = await BpfLoader.load(connection, bpf_payer, data);
+  programId = await BpfLoader.load(connection, payerAccount, data);
   console.log('Program loaded to account', programId.toBase58());
 
   // Create the greeted account
   const greetedAccount = new Account();
   greetedPubkey = greetedAccount.publicKey;
   console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
-  const space = 4; // 64-bit number
-  const lamports = await connection.getMinimumBalanceForRentExemption(space);
-  const payer = await newAccountWithLamports(connection, lamports);
+  const space = greetedAccountDataLayout.span;
+  const lamports = await connection.getMinimumBalanceForRentExemption(
+    greetedAccountDataLayout.span,
+  );
   const transaction = SystemProgram.createAccount({
-    fromPubkey: payer.publicKey,
+    fromPubkey: payerAccount.publicKey,
     newAccountPubkey: greetedPubkey,
     lamports,
     space,
@@ -103,7 +139,7 @@ export async function loadProgram(): Promise<void> {
     'createAccount',
     connection,
     transaction,
-    payer,
+    payerAccount,
     greetedAccount,
   );
 
@@ -129,6 +165,7 @@ export async function sayHello(): Promise<void> {
     'sayHello',
     connection,
     new Transaction().add(instruction),
+    payerAccount,
   );
 }
 
