@@ -60,10 +60,43 @@ $ wget --version
 $ rustc --version
 ```
 
+Clone this repository into your development machine:
+```bash
+$ cd /path/to/your/work/folder/
+$ git clone https://github.com/solana-labs/example-helloworld.git
+$ cd example-helloworld
+```
+(If you plan to submit changes, be sure to create a fork first and then clone
+  your fork.)
+
 Fetch the `npm` dependencies, including `@solana/web3.js`, by running:
 ```bash
 $ npm install
 ```
+
+### Start Docker
+Docker runs as a service and it needs to be running before you can start the
+Solana cluster. The exact start method depends on your system and how you
+installed docker. For example, if you are using HomeBrew on a Mac, the commands
+are:
+
+```bash
+$ brew install docker
+$ brew install docker-machine
+$ brew cask install virtualbox
+  # -> need password
+  # -> possibly need to address System Preference setting and reinstall
+$ docker-machine create --driver virtualbox --insecure-registry localhost default
+$ docker-machine env default
+$ docker-machine ssh default -f -N -L 8899:localhost:8899
+$ eval "$(docker-machine env default)"
+```
+
+NOTE: Later, you can run `docker-machine stop default` to stop the docker machine.
+
+Sources for Mac users:
+- https://medium.com/@yutafujii_59175/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
+- https://stackoverflow.com/questions/32174560/port-forwarding-in-docker-machine
 
 ### Start local Solana cluster
 
