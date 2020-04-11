@@ -61,7 +61,7 @@ $ rustc --version
 ```
 
 NOTE For Mac users: We suggest that you install rust using the 'rustup' tool.
-Using Mac Homebrew, the command is `brew install rustup` and then `rustup-init`. After that, `rustc --version` should show the recent version of rust. See https://sourabhbajaj.com/mac-setup/Rust/
+Using Mac Homebrew, the command is `brew install rustup` and then `rustup-init`. After that, `rustc --version` should show the recent version of rust. See [Installing Rust](https://www.rust-lang.org/tools/install) for more details.
 
 Clone this repository into your development machine:
 ```bash
