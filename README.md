@@ -77,7 +77,7 @@ After installation, you should have `rustc`, `cargo`, & `rustup`. You should
 also have `~/.cargo/bin` in your PATH environment variable.
 
 ### Git Repository
-Clone this repository into your development machine:
+Clone the 'example-helloworld' repository into your development machine:
 ```bash
 $ cd /path/to/your/work/folder/
 $ git clone https://github.com/solana-labs/example-helloworld.git
