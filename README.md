@@ -105,6 +105,8 @@ See [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubu
 To run Docker without typing `sudo` every time, take a look at Step 2 of [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 
 #### Install and Start Docker On A Mac
+Docker provides a desktop application for Mac at [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac/) with additional instructions here [Install Docker Desktop on Mac](https://docs.docker.com/docker-for-mac/install/). If you install the Docker Desktop app, you can skip the HomeBrew instructions below. If `docker run hello-world` works, you are ready to Start the local Solana cluster.
+
 If you are using HomeBrew on a Mac, the commands are:
 
 ```bash
@@ -125,7 +127,7 @@ $ eval "$(docker-machine env default)"
 
 NOTE: Later, you can run `docker-machine stop default` to stop the docker machine.
 
-Resources for Mac users:
+Resources for Mac HomeBrew users:
 - https://medium.com/@yutafujii_59175/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
 - https://stackoverflow.com/questions/32174560/port-forwarding-in-docker-machine
 
