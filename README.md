@@ -54,16 +54,26 @@ The following dependencies are required to build and run this example,
 depending on your OS, they may already be installed:
 
 ```bash
-$ npm --version
-$ docker -v
-$ wget --version
-$ rustup --version
-$ rustc --version
+$ node --version # 8.10+
+$ npm --version # 6.14+
+$ docker -v # 19.03+
+$ wget --version # 1.19+
+$ rustup --version # 1.21+
+$ rustc --version # 1.42+
+$ cargo --version # 1.42+
 ```
 
-NOTE For Mac users: We suggest that you install rust using the 'rustup' tool.
-Using Mac Homebrew, the command is `brew install rustup` and then `rustup-init`. After that, `rustc --version` should show the recent version of rust. See [Mac Setup](https://sourabhbajaj.com/mac-setup/Rust/) & [Installing Rust](https://www.rust-lang.org/tools/install) for more details.
+### Rust
+We suggest that you install rust using the 'rustup' tool. Rustup will install
+the latest version of Rust, Cargo, and the other binaries used in Solana.
 
+For Linux users, follow the instructions at [Installing Rust](https://www.rust-lang.org/tools/install).
+
+For Mac users, the Mac Homebrew command is `brew install rustup` and then `rustup-init`. See [Mac Setup](https://sourabhbajaj.com/mac-setup/Rust/) & [Installing Rust](https://www.rust-lang.org/tools/install) for more details.
+
+After installation, you should have `rustc`, `cargo`, & `rustup`. You should also have `~/.cargo/bin` in your PATH environment variable.
+
+### Git Repository
 Clone this repository into your development machine:
 ```bash
 $ cd /path/to/your/work/folder/
@@ -73,6 +83,7 @@ $ cd example-helloworld
 (If you plan to submit changes, be sure to create a fork first and then clone
   your fork.)
 
+### NodeJS/NPM
 Fetch the `npm` dependencies, including `@solana/web3.js`, by running:
 ```bash
 $ npm install
@@ -82,7 +93,10 @@ Docker runs as a service and it needs to be running before you can start the
 Solana cluster. The exact start method depends on your system and how you
 installed docker.
 
-### Install and Start Docker On A Mac
+#### Install and Start Docker On Linux
+[I need help with this section]
+
+#### Install and Start Docker On A Mac
 If you are using HomeBrew on a Mac, the commands are:
 
 ```bash
