@@ -64,14 +64,17 @@ $ cargo --version # 1.42+
 ```
 
 ### Rust
-We suggest that you install rust using the 'rustup' tool. Rustup will install
+We suggest that you install Rust using the 'rustup' tool. Rustup will install
 the latest version of Rust, Cargo, and the other binaries used in Solana.
 
 For Linux users, follow the instructions at [Installing Rust](https://www.rust-lang.org/tools/install).
 
-For Mac users, the Mac Homebrew command is `brew install rustup` and then `rustup-init`. See [Mac Setup](https://sourabhbajaj.com/mac-setup/Rust/) & [Installing Rust](https://www.rust-lang.org/tools/install) for more details.
+For Mac users, the Mac Homebrew command is `brew install rustup` and then
+`rustup-init`. See [Mac Setup](https://sourabhbajaj.com/mac-setup/Rust/) &
+[Installing Rust](https://www.rust-lang.org/tools/install) for more details.
 
-After installation, you should have `rustc`, `cargo`, & `rustup`. You should also have `~/.cargo/bin` in your PATH environment variable.
+After installation, you should have `rustc`, `cargo`, & `rustup`. You should
+also have `~/.cargo/bin` in your PATH environment variable.
 
 ### Git Repository
 Clone this repository into your development machine:
@@ -80,21 +83,26 @@ $ cd /path/to/your/work/folder/
 $ git clone https://github.com/solana-labs/example-helloworld.git
 $ cd example-helloworld
 ```
-(If you plan to submit changes, be sure to create a fork first and then clone
-  your fork.)
+(If you plan to submit changes in a pull request, be sure to create a fork
+first and then clone your fork.)
 
 ### NodeJS/NPM
 Fetch the `npm` dependencies, including `@solana/web3.js`, by running:
 ```bash
 $ npm install
 ```
+
 ### Docker
 Docker runs as a service and it needs to be running before you can start the
 Solana cluster. The exact start method depends on your system and how you
 installed docker.
 
 #### Install and Start Docker On Linux
-[I need help with this section]
+The instructions to install Docker have changed over time. If you have
+previously installed Docker, this will be a good time to update your system.
+See [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/) for a step-by-step walk-through. When complete, `sudo docker run hello-world` should confirm that everything works correctly.
+
+To run Docker without typing `sudo` every time, take a look at Step 2 of [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 
 #### Install and Start Docker On A Mac
 If you are using HomeBrew on a Mac, the commands are:
