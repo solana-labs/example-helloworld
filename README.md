@@ -57,6 +57,7 @@ depending on your OS, they may already be installed:
 $ npm --version
 $ docker -v
 $ wget --version
+$ rustup --version
 $ rustc --version
 ```
 
