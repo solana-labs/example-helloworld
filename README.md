@@ -138,6 +138,8 @@ Now when you rerun `npm run start`, you should see the results of your changes.
 
 More information about how Solana works is available in the [Solana documentation](https://docs.solana.com/) and all the source code is available on [github](https://github.com/solana-labs/solana)
 
+Futher questions?  Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
+
 ## Learn about the client
 
 The client in this example is written in JavaScript using:
