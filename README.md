@@ -54,16 +54,16 @@ The following dependencies are required to build and run this example,
 depending on your OS, they may already be installed:
 
 ```bash
+$ node --version
 $ npm --version
 $ docker -v
 $ wget --version
+$ rustup --version
 $ rustc --version
+$ cargo --version
 ```
 
-Fetch the `npm` dependencies, including `@solana/web3.js`, by running:
-```bash
-$ npm install
-```
+If this is your first time using Docker or Rust, these [Installation Notes](README-installation-notes.md) might be helpful.
 
 ### Start local Solana cluster
 
@@ -91,7 +91,6 @@ $ npm run localnet:down
 ```
 
 ### Build the on-chain program
-
 ```bash
 $ npm run build:program
 ```
