@@ -5,9 +5,9 @@ if you are a first-time user of Docker or Rust, the notes below may help you to 
 We suggest that you install Rust using the 'rustup' tool. Rustup will install
 the latest version of Rust, Cargo, and the other binaries used in Solana.
 
-For Linux users, follow the instructions at [Installing Rust](https://www.rust-lang.org/tools/install).
+Follow the instructions at [Installing Rust](https://www.rust-lang.org/tools/install).
 
-For Mac users, the Mac Homebrew command is `brew install rustup` and then
+For Mac users, Homebrew is also an option.  The Mac Homebrew command is `brew install rustup` and then
 `rustup-init`. See [Mac Setup](https://sourabhbajaj.com/mac-setup/Rust/) &
 [Installing Rust](https://www.rust-lang.org/tools/install) for more details.
 
