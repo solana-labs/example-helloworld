@@ -26,6 +26,8 @@ install:
   - npm install
 
 script:
-  - npm run build:program
   - npm run lint
   - npm run flow
+  - npm run build:program-c
+  - npm run build:program-rust
+  - npm run test:program-rust
