@@ -2,3 +2,5 @@
 *.sw[po]
 /store
 /.cargo
+/dist
+cluster.txt
