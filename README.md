@@ -92,8 +92,14 @@ $ npm run localnet:down
 
 ### Build the on-chain program
 
+There is both a Rust and C version of the on-chain program, whichever is built last will be the one used when running the example.
+
 ```bash
-$ npm run build:program
+$ npm run build:program-rust
+```
+
+```bash
+$ npm run build:program-c
 ```
 
 ### Run the client
