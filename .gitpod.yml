@@ -1,7 +1,7 @@
 tasks:
   - init: |
       npm install
-      npm run build:program
+      npm run build:program-rust
       npm run cluster:devnet
     command: |
       rustup toolchain link bpf node_modules/@solana/web3.js/bpf-sdk/dependencies/rust-bpf
