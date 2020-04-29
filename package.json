@@ -17,7 +17,7 @@
     "lint:watch": "watch 'npm run lint:fix' . --wait=1",
     "flow": "flow",
     "flow:watch": "watch 'flow' . --wait=1 --ignoreDirectoryPattern=/doc/",
-    "bpf-sdk:update": "solana-bpf-sdk-install node_modules/@solana/web3.js && npm run clean:program",
+    "bpf-sdk:update": "solana-bpf-sdk-install node_modules/@solana/web3.js && npm run clean",
     "clean": "npm run clean:program-c && npm run clean:program-rust",
     "clean:store": "rm -rf store",
     "build:program-c": "rm ./dist/program/helloworld.so; V=1 make -C ./src/program-c && npm run clean:store",
