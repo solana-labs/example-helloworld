@@ -41,7 +41,7 @@ The project comprises of:
     - [Entrypoint](#entrypoint-1)
     - [Processing an instruction](#processing-an-instruction)
     - [Rust limitations](#rust-limitations)
-  - [Pointing to the public Solana cluster](#pointing-to-the-public-solana-cluster)
+  - [Pointing to a public Solana cluster](#pointing-to-a-public-solana-cluster)
   - [Expand your skills with advanced examples](#expand-your-skills-with-advanced-examples)
 
 ## Quick Start
@@ -242,15 +242,24 @@ There are some limitations since these programs run in a resource-constrained, s
 - No support for `println!`, `print!`, the Solana SDK helpers in `src/log.rs` should be used instead
 - The runtime enforces a limit on the number of instructions a program can execute during the processing of one instruction
 
-## Pointing to the public Solana cluster
+## Pointing to a public Solana cluster
 
-Solana maintains a public development cluster called `devnet`.  To connect to the devnet instead of the local cluster, clear the config file, and set the environment variable `LIVE` to 1.
+Solana maintains three public clusters:
+- `devnet` - Development cluster with airdrops enabled
+- `testnet` - Tour De Sol test cluster without airdrops enabled
+- `mainnet-beta` -  Main cluster
+  
+Use npm scripts to configure which cluster.
+
+To point to `devnet`:
 ```bash
-$ npm run clean:store
-$ export LIVE=1
+$ npm run cluster:devnet
 ```
 
-Use the environment variable `CLUSTER` to choose a different Solana cluster.
+To point back to the local cluster:
+```bash
+$ npm run cluster:local
+```
 
 ## Expand your skills with advanced examples
 

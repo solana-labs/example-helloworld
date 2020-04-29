@@ -32,3 +32,5 @@ script:
   - npm run build:program-c
   - npm run build:program-rust
   - npm run test:program-rust
+  - npm run cluster:local
+  - npm run start
