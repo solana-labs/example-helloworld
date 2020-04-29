@@ -17,17 +17,20 @@
     "lint:watch": "watch 'npm run lint:fix' . --wait=1",
     "flow": "flow",
     "flow:watch": "watch 'flow' . --wait=1 --ignoreDirectoryPattern=/doc/",
-    "bpf-sdk:update": "solana-bpf-sdk-install node_modules/@solana/web3.js && npm run clean:program",
+    "bpf-sdk:update": "solana-bpf-sdk-install node_modules/@solana/web3.js && npm run clean",
+    "clean": "npm run clean:program-c && npm run clean:program-rust",
     "clean:store": "rm -rf store",
-    "build:program": "npm run clean:store && ./src/program/do.sh build",
-    "clean:program": "npm run clean:store && ./src/program/do.sh clean",
-    "test:program": "./src/program/do.sh test",
+    "build:program-c": "rm ./dist/program/helloworld.so; V=1 make -C ./src/program-c && npm run clean:store",
+    "clean:program-c": "V=1 make -C ./src/program-c clean && npm run clean:store",
+    "build:program-rust": "./src/program-rust/do.sh build && npm run clean:store",
+    "clean:program-rust": "./src/program-rust/do.sh clean && rm -rf ./dist && npm run clean:store",
+    "test:program-rust": "./src/program-rust/do.sh test",
     "localnet:update": "solana-localnet update",
     "localnet:up": "set -x; solana-localnet down; set -e; solana-localnet up",
     "localnet:down": "solana-localnet down",
     "localnet:logs": "solana-localnet logs -f",
     "pretty": "prettier --write '{,src/**/}*.js'",
-    "postinstall": "npm run bpf-sdk:update && cargo update --manifest-path=src/program/Cargo.toml"
+    "postinstall": "npm run bpf-sdk:update && cargo update --manifest-path=src/program-rust/Cargo.toml"
   },
   "devDependencies": {
     "prettier": "^2.0.2"

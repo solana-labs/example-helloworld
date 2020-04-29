@@ -38,6 +38,8 @@ let programId: PublicKey;
  */
 let greetedPubkey: PublicKey;
 
+const pathToProgram = 'dist/program/helloworld.so';
+
 /**
  * Layout of the greeted account data
  */
@@ -63,9 +65,7 @@ export async function establishPayer(): Promise<void> {
     const {feeCalculator} = await connection.getRecentBlockhash();
 
     // Calculate the cost to load the program
-    const data = await fs.readFile(
-      'src/program/target/bpfel-unknown-unknown/release/solana_bpf_helloworld.so',
-    );
+    const data = await fs.readFile(pathToProgram);
     const NUM_RETRIES = 500; // allow some number of retries
     fees +=
       feeCalculator.lamportsPerSignature *
@@ -114,9 +114,7 @@ export async function loadProgram(): Promise<void> {
 
   // Load the program
   console.log('Loading hello world program...');
-  const data = await fs.readFile(
-    'src/program/target/bpfel-unknown-unknown/release/solana_bpf_helloworld.so',
-  );
+  const data = await fs.readFile(pathToProgram);
   programId = await BpfLoader.load(connection, payerAccount, data);
   console.log('Program loaded to account', programId.toBase58());
 

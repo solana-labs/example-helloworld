@@ -91,8 +91,15 @@ $ npm run localnet:down
 ```
 
 ### Build the on-chain program
+
+There is both a Rust and C version of the on-chain program, whichever is built last will be the one used when running the example.
+
 ```bash
-$ npm run build:program
+$ npm run build:program-rust
+```
+
+```bash
+$ npm run build:program-c
 ```
 
 ### Run the client
@@ -129,7 +136,7 @@ Success
 
 ### Customizing the Program
 
-To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program` you will need to [rebuild the on-chain program](#build-the-on-chain-program)
+To customize the example, make changes to the files under `/src`.  If you change any files under `/src/program-rust` or `/src/program-c` you will need to [rebuild the on-chain program](#build-the-on-chain-program)
 
 Now when you rerun `npm run start`, you should see the results of your changes.
 

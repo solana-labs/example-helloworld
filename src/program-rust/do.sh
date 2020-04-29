@@ -33,6 +33,9 @@ perform_action() {
             cp "$so_path/${so_name}.so" "$so_path/${so_name}_debug.so"
             "$sdkDir"/dependencies/llvm-native/bin/llvm-objcopy --strip-all "$so_path/${so_name}.so" "$so_path/$so_name.so"
         fi
+
+        mkdir -p ../../dist/program
+        cp "$so_path/${so_name}.so" ../../dist/program/helloworld.so
         ;;
     clean)
         "$sdkDir"/rust/clean.sh "$PWD"
