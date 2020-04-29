@@ -14,6 +14,8 @@ fn process_instruction<'a>(
     accounts: &'a [AccountInfo<'a>], // The account to say hello to
     _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
 ) -> ProgramResult {
+    info!("Helloworld Rust program entrypoint");
+
     // Iterating accounts is safer then indexing
     let accounts_iter = &mut accounts.iter();
 
@@ -28,7 +30,7 @@ fn process_instruction<'a>(
 
     // The data must be large enough to hold a u64 count
     if account.try_data_len()? < mem::size_of::<u32>() {
-        info!("Greeted account data length too small for u64");
+        info!("Greeted account data length too small for u32");
         return Err(ProgramError::InvalidAccountData);
     }
 
@@ -50,7 +52,7 @@ mod test {
     use solana_sdk::clock::Epoch;
 
     #[test]
-    fn test_process_instruction() {
+    fn test_sanity() {
         let program_id = Pubkey::default();
         let key = Pubkey::default();
         let mut lamports = 0;
