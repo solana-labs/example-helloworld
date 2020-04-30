@@ -258,7 +258,7 @@ $ npm run cluster:devnet
 
 To point back to the local cluster:
 ```bash
-$ npm run cluster:local
+$ npm run cluster:localnet
 ```
 
 ## Expand your skills with advanced examples
