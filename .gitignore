@@ -3,4 +3,4 @@
 /store
 /.cargo
 /dist
-cluster.txt
+.env
