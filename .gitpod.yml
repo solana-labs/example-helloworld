@@ -1,5 +1,5 @@
 tasks:
-  - prebuild: |
+  - init: |
       npm install
       npm run build:program-rust
       npm run cluster:devnet
@@ -19,4 +19,5 @@ github:
     addCheck: true
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
     addComment: false
+
 
