@@ -116,7 +116,7 @@ export async function loadProgram(): Promise<void> {
   console.log('Loading hello world program...');
   const data = await fs.readFile(pathToProgram);
   const programAccount = new Account();
-  await BpfLoader.load(connection, payerAccount, programAccount, data);
+  await BpfLoader.load(connection, payerAccount, programAccount, data, 1);
   programId = programAccount.publicKey;
   console.log('Program loaded to account', programId.toBase58());
 
