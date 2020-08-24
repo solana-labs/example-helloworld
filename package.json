@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "testnetDefaultChannel": "v1.2.1",
+  "testnetDefaultChannel": "v1.3.4",
   "scripts": {
     "start": "babel-node src/client/main.js",
     "lint": "npm run pretty && eslint .",
@@ -40,7 +40,7 @@
     "prettier": "^2.0.2"
   },
   "dependencies": {
-    "@solana/web3.js": "^0.66.3",
+    "@solana/web3.js": "^0.71.6",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",

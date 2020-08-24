@@ -1,7 +1,11 @@
 use byteorder::{ByteOrder, LittleEndian};
 use solana_sdk::{
-    account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, info,
-    program_error::ProgramError, program_utils::next_account_info, pubkey::Pubkey,
+    account_info::{next_account_info, AccountInfo},
+    entrypoint,
+    entrypoint::ProgramResult,
+    info,
+    program_error::ProgramError,
+    pubkey::Pubkey,
 };
 use std::mem;
 
@@ -83,4 +87,4 @@ mod test {
 
 // Required to support info! in tests
 #[cfg(not(target_arch = "bpf"))]
-solana_sdk_bpf_test::stubs!();
+solana_sdk::program_stubs!();
