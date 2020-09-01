@@ -1,3 +1,5 @@
+#![cfg(feature = "program")]
+
 use byteorder::{ByteOrder, LittleEndian};
 use solana_sdk::{
     account_info::{next_account_info, AccountInfo},
