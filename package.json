@@ -40,7 +40,7 @@
     "prettier": "^2.0.2"
   },
   "dependencies": {
-    "@solana/web3.js": "^0.71.6",
+    "@solana/web3.js": "^0.71.9",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
