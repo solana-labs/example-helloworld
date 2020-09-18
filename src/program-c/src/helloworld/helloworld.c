@@ -2,6 +2,7 @@
  * @brief C-based Helloworld BPF program
  */
 #include <solana_sdk.h>
+#include <deserialize_deprecated.h>
 
 uint64_t helloworld(SolParameters *params) {
 
@@ -40,7 +41,7 @@ extern uint64_t entrypoint(const uint8_t *input) {
   SolAccountInfo accounts[1];
   SolParameters params = (SolParameters){.ka = accounts};
 
-  if (!sol_deserialize(input, &params, SOL_ARRAY_SIZE(accounts))) {
+  if (!sol_deserialize_deprecated(input, &params, SOL_ARRAY_SIZE(accounts))) {
     return ERROR_INVALID_ARGUMENT;
   }
 
