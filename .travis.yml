@@ -29,8 +29,12 @@ install:
 script:
   - npm run lint
   - npm run flow
-  - npm run build:program-c
   - npm run build:program-rust
   - npm run test:program-rust
   - npm run cluster:localnet
+  - npm run localnet:update
+  - npm run localnet:up
   - npm run start
+  - npm run build:program-c
+  - npm run start
+  - npm run localnet:down
