@@ -22,26 +22,26 @@
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
   - [目錄](#table-of-contents)
-  - [快速開始](#quick-start)
-    - [啟動本地 Solana 集群](#start-local-solana-cluster)
-    - [部署鏈上程式](#build-the-on-chain-program)
-    - [啟動客戶端](#run-the-client)
-    - [期望產出](#expected-output)
-      - [沒有達到期望產出？](#not-seeing-the-expected-output)
-    - [自定義程式](#customizing-the-program)
-  - [學習 Solana](#learn-about-solana)
-  - [學習 client](#learn-about-the-client)
-    - [進入點](#entrypoint)
-    - [建立與集群的連接](#establish-a-connection-to-the-cluster)
-    - [載入鏈上程式 Hello World（如果尚未加載）](#load-the-helloworld-on-chain-program-if-not-already-loaded)
-    - [發送 `Hello` 交易至鏈上](#send-a-%22hello%22-transaction-to-the-on-chain-program)
-    - [查詢使用過 `Hello` 交易的 Solana 帳戶  ](#query-the-solana-account-used-in-the-%22hello%22-transaction)
-  - [學習鏈上的程式](#learn-about-the-on-chain-program)
-    - [進入點](#entrypoint-1)
-    - [處理指令](#processing-an-instruction)
-    - [Rust 限制](#rust-limitations)
-  - [指向公開 Solana 集群](#pointing-to-a-public-solana-cluster)
-  - [透過高級的範例擴展你的技能](#expand-your-skills-with-advanced-examples)
+  - [快速開始](#快速開始)
+    - [啟動本地 Solana 集群](#啟動本地-Solana-集群)
+    - [部署鏈上程式](#部署鏈上程式)
+    - [啟動客戶端](#啟動客戶端)
+    - [期望產出](#期望產出)
+      - [沒有達到期望產出？](#沒有達到期望產出？)
+    - [自定義程式](#自定義程式)
+  - [學習 Solana](#學習-Solana)
+  - [學習 Client](#學習-Client)
+    - [進入點](#進入點)
+    - [建立與集群的連接](#建立與集群的連接)
+    - [載入鏈上程式 Hello World（如果尚未加載）](#載入鏈上程式-Hello-World（如果尚未加載）)
+    - [發送 `Hello` 交易至鏈上](#發送-`Hello`-交易至鏈上)
+    - [查詢使用過 `Hello` 交易的 Solana 帳戶](#查詢使用過-`Hello`-交易的-Solana-帳戶)
+  - [學習鏈上的程式](#學習鏈上的程式)
+    - [進入點](#進入點-1)
+    - [處理指令](#處理指令)
+    - [Rust 的限制](#Rust-的限制)
+  - [指向公開 Solana 集群](#指向公開的-Solana-集群)
+  - [透過高級的範例擴展你的技能](#透過高級的範例擴展你的技能)
 
 ## 快速開始
 
@@ -107,7 +107,7 @@ $ npm run build:program-c
 $ npm run start
 ```
 
-### 期望輸出
+### 期望產出
 
 公鑰將會有所不同：
 
@@ -182,7 +182,7 @@ Success
 ## 學習鏈上程式
 [鏈上 HelloWorld 程式](src/program/Cargo.toml) 是一個 Rust 程式編譯成 [Berkley Packet Format (BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) 並儲存為[可執行和可鏈接格式（ELF）共享對象](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
 
-### 進入點
+### 進入點-1
 
 該程式的[進入點](https://github.com/solana-labs/example-helloworld/blob/6508bdb54c4d7f60747263b4274283fbddfabffe/src/program/src/lib.rs#L12)帶有三個參數：
 ```rust
