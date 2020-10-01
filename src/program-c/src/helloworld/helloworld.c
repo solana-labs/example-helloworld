@@ -20,9 +20,9 @@ uint64_t helloworld(SolParameters *params) {
     return ERROR_INCORRECT_PROGRAM_ID;
   }
 
-  // The data must be large enough to hold a u64 count
+  // The data must be large enough to hold an uint32_t value
   if (greeted_account->data_len < sizeof(uint32_t)) {
-    sol_log("Greeted account data length too small for u32");
+    sol_log("Greeted account data length too small to hold uint32_t value");
     return ERROR_INVALID_ACCOUNT_DATA;
   }
 
