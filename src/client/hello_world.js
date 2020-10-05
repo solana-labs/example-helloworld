@@ -135,13 +135,15 @@ export async function loadProgram(): Promise<void> {
   const lamports = await connection.getMinimumBalanceForRentExemption(
     greetedAccountDataLayout.span,
   );
-  const transaction = SystemProgram.createAccount({
-    fromPubkey: payerAccount.publicKey,
-    newAccountPubkey: greetedPubkey,
-    lamports,
-    space,
-    programId,
-  });
+  const transaction = new Transaction().add(
+    SystemProgram.createAccount({
+      fromPubkey: payerAccount.publicKey,
+      newAccountPubkey: greetedPubkey,
+      lamports,
+      space,
+      programId,
+    }),
+  );
   await sendAndConfirmTransaction(
     'createAccount',
     connection,

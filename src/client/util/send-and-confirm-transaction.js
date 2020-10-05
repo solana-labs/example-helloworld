@@ -27,6 +27,7 @@ export async function sendAndConfirmTransaction(
     {
       skipPreflight: true,
       commitment: 'recent',
+      preflightCommitment: null,
     },
   );
 
