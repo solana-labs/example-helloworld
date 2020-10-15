@@ -4,7 +4,7 @@ import {
   Account,
   Connection,
   BpfLoader,
-  BPF_LOADER_DEPRECATED_PROGRAM_ID,
+  BPF_LOADER_PROGRAM_ID,
   PublicKey,
   LAMPORTS_PER_SOL,
   SystemProgram,
@@ -122,7 +122,7 @@ export async function loadProgram(): Promise<void> {
     payerAccount,
     programAccount,
     data,
-    BPF_LOADER_DEPRECATED_PROGRAM_ID,
+    BPF_LOADER_PROGRAM_ID,
   );
   programId = programAccount.publicKey;
   console.log('Program loaded to account', programId.toBase58());
