@@ -3,8 +3,8 @@
 use byteorder::{ByteOrder, LittleEndian};
 use solana_sdk::{
     account_info::{next_account_info, AccountInfo},
-    entrypoint_deprecated,
-    entrypoint_deprecated::ProgramResult,
+    entrypoint,
+    entrypoint::ProgramResult,
     info,
     program_error::ProgramError,
     pubkey::Pubkey,
@@ -12,7 +12,7 @@ use solana_sdk::{
 use std::mem;
 
 // Declare and export the program's entrypoint
-entrypoint_deprecated!(process_instruction);
+entrypoint!(process_instruction);
 
 // Program entrypoint's implementation
 fn process_instruction(
