@@ -14,7 +14,11 @@ function chooseCluster(): Cluster | undefined {
       return process.env.CLUSTER;
     }
   }
-  throw 'Unknown cluster "' + process.env.CLUSTER + '", check the .env file';
+  if (process.env.CLUSTER) {
+    throw `Unknown cluster "${process.env.CLUSTER}", check the .env file`;
+  } else {
+    throw new Error('CLUSTER is not specified, check the .env file');
+  }
 }
 
 export const cluster = chooseCluster();
@@ -27,5 +31,5 @@ export const urlTls =
   process.env.RPC_URL ||
   (process.env.LIVE ? clusterApiUrl(cluster, true) : 'http://localhost:8899');
 
-export let walletUrl =
+export const walletUrl =
   process.env.WALLET_URL || 'https://solana-example-webwallet.herokuapp.com/';
