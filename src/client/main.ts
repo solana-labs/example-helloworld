@@ -1,7 +1,5 @@
 /**
  * Hello world
- *
- * @flow
  */
 
 import {
@@ -33,9 +31,10 @@ async function main() {
   console.log('Success');
 }
 
-main()
-  .catch(err => {
+main().then(
+  () => process.exit(),
+  err => {
     console.error(err);
-    process.exit(1);
-  })
-  .then(() => process.exit());
+    process.exit(-1);
+  },
+);

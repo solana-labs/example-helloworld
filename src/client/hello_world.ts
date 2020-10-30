@@ -1,4 +1,7 @@
-// @flow
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import {
   Account,
@@ -10,14 +13,16 @@ import {
   SystemProgram,
   TransactionInstruction,
   Transaction,
+  sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import fs from 'mz/fs';
-import * as BufferLayout from 'buffer-layout';
 
-import {url, urlTls} from '../../url';
+// @ts-ignore
+import BufferLayout from 'buffer-layout';
+
+import {url, urlTls} from './util/url';
 import {Store} from './util/store';
 import {newAccountWithLamports} from './util/new-account-with-lamports';
-import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
 
 /**
  * Connection to the network
@@ -52,7 +57,7 @@ const greetedAccountDataLayout = BufferLayout.struct([
  * Establish a connection to the cluster
  */
 export async function establishConnection(): Promise<void> {
-  connection = new Connection(url, 'recent');
+  connection = new Connection(url, 'singleGossip');
   const version = await connection.getVersion();
   console.log('Connection to cluster established:', url, version);
 }
@@ -74,7 +79,7 @@ export async function establishPayer(): Promise<void> {
       (await connection.getMinimumBalanceForRentExemption(data.length));
 
     // Calculate the cost to fund the greeter account
-    fees += await await connection.getMinimumBalanceForRentExemption(
+    fees += await connection.getMinimumBalanceForRentExemption(
       greetedAccountDataLayout.span,
     );
 
@@ -103,7 +108,7 @@ export async function loadProgram(): Promise<void> {
 
   // Check if the program has already been loaded
   try {
-    let config = await store.load('config.json');
+    const config = await store.load('config.json');
     programId = new PublicKey(config.programId);
     greetedPubkey = new PublicKey(config.greetedPubkey);
     await connection.getAccountInfo(programId);
@@ -145,11 +150,13 @@ export async function loadProgram(): Promise<void> {
     }),
   );
   await sendAndConfirmTransaction(
-    'createAccount',
     connection,
     transaction,
-    payerAccount,
-    greetedAccount,
+    [payerAccount, greetedAccount],
+    {
+      commitment: 'singleGossip',
+      preflightCommitment: 'singleGossip',
+    },
   );
 
   // Save this info for next time
@@ -171,10 +178,13 @@ export async function sayHello(): Promise<void> {
     data: Buffer.alloc(0), // All instructions are hellos
   });
   await sendAndConfirmTransaction(
-    'sayHello',
     connection,
     new Transaction().add(instruction),
-    payerAccount,
+    [payerAccount],
+    {
+      commitment: 'singleGossip',
+      preflightCommitment: 'singleGossip',
+    },
   );
 }
 
