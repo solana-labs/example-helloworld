@@ -21,7 +21,7 @@
     "clean:program-c": "V=1 make -C ./src/program-c clean && npm run clean:store",
     "build:program-rust": "./src/program-rust/do.sh build && npm run clean:store",
     "clean:program-rust": "./src/program-rust/do.sh clean && rm -rf ./dist && npm run clean:store",
-    "test:program-rust": "./src/program-rust/do.sh test",
+    "test:program-rust": "./src/program-rust/do.sh test --features program",
     "cluster:localnet": "npm run clean:store && rm -f .env",
     "cluster:devnet": "npm run clean:store && cp cluster-devnet.env .env",
     "cluster:testnet": "npm run clean:store && cp cluster-testnet.env .env",
