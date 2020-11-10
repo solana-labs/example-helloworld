@@ -47,8 +47,9 @@ $ brew cask install virtualbox
 $ docker-machine create --driver virtualbox default
 # To see config info:
 $ docker-machine env default
-# Port forwarding of 8899 from your OS to the Docker machine:
+# Port forwarding of 8899 and 8900 from your OS to the Docker machine:
 $ docker-machine ssh default -f -N -L 8899:localhost:8899
+$ docker-machine ssh default -f -N -L 8900:localhost:8900
 # To configure your shell to use the docker-machine
 $ eval "$(docker-machine env default)"
 ```
