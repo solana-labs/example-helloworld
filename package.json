@@ -16,7 +16,7 @@
     "lint:fix": "eslint --ext .ts src/client/* --fix && prettier --write \"src/client/**/*.ts\"",
     "bpf-sdk:update": "solana-bpf-sdk-install node_modules/@solana/web3.js && npm run clean",
     "clean": "npm run clean:program-c && npm run clean:program-rust",
-    "clean:store": "rm -rf store",
+    "clean:store": "rm -rf src/client/util/store/config.json",
     "build:program-c": "rm -f ./dist/program/helloworld.so && V=1 make -C ./src/program-c && npm run clean:store",
     "clean:program-c": "V=1 make -C ./src/program-c clean && npm run clean:store",
     "build:program-rust": "./src/program-rust/do.sh build && npm run clean:store",
