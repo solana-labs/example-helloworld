@@ -71,7 +71,7 @@ This example connects to a local Solana cluster by default.
 
 Enable on-chain program logs:
 ```bash
-$ export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=info,solana_bpf_loader=debug,solana_rbpf=debug
+$ export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=debug,solana_bpf_loader=debug,solana_rbpf=debug
 ```
 
 Start a local Solana cluster:
