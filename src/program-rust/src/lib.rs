@@ -1,7 +1,5 @@
-#![cfg(feature = "program")]
-
 use byteorder::{ByteOrder, LittleEndian};
-use solana_sdk::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint,
     entrypoint::ProgramResult,
@@ -55,7 +53,7 @@ fn process_instruction(
 #[cfg(test)]
 mod test {
     use super::*;
-    use solana_sdk::clock::Epoch;
+    use solana_program::clock::Epoch;
 
     #[test]
     fn test_sanity() {
@@ -86,7 +84,3 @@ mod test {
         assert_eq!(LittleEndian::read_u64(&accounts[0].data.borrow()), 2);
     }
 }
-
-// Required to support info! in tests
-#[cfg(not(target_arch = "bpf"))]
-solana_sdk::program_stubs!();
