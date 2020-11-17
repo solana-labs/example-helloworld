@@ -1,11 +1,11 @@
 tasks:
   - init: |
-      sh -c "$(curl -sSfL https://release.solana.com/v1.4.8/install)"
       npm install
       npm run build:program-rust
       npm run cluster:devnet
     command: |
       rustup toolchain link bpf node_modules/@solana/web3.js/bpf-sdk/dependencies/rust-bpf
+      sh -c "$(curl -sSfL https://release.solana.com/v1.4.8/install)"
       export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       gp open README-gitpod.md
 image: gitpod/workspace-full
