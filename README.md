@@ -35,8 +35,8 @@ The project comprises of:
     - [Entrypoint](#entrypoint)
     - [Establish a connection to the cluster](#establish-a-connection-to-the-cluster)
     - [Load the helloworld on-chain program if not already loaded](#load-the-helloworld-on-chain-program-if-not-already-loaded)
-    - [Send a "Hello" transaction to the on-chain program](#send-a-%22hello%22-transaction-to-the-on-chain-program)
-    - [Query the Solana account used in the "Hello" transaction](#query-the-solana-account-used-in-the-%22hello%22-transaction)
+    - [Send a "Hello" transaction to the on-chain program](#send-a-hello-transaction-to-the-on-chain-program)
+    - [Query the Solana account used in the "Hello" transaction](#query-the-solana-account-used-in-the-hello-transaction)
   - [Learn about the on-chain program](#learn-about-the-on-chain-program)
     - [Entrypoint](#entrypoint-1)
     - [Processing an instruction](#processing-an-instruction)
@@ -53,15 +53,11 @@ If you decide to open in Gitpod then refer to [README-gitpod.md](README-gitpod.m
 The following dependencies are required to build and run this example,
 depending on your OS, they may already be installed:
 
-```bash
-$ node --version
-$ npm --version
-$ docker -v
-$ wget --version
-$ rustup --version
-$ rustc --version
-$ cargo --version
-```
+- Install node
+- Install npm
+- Install docker
+- Install the latest Rust stable from https://rustup.rs/
+- Install Solana v1.4.7 or later from https://docs.solana.com/cli/install-solana-cli-tools
 
 If this is your first time using Docker or Rust, these [Installation Notes](README-installation-notes.md) might be helpful.
 
@@ -127,6 +123,8 @@ Success
 
 - Ensure you've [started the local cluster](#start-local-solana-cluster) and [built the on-chain program](#build-the-on-chain-program).
 - Ensure Docker is running.  You might try bumping up its resource settings, 8 GB of memory and 3 GB of swap should help.
+- The client output should include program log messages that indicate why the program filed.
+  - `program log: <message>`
 - Inspect the Solana cluster logs looking for any failed transactions or failed on-chain programs
   - Expand the log filter and restart the cluster to see more detail
     - ```bash
@@ -144,7 +142,7 @@ Now when you rerun `npm run start`, you should see the results of your changes.
 
 More information about how Solana works is available in the [Solana documentation](https://docs.solana.com/) and all the source code is available on [github](https://github.com/solana-labs/solana)
 
-Futher questions?  Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
+Futher questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
 
 ## Learn about the client
 

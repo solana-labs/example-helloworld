@@ -25,6 +25,9 @@ install:
   - nvm install node
   - node --version
   - npm install
+  - sh -c "$(curl -sSfL https://release.solana.com/v1.4.8/install)"
+  - export PATH=~/.local/share/solana/install/active_release/bin:$PATH
+  - solana-install info
 
 script:
   - npm run lint
