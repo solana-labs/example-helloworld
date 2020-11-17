@@ -1,7 +1,7 @@
 tasks:
   - init: |
-      rustup toolchain link bpf node_modules/@solana/web3.js/bpf-sdk/dependencies/rust-bpf
       sh -c "$(curl -sSfL https://release.solana.com/v1.4.8/install)"
+      export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
       npm run cluster:devnet
@@ -22,6 +22,6 @@ github:
     # add a check to pull requests (defaults to true)
     addCheck: true
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
-    addComment: false
+    addComment: true
 
 
