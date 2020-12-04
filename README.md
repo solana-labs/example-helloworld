@@ -123,7 +123,7 @@ Success
 
 - Ensure you've [started the local cluster](#start-local-solana-cluster) and [built the on-chain program](#build-the-on-chain-program).
 - Ensure Docker is running.  You might try bumping up its resource settings, 8 GB of memory and 3 GB of swap should help.
-- The client output should include program log messages that indicate why the program filed.
+- The client output should include program log messages that indicate why the program failed.
   - `program log: <message>`
 - Inspect the Solana cluster logs looking for any failed transactions or failed on-chain programs
   - Expand the log filter and restart the cluster to see more detail
@@ -142,7 +142,7 @@ Now when you rerun `npm run start`, you should see the results of your changes.
 
 More information about how Solana works is available in the [Solana documentation](https://docs.solana.com/) and all the source code is available on [github](https://github.com/solana-labs/solana)
 
-Futher questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
+Further questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
 
 ## Learn about the client
 
@@ -156,15 +156,15 @@ The [client's entrypoint](https://github.com/solana-labs/example-helloworld/blob
 
 ### Establish a connection to the cluster
 
-The client establishes a connection with the client by calling [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45).
+The client establishes a connection with the cluster by calling [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45).
 
 ### Load the helloworld on-chain program if not already loaded
 
 The process of loading a program on the cluster includes storing the shared object's bytes in a Solana account's data vector and marking the account executable.
 
-The client loads the program by calling [`loadProgram`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L54).  The first time `loadProgram` is called the client:
+The client loads the program by calling [`loadProgram`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L54).  The first time `loadProgram` is called, the client:
 
-- Read the shared object from the file system
+- Reads the shared object from the file system
 - Calculates the fees associated with loading the program
 - Airdrops lamports to a payer account to pay for the load
 - Loads the program via the Solana web3.js function ['BPFLoader.load']([TODO](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/bpf-loader.js#L36))
@@ -173,7 +173,7 @@ The client loads the program by calling [`loadProgram`](https://github.com/solan
 
 ### Send a "Hello" transaction to the on-chain program
 
-The client then constructs and sends a "Hello" transaction to the program by calling [`sayHello`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121).  The transaction contains a single very simple instruction that primarily caries the public key of the helloworld program account to call and the "greeter" account to which the client wishes to say "Hello" to.
+The client then constructs and sends a "Hello" transaction to the program by calling [`sayHello`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121).  The transaction contains a single very simple instruction that primarily carries the public key of the helloworld program account to call and the "greeter" account to which the client wishes to say "Hello" to.
 
 ### Query the Solana account used in the "Hello" transaction
 
@@ -200,7 +200,7 @@ fn process_instruction<'a>(
 
 - `program_id` is the public key of the currently executing program.  The same program can be uploaded to the cluster under different accounts, and a program can use `program_id` to determine which instance of the program is currently executing.
 - `accounts` is a slice of [`Account Info's](https://github.com/solana-labs/solana/blob/b4e00275b2da6028cc839a79cdc4453d4c9aca13/sdk/src/account_info.rs#L10) representing each account included in the instruction being processed.
-- `_instruction_data` is a data vector containing the [data passed as part of the instruction](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/transaction.js#L46).  In the case of helloworld no instruction data is passed and thus ignored (all instructions are treated as a "Hello" instruction).  Typically the instruction data would contain information about what kind of command the program should process and details about that particular command.
+- `_instruction_data` is a data vector containing the [data passed as part of the instruction](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/transaction.js#L46).  In the case of helloworld, no instruction data is passed and thus ignored (all instructions are treated as a "Hello" instruction).  Typically the instruction data would contain information about what kind of command the program should process and details about that particular command.
 
 ### Processing an instruction
 
@@ -226,7 +226,6 @@ There are some limitations since these programs run in a resource-constrained, s
   - `std::net`
   - `std::os`
   - `std::future`
-  - `std::net`
   - `std::process`
   - `std::sync`
   - `std::task`
@@ -235,8 +234,8 @@ There are some limitations since these programs run in a resource-constrained, s
 - Limited access to:
   - `std::hash`
   - `std::os`
-- Bincode is extreamly computationally expensive in both cycles and call depth and should be avoided
-- String formating should be avoided since it is also computationaly expensive
+- Bincode is extremely computationally expensive in both cycles and call depth and should be avoided
+- String formatting should be avoided since it is also computationally expensive
 - No support for `println!`, `print!`, the Solana SDK helpers in `src/log.rs` should be used instead
 - The runtime enforces a limit on the number of instructions a program can execute during the processing of one instruction
 
@@ -261,7 +260,7 @@ $ npm run cluster:localnet
 
 ## Expand your skills with advanced examples
 
-There is lots more to learn; The following examples demonstrate more advanced features like custom errors, advanced account handling, suggestions for data serialization, benchmarking, etc..
+There is lots more to learn; The following examples demonstrate more advanced features like custom errors, advanced account handling, suggestions for data serialization, benchmarking, etc...
 
 - [ERC-20-like Token](https://github.com/solana-labs/example-token)
 - [TicTacToe](https://github.com/solana-labs/example-tictactoe)
