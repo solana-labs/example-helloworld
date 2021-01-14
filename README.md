@@ -210,7 +210,7 @@ The program does a series of checks to ensure that the instruction is well-forme
 
 The accounts slice may contain the same account in multiple positions, so a Rust ` std protects any writable data::cell::RefCell`
 
-The program prints a diagnostic message to the validators' logs by calling [`info!`](https://github.com/solana-labs/solana/blob/b4e00275b2da6028cc839a79cdc4453d4c9aca13/sdk/src/log.rs#L12).  On a local cluster you can view the logs by including `solana_bpf_loader_program=info` in `RUST_LOG`.
+The program prints a diagnostic message to the validators' logs by calling [`msg!`](https://github.com/solana-labs/solana/blob/6705b5a98c076ac08f3991bb8a6f9fcb280bf51e/sdk/program/src/log.rs#L33).  On a local cluster you can view the logs by including `solana_bpf_loader_program=info` in `RUST_LOG`.
 
 If the program fails, it returns a `ProgramError`; otherwise, it returns `Ok(())` to indicate to the runtime that any updates to the accounts may be recorded on the chain.
 
@@ -245,7 +245,7 @@ Solana maintains three public clusters:
 - `devnet` - Development cluster with airdrops enabled
 - `testnet` - Tour De Sol test cluster without airdrops enabled
 - `mainnet-beta` -  Main cluster
-  
+
 Use npm scripts to configure which cluster.
 
 To point to `devnet`:
