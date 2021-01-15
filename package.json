@@ -9,12 +9,11 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "testnetDefaultChannel": "v1.4.8",
   "scripts": {
     "start": "ts-node src/client/main.ts",
+    "start-with-test-validator": "start-server-and-test 'solana-test-validator --reset --quiet' http://localhost:8899/health start",
     "lint": "eslint --ext .ts src/client/* && prettier --check \"src/client/**/*.ts\"",
     "lint:fix": "eslint --ext .ts src/client/* --fix && prettier --write \"src/client/**/*.ts\"",
-    "bpf-sdk:update": "solana-bpf-sdk-install node_modules/@solana/web3.js && npm run clean",
     "clean": "npm run clean:program-c && npm run clean:program-rust",
     "clean:store": "rm -rf src/client/util/store/config.json",
     "build:program-c": "rm -f ./dist/program/helloworld.so && V=1 make -C ./src/program-c && npm run clean:store",
@@ -26,12 +25,8 @@
     "cluster:devnet": "npm run clean:store && cp cluster-devnet.env .env",
     "cluster:testnet": "npm run clean:store && cp cluster-testnet.env .env",
     "cluster:mainnet-beta": "npm run clean:store && cp cluster-mainnet-beta.env .env",
-    "localnet:update": "solana-localnet update",
-    "localnet:up": "set -x; solana-localnet down; set -e; solana-localnet up",
-    "localnet:down": "solana-localnet down",
-    "localnet:logs": "solana-localnet logs -f",
     "pretty": "prettier --write '{,src/**/}*.js'",
-    "postinstall": "npm run bpf-sdk:update && cargo update --manifest-path=src/program-rust/Cargo.toml"
+    "postinstall": "cargo update --manifest-path=src/program-rust/Cargo.toml"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -46,11 +41,12 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2",
+    "start-server-and-test": "^1.11.6",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@solana/web3.js": "^0.87.0",
+    "@solana/web3.js": "^0.89.1",
     "buffer-layout": "^1.2.0",
     "dotenv": "8.2.0",
     "json-to-pretty-yaml": "^1.2.2",
