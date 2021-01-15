@@ -34,6 +34,6 @@ script:
   - npm run build:program-rust
   - npm run test:program-rust
   - npm run cluster:localnet
-  - start-with-test-validator
+  - npm run start-with-test-validator
   - npm run build:program-c
-  - start-with-test-validator
+  - npm run start-with-test-validator

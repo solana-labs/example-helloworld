@@ -42,8 +42,7 @@ $ npm run start
 ```
 
 The remaining sections of this document point back to the non-Gitpod version of
-the README for more information.  Just remember, using Docker or running a local
-cluster is not supported if you are using Gitpod.
+the README for more information.
 
 ### [Expected output](README.md#expected-output)
 
