@@ -4,3 +4,4 @@
 /dist
 .env
 src/client/util/store
+test-ledger/
