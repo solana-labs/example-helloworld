@@ -19,6 +19,10 @@
 * 鏈上的 Hello World 程式
 * 可以向帳戶發送 `hello` 並獲取 `hello` 的發送次數。
 
+## 翻譯
+- [英文](README.md)
+- [繁體中文](README-ZH.md)
+
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
   - [目錄](#table-of-contents)
@@ -260,6 +264,7 @@ $ npm run cluster:localnet
 
 還有更多的東西要學習。以下範例展示了更多高級功能，例如自定義錯誤、高級帳戶處理、數據序列化建議、基準測試...等。
 
-- [ERC-20-like Token](https://github.com/solana-labs/example-token)
-- [TicTacToe](https://github.com/solana-labs/example-tictactoe)
-- [MessageFeed](https://github.com/solana-labs/example-messagefeed)
+- [Programming Examples](https://github.com/solana-labs/solana-program-library/tree/master/examples)
+- [Token Program](https://github.com/solana-labs/solana-program-library/tree/master/token)
+- [Token Swap Program](https://github.com/solana-labs/solana-program-library/tree/master/token-swap)
+- 
