@@ -23,6 +23,9 @@ The project comprises of:
 * A client that can send a "hello" to an account and get back the number of
   times "hello" has been sent
 
+## Translations
+- [Traditional Chinese](README-ZH.md)
+
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
   - [Table of Contents](#table-of-contents)
