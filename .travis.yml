@@ -25,16 +25,15 @@ install:
   - nvm install node
   - node --version
   - npm install
+  - sh -c "$(curl -sSfL https://release.solana.com/v1.5.3/install)"
+  - export PATH=~/.local/share/solana/install/active_release/bin:$PATH
+  - solana-install info
 
 script:
   - npm run lint
-  - npm run flow
   - npm run build:program-rust
   - npm run test:program-rust
   - npm run cluster:localnet
-  - npm run localnet:update
-  - npm run localnet:up
-  - npm run start
+  - npm run start-with-test-validator
   - npm run build:program-c
-  - npm run start
-  - npm run localnet:down
+  - npm run start-with-test-validator

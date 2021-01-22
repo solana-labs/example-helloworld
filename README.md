@@ -23,8 +23,7 @@ The project comprises of:
 * A client that can send a "hello" to an account and get back the number of
   times "hello" has been sent
 
-## Translatation 
-- [English](README.md)
+## Translations
 - [Traditional Chinese](README-ZH.md)
 
 ## Table of Contents

@@ -2,7 +2,6 @@
  * @brief C-based Helloworld BPF program
  */
 #include <solana_sdk.h>
-#include <deserialize_deprecated.h>
 
 uint64_t helloworld(SolParameters *params) {
 
@@ -20,9 +19,9 @@ uint64_t helloworld(SolParameters *params) {
     return ERROR_INCORRECT_PROGRAM_ID;
   }
 
-  // The data must be large enough to hold a u64 count
+  // The data must be large enough to hold an uint32_t value
   if (greeted_account->data_len < sizeof(uint32_t)) {
-    sol_log("Greeted account data length too small for u32");
+    sol_log("Greeted account data length too small to hold uint32_t value");
     return ERROR_INVALID_ACCOUNT_DATA;
   }
 
@@ -41,7 +40,7 @@ extern uint64_t entrypoint(const uint8_t *input) {
   SolAccountInfo accounts[1];
   SolParameters params = (SolParameters){.ka = accounts};
 
-  if (!sol_deserialize_deprecated(input, &params, SOL_ARRAY_SIZE(accounts))) {
+  if (!sol_deserialize(input, &params, SOL_ARRAY_SIZE(accounts))) {
     return ERROR_INVALID_ARGUMENT;
   }
 

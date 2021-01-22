@@ -1,12 +1,15 @@
+image:
+  file: .gitpod.Dockerfile
 tasks:
   - init: |
+      sh -c "$(curl -sSfL https://release.solana.com/v1.5.3/install)"
+      export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
       npm run cluster:devnet
     command: |
       rustup toolchain link bpf node_modules/@solana/web3.js/bpf-sdk/dependencies/rust-bpf
       gp open README-gitpod.md
-image: gitpod/workspace-full
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
@@ -18,6 +21,6 @@ github:
     # add a check to pull requests (defaults to true)
     addCheck: true
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
-    addComment: false
+    addComment: true
 
 

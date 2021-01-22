@@ -1,10 +1,8 @@
-#![cfg(feature = "program")]
-
 use byteorder::{ByteOrder, LittleEndian};
-use solana_sdk::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
-    entrypoint_deprecated,
-    entrypoint_deprecated::ProgramResult,
+    entrypoint,
+    entrypoint::ProgramResult,
     info,
     program_error::ProgramError,
     pubkey::Pubkey,
@@ -12,12 +10,12 @@ use solana_sdk::{
 use std::mem;
 
 // Declare and export the program's entrypoint
-entrypoint_deprecated!(process_instruction);
+entrypoint!(process_instruction);
 
 // Program entrypoint's implementation
-fn process_instruction<'a>(
+fn process_instruction(
     program_id: &Pubkey, // Public key of the account the hello world program was loaded into
-    accounts: &'a [AccountInfo<'a>], // The account to say hello to
+    accounts: &[AccountInfo], // The account to say hello to
     _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
 ) -> ProgramResult {
     info!("Helloworld Rust program entrypoint");
@@ -55,7 +53,7 @@ fn process_instruction<'a>(
 #[cfg(test)]
 mod test {
     use super::*;
-    use solana_sdk::clock::Epoch;
+    use solana_program::clock::Epoch;
 
     #[test]
     fn test_sanity() {
@@ -86,7 +84,3 @@ mod test {
         assert_eq!(LittleEndian::read_u64(&accounts[0].data.borrow()), 2);
     }
 }
-
-// Required to support info! in tests
-#[cfg(not(target_arch = "bpf"))]
-solana_sdk::program_stubs!();
