@@ -21,7 +21,7 @@
 
 ## 翻譯
 - [英文](README.md)
-- [繁體中文](README-ZH.md)
+- [繁體中文](README_ZH.md)
 
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
