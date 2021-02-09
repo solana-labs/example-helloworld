@@ -24,7 +24,7 @@ The project comprises of:
   times "hello" has been sent
 
 ## Translations
-- [Traditional Chinese](README-ZH.md)
+- [Traditional Chinese](README_ZH.md)
 
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
