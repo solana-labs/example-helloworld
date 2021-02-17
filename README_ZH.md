@@ -22,7 +22,7 @@
 ## 翻譯
 - [英文](README.md)
 
-## Table of Contents
+## 目錄
 - [Hello world on Solana](#hello-world-on-solana)
   - [目錄](#table-of-contents)
   - [快速開始](#快速開始)
