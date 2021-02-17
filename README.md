@@ -92,6 +92,12 @@ Start a local Solana cluster:
 $ solana-test-validator --log
 ```
 
+### Install npm dependencies
+
+```bash
+$ npm install
+```
+
 ### Build the on-chain program
 
 There is both a Rust and C version of the on-chain program, whichever is built
