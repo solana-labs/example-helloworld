@@ -93,6 +93,12 @@ $ npm run localnet:logs
 $ npm run localnet:down
 ```
 
+### Install npm dependencies
+
+```bash
+$ npm install
+```
+
 ### 部署鏈上程式
 
 鏈上程式有 Rust 版本和 C 版本，最新的版本是運行範例時使用的版本。
