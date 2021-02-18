@@ -21,9 +21,8 @@
 
 ## 翻譯
 - [英文](README.md)
-- [繁體中文](README_ZH.md)
 
-## Table of Contents
+## 目錄
 - [Hello world on Solana](#hello-world-on-solana)
   - [翻譯](#翻譯)
   - [Table of Contents](#table-of-contents)
@@ -39,12 +38,12 @@
   - [學習 Client](#學習-client)
     - [進入點](#進入點)
     - [建立與集群的連接](#建立與集群的連接)
-    - [載入鏈上程式 Hello World（如果尚未加載）](#載入鏈上程式-hello-world如果尚未加載)
-    - [發送 `Hello` 交易至鏈上](#發送-hello-交易至鏈上)
-    - [查詢使用過 `Hello` 交易的 Solana 帳戶](#查詢使用過-hello-交易的-solana-帳戶)
-  - [學習鏈上程式](#學習鏈上程式)
-    - [在 Solana 上撰寫程式](#在-solana-上撰寫程式)
-  - [指向公開的 Solana 集群](#指向公開的-solana-集群)
+    - [載入鏈上程式 Hello World（如果尚未加載）](#載入鏈上程式-Hello-World（如果尚未加載）)
+    - [發送 `Hello` 交易至鏈上](#發送-Hello-交易至鏈上)
+    - [查詢使用過 `Hello` 交易的 Solana 帳戶](#查詢使用過-Hello-交易的-Solana-帳戶)
+  - [學習鏈上的程式](#學習鏈上的程式)
+    - [在 Solana 上編寫程式](#在-Solana-上編寫程式)
+  - [指向公開 Solana 集群](#指向公開的-Solana-集群)
   - [透過高級的範例擴展你的技能](#透過高級的範例擴展你的技能)
 
 ## 快速開始
@@ -54,7 +53,7 @@
 如果您決定在 Gitpod 中打開，請參考 [README-gitpod.md](README-gitpod.md)，否則請繼續閱讀。
 
 
-要創建和運行此範例，需要添加以下依賴，根據您的操作系統，它們可能已經安裝：
+要創建和運行此範例，請確認並安裝以下套件
 
 - 安裝 node
 - 安裝 npm
@@ -77,12 +76,11 @@ $ export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runt
 $ solana-test-validator --log
 ```
 
-### 安裝 npm 依賴
+### 安裝 npm 套件
 
 ```bash
 $ npm install
 ```
-
 ### 部署鏈上程式
 
 鏈上程式有 Rust 版本和 C 版本，最新的版本是運行範例時使用的版本。
@@ -119,8 +117,8 @@ Success
 #### 沒有達到期望產出？
 
 - 確保您已經 [啟動本地 Solana 集群](#start-local-solana-cluster) 並 [佈建鏈上程式](#build-the-on-chain-program).
-- 集群的輸出日誌應包含程式日誌表明程式為何失敗
- - `program log: <message>`
+- 集群的輸出日誌應包括程序日誌消息以及程式失敗的原因
+  - `program log: <message>`   
 - 檢查 Solana 集群日誌以尋找任何失敗的交易或失敗的鏈上程式
   - 擴展日誌過濾器並重啟集群以查看更多細節
     - ```bash
@@ -130,7 +128,7 @@ Success
 
 ### 自定義程式
 
-要自定義示例，請更改 /src 下的文件。如果您更改 /src/program-rust或 /src/program-c 下的任何文件，你將需要 [重新部署鏈上程式](#build-the-on-chain-program)
+要自定義示例，請更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你將需要[重新部署鏈上程式](#build-the-on-chain-program)
 
 現在，當您重新運行 `npm run start` 時，您應該看到更改的結果。
 
@@ -150,7 +148,7 @@ Success
 
 [客戶端入口點](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)做了四件事
 
-### 建立與集群的連接
+### 建立與集群的接口
 
 客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
 
@@ -179,14 +177,15 @@ Success
 
 [鏈上 HelloWorld 程式](/src/program-rust/Cargo.toml) 是一個 Rust 程式編譯成 [Berkley Packet Format (BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) 並儲存為[可執行和可鏈接格式（ELF）共享對象](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
 
-這個程式使用此撰寫
-- [Solana Rust SDK](https://github.com/solana-labs/solana/tree/master/sdk)
+此程式是使用以下程式編寫：
+- [Solana Rust SDK](https://github.com/solana-labs/solana/tree/master/sdk) 
 
-### 在 Solana 上撰寫程式
+### 在 Solana 上編寫程式
 
-要了解更多有關 Solana 的程式設計模型，請參考 [設計模型概述](https://docs.solana.com/developing/programming-model/overview).
+要了解有關 Solana 程式設計模型的更多訊息，請參閱[程式設計模型概述](https://docs.solana.com/developing/programming-model/overview)。
 
-要了解更多在 Solana 上開發程式，請參考 [程式部署概述](https://docs.solana.com/developing/deployed-programs/overview).
+要了解有關在 Solana 上開發程式的更多訊息，請參閱[已部署程式概述](https://docs.solana.com/developing/deployed-programs/overview)。
+=======
 
 ## 指向公開的 Solana 集群
 
@@ -198,12 +197,12 @@ Solana 有三個公開集群：
   
 使用 npm 指令去選擇集群 
 
-選擇 `devnet`:
+選擇 `devnet` 集群:
 ```bash
 $ npm run cluster:devnet
 ```
 
-選擇 `local` cluster:
+選擇 `local` 集群:
 ```bash
 $ npm run cluster:localnet
 ```
