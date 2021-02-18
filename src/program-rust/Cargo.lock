@@ -38,32 +38,11 @@ dependencies = [
 
 [[package]]
 name = "block-buffer"
-version = "0.7.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c0940dc441f31689269e10ac70eb1002a3a1d3ad1390e030043662eb7fe4688b"
-dependencies = [
- "block-padding",
- "byte-tools",
- "byteorder",
- "generic-array 0.12.3",
-]
-
-[[package]]
-name = "block-buffer"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4152116fd6e9dadb291ae18fc1ec3575ed6d84c29642d97890f4b4a3417297e4"
 dependencies = [
  "generic-array 0.14.4",
-]
-
-[[package]]
-name = "block-padding"
-version = "0.1.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fa79dedbb091f449f1f39e53edf88d5dbe95f895dae6135a8d7b881fb5af73f5"
-dependencies = [
- "byte-tools",
 ]
 
 [[package]]
@@ -81,12 +60,6 @@ dependencies = [
  "feature-probe",
  "serde",
 ]
-
-[[package]]
-name = "byte-tools"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
 
 [[package]]
 name = "byteorder"
@@ -155,12 +128,6 @@ dependencies = [
  "regex",
  "termcolor",
 ]
-
-[[package]]
-name = "fake-simd"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e88a8acf291dafb59c2d96e8f59828f3838bb1a70398823ade51a84de6a6deed"
 
 [[package]]
 name = "feature-probe"
@@ -290,12 +257,6 @@ name = "once_cell"
 version = "1.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13bd41f508810a131401606d54ac32a467c97172d74ba7662562ebba5ad07fa0"
-
-[[package]]
-name = "opaque-debug"
-version = "0.2.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2839e79665f131bdb5782e51f2c6c9599c133c6098982a54c794358bf432529c"
 
 [[package]]
 name = "opaque-debug"
@@ -447,27 +408,15 @@ dependencies = [
 
 [[package]]
 name = "sha2"
-version = "0.8.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a256f46ea78a0c0d9ff00077504903ac881a1dafdc20da66545699e7776b3e69"
-dependencies = [
- "block-buffer 0.7.3",
- "digest 0.8.1",
- "fake-simd",
- "opaque-debug 0.2.3",
-]
-
-[[package]]
-name = "sha2"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fa827a14b29ab7f44778d14a88d3cb76e949c45083f7dbfa507d0cb699dc12de"
 dependencies = [
- "block-buffer 0.9.0",
+ "block-buffer",
  "cfg-if",
  "cpuid-bool",
  "digest 0.9.0",
- "opaque-debug 0.3.0",
+ "opaque-debug",
 ]
 
 [[package]]
@@ -480,9 +429,9 @@ dependencies = [
 
 [[package]]
 name = "solana-frozen-abi"
-version = "1.5.7"
+version = "1.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1ea85e6a6677c3888dd83d14e9b0dee8575619480af4484109d6c36256c80cb"
+checksum = "dc44c8096d5847d8cf7f3af3cce565de554cb56371decf93b060633ca8588913"
 dependencies = [
  "bs58",
  "bv",
@@ -492,7 +441,7 @@ dependencies = [
  "rustc_version",
  "serde",
  "serde_derive",
- "sha2 0.9.3",
+ "sha2",
  "solana-frozen-abi-macro",
  "solana-logger",
  "thiserror",
@@ -500,9 +449,9 @@ dependencies = [
 
 [[package]]
 name = "solana-frozen-abi-macro"
-version = "1.5.7"
+version = "1.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c7c67ad9d35a18d5297b5c35899826e605c63ea31558799ca3ef12d4e6d53d4"
+checksum = "f905159beff1b53e4ba8b018a9d13d96ba164c3973bf3b9d587e730bcc14fc18"
 dependencies = [
  "lazy_static",
  "proc-macro2",
@@ -513,9 +462,9 @@ dependencies = [
 
 [[package]]
 name = "solana-logger"
-version = "1.5.7"
+version = "1.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69fda382cf80354fa98896120cdabe2c9e28ead53c3fa6e42c9ae5c78bbd7f46"
+checksum = "d83a006d97da5514a4475141573383d3fcd71c729ff78494f96bb531cf734d21"
 dependencies = [
  "env_logger",
  "lazy_static",
@@ -524,9 +473,9 @@ dependencies = [
 
 [[package]]
 name = "solana-program"
-version = "1.4.8"
+version = "1.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79dd4f105b6c728652401ae5765a60850ea3495d1be71f5227a65b8b0d209a53"
+checksum = "c2007bf285617f8a783e96b20ccd2f8d813549090a5b520f22e5f65b3cd9b157"
 dependencies = [
  "bincode",
  "bs58",
@@ -544,7 +493,7 @@ dependencies = [
  "serde",
  "serde_bytes",
  "serde_derive",
- "sha2 0.8.2",
+ "sha2",
  "solana-frozen-abi",
  "solana-frozen-abi-macro",
  "solana-logger",
@@ -554,9 +503,9 @@ dependencies = [
 
 [[package]]
 name = "solana-sdk-macro"
-version = "1.5.7"
+version = "1.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6515ccfe86384b12d480a5aa876c80981aca122d863510a2eace63150e89e35d"
+checksum = "b8a6635f1798c8ff1b88bb0fad1d4693c011f36a73c9ae03f198203144edcabb"
 dependencies = [
  "bs58",
  "proc-macro2",
