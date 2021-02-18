@@ -185,7 +185,6 @@ Success
 要了解有關 Solana 程式設計模型的更多訊息，請參閱[程式設計模型概述](https://docs.solana.com/developing/programming-model/overview)。
 
 要了解有關在 Solana 上開發程式的更多訊息，請參閱[已部署程式概述](https://docs.solana.com/developing/deployed-programs/overview)。
-=======
 
 ## 指向公開的 Solana 集群
 
