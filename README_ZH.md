@@ -21,9 +21,8 @@
 
 ## 翻譯
 - [英文](README.md)
-- [繁體中文](README_ZH.md)
 
-## Table of Contents
+## 目錄
 - [Hello world on Solana](#hello-world-on-solana)
   - [目錄](#table-of-contents)
   - [快速開始](#快速開始)
@@ -41,9 +40,7 @@
     - [發送 `Hello` 交易至鏈上](#發送-Hello-交易至鏈上)
     - [查詢使用過 `Hello` 交易的 Solana 帳戶](#查詢使用過-Hello-交易的-Solana-帳戶)
   - [學習鏈上的程式](#學習鏈上的程式)
-    - [進入點](#進入點-1)
-    - [處理指令](#處理指令)
-    - [Rust 的限制](#Rust-的限制)
+    - [在 Solana 上編寫程式](#在-Solana-上編寫程式)
   - [指向公開 Solana 集群](#指向公開的-Solana-集群)
   - [透過高級的範例擴展你的技能](#透過高級的範例擴展你的技能)
 
@@ -54,16 +51,13 @@
 如果您決定在 Gitpod 中打開，請參考 [README-gitpod.md](README-gitpod.md)，否則請繼續閱讀。
 
 
-要創建和運行此範例，需要添加以下依賴，根據您的操作系統，它們可能已經安裝：
+要創建和運行此範例，請確認並安裝以下套件
 
-```bash
-$ node --version
-$ npm --version
-$ docker -v
-$ wget --version
-$ rustup --version
-$ rustc --version
-$ cargo --version
+```
+- 安裝 node
+- 安裝 npm
+- 安裝最新版的 Rust https://rustup.rs/
+- 安裝 Solana 1.5.3 或是更新的版本 https://docs.solana.com/cli/install-solana-cli-tools
 ```
 
 如果這是您第一次使用 Docker 或 Rust，這些 [安裝筆記](README-installation-notes.md) 可能對您有幫助。
@@ -79,26 +73,13 @@ $ export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runt
 
 啟動本地 Solana 集群：
 ```bash
-$ npm run localnet:update
-$ npm run localnet:up
+$ solana-test-validator --log
 ```
-
-查看集群日誌：
-```bash
-$ npm run localnet:logs
-```
-
-注意：此步驟將停止本地 Solana 集群：
-```bash
-$ npm run localnet:down
-```
-
-### Install npm dependencies
+### 安裝 npm 套件
 
 ```bash
 $ npm install
 ```
-
 ### 部署鏈上程式
 
 鏈上程式有 Rust 版本和 C 版本，最新的版本是運行範例時使用的版本。
@@ -135,7 +116,8 @@ Success
 #### 沒有達到期望產出？
 
 - 確保您已經 [啟動本地 Solana 集群](#start-local-solana-cluster) 並 [佈建鏈上程式](#build-the-on-chain-program).
-- 確保 Docker 正在運行。您可以嘗試提高其資源設置，應該有 8 GB 的內存和 3 GB 的交換空間。
+- 集群的輸出日誌應包括程序日誌消息以及程式失敗的原因
+  - `program log: <message>`   
 - 檢查 Solana 集群日誌以尋找任何失敗的交易或失敗的鏈上程式
   - 擴展日誌過濾器並重啟集群以查看更多細節
     - ```bash
@@ -144,7 +126,7 @@ Success
       $ npm run localnet:up
 ### 自定義程式
 
-要自定義示例，請更改 /src 下的文件。如果您更改 /src/program-rust或 /src/program-c 下的任何文件，你將需要[重新部署鏈上程式](#build-the-on-chain-program)
+要自定義示例，請更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你將需要[重新部署鏈上程式](#build-the-on-chain-program)
 
 現在，當您重新運行 `npm run start` 時，您應該看到更改的結果。
 
@@ -164,7 +146,7 @@ Success
 
 [客戶端入口點](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)做了四件事
 
-### 建立與集群的連接
+### 建立與集群的接口
 
 客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
 
@@ -192,60 +174,14 @@ Success
 ## 學習鏈上程式
 [鏈上 HelloWorld 程式](src/program/Cargo.toml) 是一個 Rust 程式編譯成 [Berkley Packet Format (BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) 並儲存為[可執行和可鏈接格式（ELF）共享對象](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
 
-### 進入點-1
+此程式是使用以下程式編寫：
+- [Solana Rust SDK](https://github.com/solana-labs/solana/tree/master/sdk) 
 
-該程式的[進入點](https://github.com/solana-labs/example-helloworld/blob/6508bdb54c4d7f60747263b4274283fbddfabffe/src/program/src/lib.rs#L12)帶有三個參數：
-```rust
-fn process_instruction<'a>(
-    program_id: &Pubkey, // Public key of the account the hello world program was loaded into
-    accounts: &'a [AccountInfo<'a>], // The account to say hello to
-    _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
-) -> ProgramResult {
-```
+### 在 Solana 上編寫程式
 
+要了解有關 Solana 程式設計模型的更多訊息，請參閱[程式設計模型概述](https://docs.solana.com/developing/programming-model/overview)。
 
-- `program_id` 是當前執行程式的公鑰。可以使用不同的帳戶將同一程式上傳到集群，並且程式可以使用 `program_id` 確定當前正在執行該程式的哪個實體。
-- `accounts` 是 [`Account Info's`](https://github.com/solana-labs/solana/blob/b4e00275b2da6028cc839a79cdc4453d4c9aca13/sdk/src/account_info.rs#L10) 的一部分代表指令中包含的每個帳戶。
-- `_instruction_data` 是一個數據向量，包含[作為指令一部分傳遞的數據](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/transaction.js#L46). 在 helloworld 的情況下，不會傳遞任何指令數據並因此將其忽略（所有指令均被視為 `Hello` 指令）。通常，指令數據將包含有關程式應處理哪種命令的訊息以及有關該特定命令的詳細訊息。
-
-### 處理指令
-
-有了進入點的輸入，指令的結果就是對帳戶的時間戳記和數據向量的更新。對於 helloworld，`greeted` 帳戶的數據包含一個 32 位 Little-endian 編碼的 uInt，該整數將遞增。
-
-該程式進行了一系列檢查以確保指令格式正確（`greeted` 帳戶歸程式所有，並具有足夠的數據來容納 32 位元 uInt）。
-
-帳戶可能在切成相同等分在多個位置，在 Rust 上 `std protects any writable data::cell::RefCell`。
-
-該程式通過調用  [`info!`](https://github.com/solana-labs/solana/blob/b4e00275b2da6028cc839a79cdc4453d4c9aca13/sdk/src/log.rs#L12) 將診斷訊息印到驗證者的日誌中。在本地集群上，可以通過在 `RUST_LOG`下`solana_bpf_loader_program=info` 指令來查看日誌。
-
-如果程式失敗，則返回 `ProgramError`；否則，它返回 `Ok(())` 且帳戶的任何更新都可以記錄在鏈上。
-
-### Rust 的限制
-
-鏈上的 Rust 程式支持 Rust 的大多數 libstd、libcore 和liballoc，以及許多第三方程式庫。
-
-由於這些程式在資源受限的單線程環境中運行，因此存在一些限制，並且必須具有確定性：
-
-- 無法訪問：
-  - `rand` 或任何依賴它的程式庫
-  - `std::fs`
-  - `std::net`
-  - `std::os`
-  - `std::future`
-  - `std::net`
-  - `std::process`
-  - `std::sync`
-  - `std::task`
-  - `std::thread`
-  - `std::time`
-- 限制訪問：
-  - `std::hash`
-  - `std::os`
-- 應避免使用二進制，因為在周期和調用深度上非常昂貴 
-- 應避免字串格式化，因為在計算上很昂貴
-- 不支持 `println!`、`print!`，應改用 `src/log.rs` 中的 Solana SDK幫助程式
-- 限制程式在處理一條指令期間可以執行的指令數
-
+要了解有關在 Solana 上開發程式的更多訊息，請參閱[已部署程式概述](https://docs.solana.com/developing/deployed-programs/overview)。
 ## 指向公開的 Solana 集群
 
 Solana 有三個公開集群：
@@ -256,12 +192,12 @@ Solana 有三個公開集群：
   
 使用 npm 指令去選擇集群 
 
-選擇 `devnet`:
+選擇 `devnet` 集群:
 ```bash
 $ npm run cluster:devnet
 ```
 
-選擇 `local` cluster:
+選擇 `local` 集群:
 ```bash
 $ npm run cluster:localnet
 ```
@@ -273,4 +209,3 @@ $ npm run cluster:localnet
 - [Programming Examples](https://github.com/solana-labs/solana-program-library/tree/master/examples)
 - [Token Program](https://github.com/solana-labs/solana-program-library/tree/master/token)
 - [Token Swap Program](https://github.com/solana-labs/solana-program-library/tree/master/token-swap)
-- 
