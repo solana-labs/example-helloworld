@@ -24,11 +24,9 @@
 
 ## 目錄
 - [Hello world on Solana](#hello-world-on-solana)
-  - [翻譯](#翻譯)
-  - [Table of Contents](#table-of-contents)
   - [快速開始](#快速開始)
     - [啟動本地 Solana 集群](#啟動本地-solana-集群)
-    - [安裝 npm 依賴](#安裝-npm-依賴)
+    - [安裝 npm 套件](#安裝-npm-套件)
     - [部署鏈上程式](#部署鏈上程式)
     - [啟動客戶端](#啟動客戶端)
     - [期望產出](#期望產出)
@@ -38,10 +36,10 @@
   - [學習 Client](#學習-client)
     - [進入點](#進入點)
     - [建立與集群的連接](#建立與集群的連接)
-    - [載入鏈上程式 Hello World（如果尚未加載）](#載入鏈上程式-Hello-World（如果尚未加載）)
+    - [載入鏈上程式 Hello World（如果尚未加載）](#載入鏈上程式-hello-world如果尚未加載)
     - [發送 `Hello` 交易至鏈上](#發送-Hello-交易至鏈上)
     - [查詢使用過 `Hello` 交易的 Solana 帳戶](#查詢使用過-Hello-交易的-Solana-帳戶)
-  - [學習鏈上的程式](#學習鏈上的程式)
+  - [學習鏈上程式](#學習鏈上程式)
     - [在 Solana 上編寫程式](#在-Solana-上編寫程式)
   - [指向公開 Solana 集群](#指向公開的-Solana-集群)
   - [透過高級的範例擴展你的技能](#透過高級的範例擴展你的技能)
@@ -148,7 +146,7 @@ Success
 
 [客戶端入口點](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)做了四件事
 
-### 建立與集群的接口
+### 建立與集群的連接
 
 客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
 
