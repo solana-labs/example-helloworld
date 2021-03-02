@@ -32,7 +32,7 @@ fn process_instruction(
         return Err(ProgramError::IncorrectProgramId);
     }
 
-    // The data must be large enough to hold a u64 count
+    // The data must be large enough to hold a u32 count
     if account.try_data_len()? < mem::size_of::<u32>() {
         msg!("Greeted account data length too small for u32");
         return Err(ProgramError::InvalidAccountData);
@@ -60,8 +60,8 @@ mod test {
         let program_id = Pubkey::default();
         let key = Pubkey::default();
         let mut lamports = 0;
-        let mut data = vec![0; mem::size_of::<u64>()];
-        LittleEndian::write_u64(&mut data, 0);
+        let mut data = vec![0; mem::size_of::<u32>()];
+        LittleEndian::write_u32(&mut data, 0);
         let owner = Pubkey::default();
         let account = AccountInfo::new(
             &key,
@@ -77,10 +77,10 @@ mod test {
 
         let accounts = vec![account];
 
-        assert_eq!(LittleEndian::read_u64(&accounts[0].data.borrow()), 0);
+        assert_eq!(LittleEndian::read_u32(&accounts[0].data.borrow()), 0);
         process_instruction(&program_id, &accounts, &instruction_data).unwrap();
-        assert_eq!(LittleEndian::read_u64(&accounts[0].data.borrow()), 1);
+        assert_eq!(LittleEndian::read_u32(&accounts[0].data.borrow()), 1);
         process_instruction(&program_id, &accounts, &instruction_data).unwrap();
-        assert_eq!(LittleEndian::read_u64(&accounts[0].data.borrow()), 2);
+        assert_eq!(LittleEndian::read_u32(&accounts[0].data.borrow()), 2);
     }
 }
