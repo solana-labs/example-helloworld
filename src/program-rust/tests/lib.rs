@@ -1,5 +1,5 @@
 use byteorder::{ByteOrder, LittleEndian};
-use solana_program_test::ProgramTest;
+use solana_program_test::*;
 use solana_sdk::{
     account::Account,
     instruction::{AccountMeta, Instruction},
