@@ -81,6 +81,7 @@ Start a local Solana cluster:
 ```bash
 $ solana-test-validator --log
 ```
+**WARNING: `solana-test-validator` is not currently available for native Windows.  Try using WSL, or switch to Linux or macOS**
 
 ### Install npm dependencies
 
