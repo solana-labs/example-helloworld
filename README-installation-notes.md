@@ -1,6 +1,24 @@
 # Installation Notes
 if you are a first-time user of Rust, the notes below may help you to install
 some of the dependencies on a Mac or Linux workstation.
+#  Installation WSL (Windows Subsystem For Linux) 
+setup  https://www.windowscentral.com/install-windows-subsystem-linux-windows-10
+
+
+```bash
+apt upgrade
+apt update
+apt install nodejs
+apt install npm
+apt install python3-pip
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+sh -c "$(curl -sSfL https://release.solana.com/v1.6.2/install)"
+source $HOME/.cargo/env
+export PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
+export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=debug,solana_bpf_loader=debug,solana_rbpf=debug
+solana-test-validator --log
+```
+
 
 ### Rust
 We suggest that you install Rust using the 'rustup' tool. Rustup will install
