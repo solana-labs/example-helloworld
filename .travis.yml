@@ -33,6 +33,7 @@ script:
   - npm run lint
   - npm run build:program-rust
   - npm run test:program-rust
+  - cargo test-bpf --manifest-path=./src/program-rust/Cargo.toml
   - npm run cluster:localnet
   - npm run start-with-test-validator
   - npm run build:program-c
