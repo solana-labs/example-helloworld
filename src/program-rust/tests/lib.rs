@@ -1,4 +1,5 @@
 use byteorder::{ByteOrder, LittleEndian};
+use solana_bpf_helloworld::process_instruction;
 use solana_program_test::*;
 use solana_sdk::{
     account::Account,
@@ -14,7 +15,11 @@ async fn test_helloworld() {
     let program_id = Pubkey::new_unique();
     let greeted_pubkey = Pubkey::new_unique();
 
-    let mut program_test = ProgramTest::new("solana_bpf_helloworld", program_id, None);
+    let mut program_test = ProgramTest::new(
+        "solana_bpf_helloworld", // Run the BPF version with `cargo test-bpf`
+        program_id,
+        processor!(process_instruction), // Run the native version with `cargo test`
+    );
     program_test.add_account(
         greeted_pubkey,
         Account {
@@ -36,7 +41,7 @@ async fn test_helloworld() {
 
     // Greet once
     let mut transaction = Transaction::new_with_payer(
-        &[Instruction::new(
+        &[Instruction::new_with_bincode(
             program_id,
             &[0], // ignored but makes the instruction unique in the slot
             vec![AccountMeta::new(greeted_pubkey, false)],
@@ -56,7 +61,7 @@ async fn test_helloworld() {
 
     // Greet again
     let mut transaction = Transaction::new_with_payer(
-        &[Instruction::new(
+        &[Instruction::new_with_bincode(
             program_id,
             &[1], // ignored but makes the instruction unique in the slot
             vec![AccountMeta::new(greeted_pubkey, false)],
