@@ -16,9 +16,7 @@ import {
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import fs from 'mz/fs';
-
-// @ts-ignore
-import BufferLayout from 'buffer-layout';
+import * as borsh from 'borsh';
 
 import {url, urlTls} from './util/url';
 import {Store} from './util/store';
@@ -47,17 +45,35 @@ let greetedPubkey: PublicKey;
 const pathToProgram = 'dist/program/helloworld.so';
 
 /**
- * Layout of the greeted account data
+ * The state of a greeting account managed by the hello world program
  */
-const greetedAccountDataLayout = BufferLayout.struct([
-  BufferLayout.u32('numGreets'),
+class GreetingAccount {
+  counter = 0;
+  constructor(fields: {counter: number} | undefined = undefined) {
+    if (fields) {
+      this.counter = fields.counter;
+    }
+  }
+}
+
+/**
+ * Borsh schema definition for greeting accounts
+ */
+const GreetingSchema = new Map([
+  [GreetingAccount, {kind: 'struct', fields: [['counter', 'u32']]}],
 ]);
+
+/**
+ * The expected size of each greeting account.
+ */
+const GREETING_SIZE = borsh.serialize(GreetingSchema, new GreetingAccount())
+  .length;
 
 /**
  * Establish a connection to the cluster
  */
 export async function establishConnection(): Promise<void> {
-  connection = new Connection(url, 'singleGossip');
+  connection = new Connection(url, 'confirmed');
   const version = await connection.getVersion();
   console.log('Connection to cluster established:', url, version);
 }
@@ -79,9 +95,7 @@ export async function establishPayer(): Promise<void> {
       (await connection.getMinimumBalanceForRentExemption(data.length));
 
     // Calculate the cost to fund the greeter account
-    fees += await connection.getMinimumBalanceForRentExemption(
-      greetedAccountDataLayout.span,
-    );
+    fees += await connection.getMinimumBalanceForRentExemption(GREETING_SIZE);
 
     // Calculate the cost of sending the transactions
     fees += feeCalculator.lamportsPerSignature * 100; // wag
@@ -96,7 +110,7 @@ export async function establishPayer(): Promise<void> {
     payerAccount.publicKey.toBase58(),
     'containing',
     lamports / LAMPORTS_PER_SOL,
-    'Sol to pay for fees',
+    'SOL to pay for fees',
   );
 }
 
@@ -136,28 +150,22 @@ export async function loadProgram(): Promise<void> {
   const greetedAccount = new Account();
   greetedPubkey = greetedAccount.publicKey;
   console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
-  const space = greetedAccountDataLayout.span;
   const lamports = await connection.getMinimumBalanceForRentExemption(
-    greetedAccountDataLayout.span,
+    GREETING_SIZE,
   );
   const transaction = new Transaction().add(
     SystemProgram.createAccount({
       fromPubkey: payerAccount.publicKey,
       newAccountPubkey: greetedPubkey,
       lamports,
-      space,
+      space: GREETING_SIZE,
       programId,
     }),
   );
-  await sendAndConfirmTransaction(
-    connection,
-    transaction,
-    [payerAccount, greetedAccount],
-    {
-      commitment: 'singleGossip',
-      preflightCommitment: 'singleGossip',
-    },
-  );
+  await sendAndConfirmTransaction(connection, transaction, [
+    payerAccount,
+    greetedAccount,
+  ]);
 
   // Save this info for next time
   await store.save('config.json', {
@@ -181,26 +189,26 @@ export async function sayHello(): Promise<void> {
     connection,
     new Transaction().add(instruction),
     [payerAccount],
-    {
-      commitment: 'singleGossip',
-      preflightCommitment: 'singleGossip',
-    },
   );
 }
 
 /**
  * Report the number of times the greeted account has been said hello to
  */
-export async function reportHellos(): Promise<void> {
+export async function reportGreetings(): Promise<void> {
   const accountInfo = await connection.getAccountInfo(greetedPubkey);
   if (accountInfo === null) {
     throw 'Error: cannot find the greeted account';
   }
-  const info = greetedAccountDataLayout.decode(Buffer.from(accountInfo.data));
+  const greeting = borsh.deserialize(
+    GreetingSchema,
+    GreetingAccount,
+    accountInfo.data,
+  );
   console.log(
     greetedPubkey.toBase58(),
     'has been greeted',
-    info.numGreets.toString(),
+    greeting.counter,
     'times',
   );
 }
