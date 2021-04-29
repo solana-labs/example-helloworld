@@ -31,11 +31,15 @@ install:
   - solana-install info
 
 script:
+  - solana-keygen new --no-bip39-passphrase
+  - solana-test-validator --quiet &
   - npm run lint
   - npm run build:program-rust
   - npm run test:program-rust
   - cargo test-bpf --manifest-path=./src/program-rust/Cargo.toml
-  - npm run cluster:localnet
-  - npm run start-with-test-validator
+  - solana config set --url localhost
+  - solana program deploy dist/program/helloworld.so
+  - npm run start
   - npm run build:program-c
-  - npm run start-with-test-validator
+  - solana program deploy dist/program/helloworld.so
+  - npm run start

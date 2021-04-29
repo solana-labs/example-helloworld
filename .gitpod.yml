@@ -6,7 +6,8 @@ tasks:
       export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
-      npm run cluster:devnet
+      solana config set --url localnet
+      solana-keygen new --no-bip39-passphrase
     command: |
       gp open README-gitpod.md
 github:
@@ -21,5 +22,12 @@ github:
     addCheck: true
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
     addComment: true
-
-
+ports:
+  - port: 1024
+    onOpen: ignore
+  - port: 8899
+    onOpen: ignore
+  - port: 8900
+    onOpen: ignore
+  - port: 9900
+    onOpen: ignore

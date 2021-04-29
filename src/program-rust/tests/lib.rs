@@ -1,5 +1,5 @@
 use borsh::BorshDeserialize;
-use solana_bpf_helloworld::{process_instruction, GreetingAccount};
+use helloworld::{process_instruction, GreetingAccount};
 use solana_program_test::*;
 use solana_sdk::{
     account::Account,
@@ -16,7 +16,7 @@ async fn test_helloworld() {
     let greeted_pubkey = Pubkey::new_unique();
 
     let mut program_test = ProgramTest::new(
-        "solana_bpf_helloworld", // Run the BPF version with `cargo test-bpf`
+        "helloworld", // Run the BPF version with `cargo test-bpf`
         program_id,
         processor!(process_instruction), // Run the native version with `cargo test`
     );

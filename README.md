@@ -14,7 +14,7 @@ https://travis-ci.org/solana-labs/example-helloworld.svg?branch=master
 # Hello world on Solana
 
 This project demonstrates how to use the [Solana Javascript
-API](https://github.com/solana-labs/solana-web3.js) to build, deploy, and
+API](https://github.com/solana-labs/solana-web3.js) to
 interact with programs on the Solana blockchain.
 
 The project comprises of:
@@ -62,26 +62,42 @@ on your OS, they may already be installed:
 - Install node
 - Install npm
 - Install the latest Rust stable from https://rustup.rs/
-- Install Solana v1.5.8 or later from
+- Install Solana v1.6.6 or later from
   https://docs.solana.com/cli/install-solana-cli-tools
 
 If this is your first time using Rust, these [Installation
 Notes](README-installation-notes.md) might be helpful.
 
+### Configure CLI 
+
+1. Set CLI config url to localhost cluster
+
+```bash
+$ solana config set --url localhost
+```
+
+2. Create CLI Keypair
+
+If this is your first time using the Solana CLI, you will need to generate a new keypair:
+
+```bash
+$ solana-keygen new
+```
+
 ### Start local Solana cluster
 
 This example connects to a local Solana cluster by default.
 
-Enable on-chain program logs:
-```bash
-$ export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=debug,solana_bpf_loader=debug,solana_rbpf=debug
-```
-
 Start a local Solana cluster:
 ```bash
-$ solana-test-validator --log
+$ solana-test-validator
 ```
 **WARNING: `solana-test-validator` is not currently available for native Windows.  Try using WSL, or switch to Linux or macOS**
+
+Listen to transaction logs:
+```bash
+$ solana logs
+```
 
 ### Install npm dependencies
 
@@ -102,7 +118,13 @@ $ npm run build:program-rust
 $ npm run build:program-c
 ```
 
-### Run the client
+### Deploy the on-chain program
+
+```bash
+$ solana program deploy dist/program/helloworld.so
+```
+
+### Run the JavaScript client
 
 ```bash
 $ npm run start
@@ -113,35 +135,37 @@ $ npm run start
 Public key values will differ:
 
 ```bash
-Lets say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { solana-core: 1.1.2 }
-Loading hello world program...
-Program loaded to account 47bZX1D1tdmw3KWTo5MfBrAwwHBJQQzQL4VnNGT7HtyQ
-Creating account Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk to say hello to
-Saying hello to Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk
-Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk has been greeted 1 times
+Let's say hello to a Solana account...
+Connection to cluster established: http://localhost:8899 { 'feature-set': 3714435735, 'solana-core': '1.6.6' }
+Using account AiT1QgeYaK86Lf9kudqKthQPCWwpG8vFA1bAAioBoF4X containing 0.00141872 SOL to pay for fees
+Using program Dro9uk45fxMcKWGb1eWALujbTssh6DW8mb4x8x3Eq5h6
+Creating account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A to say hello to
+Saying hello to 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A
+8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A has been greeted 1 times
 Success
 ```
 
 #### Not seeing the expected output?
 
-- Ensure you've [started the local cluster](#start-local-solana-cluster) and
-  [built the on-chain program](#build-the-on-chain-program).
-- The cluster output log should include program log messages that indicate why
-  the program failed.
-  - `program log: <message>`
-- Inspect the Solana cluster logs looking for any failed transactions or failed
-  on-chain programs
-  - Expand the log filter and restart the cluster to see more detail
-    - ```bash
-      $ export RUST_LOG=solana_runtime::native_loader=trace,solana_runtime::system_instruction_processor=trace,solana_runtime::bank=debug,solana_bpf_loader=debug,solana_rbpf=debug
-      $ solana-test-validator --log
+- Ensure you've [started the local cluster](#start-local-solana-cluster),
+  [built the on-chain program](#build-the-on-chain-program) and [deployed the program to the cluster](#deploy-the-on-chain-program).
+- Inspect the program logs by running `solana logs` to see why the program failed.
+  - ```bash
+    Transaction executed in slot 5621:
+    Signature: 4pya5iyvNfAZj9sVWHzByrxdKB84uA5sCxLceBwr9UyuETX2QwnKg56MgBKWSM4breVRzHmpb1EZQXFPPmJnEtsJ
+    Status: Error processing Instruction 0: Program failed to complete
+    Log Messages:
+      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA invoke [1]
+      Program log: Hello World Rust program entrypoint
+      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA consumed 200000 of 200000 compute units
+      Program failed to complete: exceeded maximum number of instructions allowed (200000) at instruction #334
+      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA failed: Program failed to complete
 
 ### Customizing the Program
 
 To customize the example, make changes to the files under `/src`.  If you change
 any files under `/src/program-rust` or `/src/program-c` you will need to
-[rebuild the on-chain program](#build-the-on-chain-program)
+[rebuild the on-chain program](#build-the-on-chain-program) and [redeploy the program](#deploy-the-on-chain-program).
 
 Now when you rerun `npm run start`, you should see the results of your changes.
 
@@ -170,28 +194,12 @@ does four things
 The client establishes a connection with the cluster by calling
 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45).
 
-### Load the helloworld on-chain program if not already loaded
+### Check if the helloworld on-chain program has been deployed
 
-The process of loading a program on the cluster includes storing the shared
-object's bytes in a Solana account's data vector and marking the account
-executable.
-
-The client loads the program by calling
-[`loadProgram`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L54).
-The first time `loadProgram` is called, the client:
-
-- Reads the shared object from the file system
-- Calculates the fees associated with loading the program
-- Airdrops lamports to a payer account to pay for the load
-- Loads the program via the Solana web3.js function
-  ['BPFLoader.load']([TODO](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/bpf-loader.js#L36))
-- Creates a new "greeter" account that will be used in the "Hello" transaction
-- Records the [public
-  key](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/publickey.js#L10)
-  of both the loaded helloworld program and the "greeter" account in a config
-  file.  Repeated calls to the client will refer to the same loaded program and
-  "greeter" account.  (To force the reload of the program issue `npm
-  clean:store`)
+The client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
+the public key for the keypair to fetch the program account. If the program doesn't exist, the client halts
+with an error. If the program does exist, it will create a new account with the program assigned as its owner
+to store program state (number of hello's processed).
 
 ### Send a "Hello" transaction to the on-chain program
 
@@ -237,16 +245,16 @@ Solana maintains three public clusters:
 - `testnet` - Tour De Sol test cluster without airdrops enabled
 - `mainnet-beta` -  Main cluster
 
-Use npm scripts to configure which cluster.
+Use the Solana CLI to configure which cluster to connect to.
 
 To point to `devnet`:
 ```bash
-$ npm run cluster:devnet
+$ solana config set --url devnet
 ```
 
 To point back to the local cluster:
 ```bash
-$ npm run cluster:localnet
+$ solana config set --url localnet
 ```
 
 ## Expand your skills with advanced examples

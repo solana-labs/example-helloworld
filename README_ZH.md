@@ -12,7 +12,7 @@
 
 # Hello world on Solana
 
-此專案將展示如何使用 [Solana Javascript API](https://github.com/solana-labs/solana-web3.js) 在 Solana 區塊鏈上構建、部署和程式交互。
+此專案將展示如何使用 [Solana Javascript API](https://github.com/solana-labs/solana-web3.js) 在 Solana 區塊鏈上和程式交互。
 
 此專案包含：
 
@@ -56,22 +56,39 @@
 - 安裝 node
 - 安裝 npm
 - 從 https://rustup.rs/ 安裝最新的 Rust 穩定版本
-- 從 https://docs.solana.com/cli/install-solana-cli-tools 安裝 v1.5.8 的 Solana 命令列管理工具
+- 從 https://docs.solana.com/cli/install-solana-cli-tools 安裝 v1.6.6 的 Solana 命令列管理工具
 
 如果這是您第一次使用 Docker 或 Rust，這些 [安裝筆記](README-installation-notes.md) 可能對您有幫助。
+
+### Configure CLI 
+
+1. Set CLI config url to localhost cluster
+
+```bash
+$ solana config set --url localhost
+```
+
+2. Create CLI Keypair
+
+If this is your first time using the Solana CLI, you will need to generate a new keypair:
+
+```bash
+$ solana-keygen new
+```
 
 ### 啟動本地 Solana 集群
 
 默認情況下，此範例連接到本地Solana集群。
 
-啟動鏈上程式日誌：
-```bash
-$ export RUST_LOG=solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=debug,solana_bpf_loader=debug,solana_rbpf=debug
-```
-
 啟動本地 Solana 集群：
 ```bash
-$ solana-test-validator --log
+$ solana-test-validator
+```
+**WARNING: `solana-test-validator` is not currently available for native Windows.  Try using WSL, or switch to Linux or macOS**
+
+Listen to transaction logs:
+```bash
+$ solana logs
 ```
 
 ### 安裝 npm 套件
@@ -79,7 +96,7 @@ $ solana-test-validator --log
 ```bash
 $ npm install
 ```
-### 部署鏈上程式
+### 構建鏈上程式
 
 鏈上程式有 Rust 版本和 C 版本，最新的版本是運行範例時使用的版本。
 
@@ -89,6 +106,12 @@ $ npm run build:program-rust
 
 ```bash
 $ npm run build:program-c
+```
+
+### 部署鏈上程式
+
+```bash
+$ solana program deploy dist/program/helloworld.so
 ```
 
 ### 啟動客戶端
@@ -102,31 +125,36 @@ $ npm run start
 公鑰將會有所不同：
 
 ```bash
-Lets say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { solana-core: 1.1.2 }
-Loading hello world program...
-Program loaded to account 47bZX1D1tdmw3KWTo5MfBrAwwHBJQQzQL4VnNGT7HtyQ
-Creating account Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk to say hello to
-Saying hello to Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk
-Eys1jdLHdZ2AE56QAKpfadbjziMZ6NAvpL7qsdtM6sbk has been greeted 1 times
+Let's say hello to a Solana account...
+Connection to cluster established: http://localhost:8899 { 'feature-set': 3714435735, 'solana-core': '1.6.6' }
+Using account AiT1QgeYaK86Lf9kudqKthQPCWwpG8vFA1bAAioBoF4X containing 0.00141872 SOL to pay for fees
+Using program Dro9uk45fxMcKWGb1eWALujbTssh6DW8mb4x8x3Eq5h6
+Creating account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A to say hello to
+Saying hello to 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A
+8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A has been greeted 1 times
 Success
 ```
 
 #### 沒有達到期望產出？
 
-- 確保您已經 [啟動本地 Solana 集群](#start-local-solana-cluster) 並 [佈建鏈上程式](#build-the-on-chain-program).
+- 確保您已經 [啟動本地 Solana 集群](#start-local-solana-cluster)，[構建鏈上程式](#構建鏈上程式) 並 [部署鏈上程式](#部署鏈上程式).
 - 集群的輸出日誌應包括程序日誌消息以及程式失敗的原因
   - `program log: <message>`   
-- 檢查 Solana 集群日誌以尋找任何失敗的交易或失敗的鏈上程式
-  - 擴展日誌過濾器並重啟集群以查看更多細節
-    - ```bash
-      $ export RUST_LOG=solana_runtime::native_loader=trace,solana_runtime::system_instruction_processor=trace,solana_runtime::bank=debug,solana_bpf_loader=debug,solana_rbpf=debug
-      $ solana-test-validator --log
-      ```
+- Inspect the program logs by running `solana logs` to see why the program failed.
+  - ```bash
+    Transaction executed in slot 5621:
+    Signature: 4pya5iyvNfAZj9sVWHzByrxdKB84uA5sCxLceBwr9UyuETX2QwnKg56MgBKWSM4breVRzHmpb1EZQXFPPmJnEtsJ
+    Status: Error processing Instruction 0: Program failed to complete
+    Log Messages:
+      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA invoke [1]
+      Program log: Hello World Rust program entrypoint
+      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA consumed 200000 of 200000 compute units
+      Program failed to complete: exceeded maximum number of instructions allowed (200000) at instruction #334
+      Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA failed: Program failed to complete
 
 ### 自定義程式
 
-要自定義示例，請更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你將需要[重新部署鏈上程式](#build-the-on-chain-program)
+要自定義示例，請更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你將需要[重新構建鏈上程式](#構建鏈上程式) 並 [重新部署鏈上程式](#部署鏈上程式)。
 
 現在，當您重新運行 `npm run start` 時，您應該看到更改的結果。
 
@@ -150,18 +178,12 @@ Success
 
 客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
 
-### 載入鏈上程式 Hello World（如果尚未加載）
+### Check if the helloworld on-chain program has been deployed
 
-在群集上載入程式的過程包括將共享對象的位元組儲存在 Solana 帳戶的數據向量中，並標記帳戶為可實行的。
-
-客戶端通過調用 [`載入程式`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L54)載入程式。並將第一次的 `loadProgram` 稱為客戶端：
-
-- 從檔案系統中讀取共享對象
-- 計算`載入程式`相關的手續費
-- 空投時間戳記到付款人帳戶以支付費用
-- 通過 Solana web3.js 函式載入 [`BPFLoader.load`]([TODO](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/bpf-loader.js#L36)) 程式
-- 創建一個新的 `greeter` 帳戶，該帳戶將創建 `Hello` 交易
-- 在配置文件中記錄已載入 `helloworld` 程式和 `greeter` 帳戶的 [公鑰](https://github.com/solana-labs/solana-web3.js/blob/37d57926b9dba05d1ad505d4fd39d061030e2e87/src/publickey.js#L10)。重複調用客戶端將載入相同的程式和 `greeter` 帳戶。（要強制重新加載程式，請執行 `npm clean：store`）
+The client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
+the public key for the keypair to fetch the program account. If the program doesn't exist, the client halts
+with an error. If the program does exist, it will create a new account with the program assigned as its owner
+to store program state (number of hello's processed).
 
 ### 發送 `Hello` 交易至鏈上
 
@@ -192,16 +214,16 @@ Solana 有三個公開集群：
 - `testnet` - Tour De Sol 沒有空投的測試集群
 - `mainnet-beta` -  主網集群
   
-使用 npm 指令去選擇集群 
+使用 Solana CLI 的 `solana` 指令去選擇集群 
 
 選擇 `devnet` 集群:
 ```bash
-$ npm run cluster:devnet
+$ solana config set --url devnet
 ```
 
 選擇 `local` 集群:
 ```bash
-$ npm run cluster:localnet
+$ solana config set --url localnet
 ```
 
 ## 透過高級的範例擴展你的技能
