@@ -5,7 +5,7 @@
 import {
   establishConnection,
   establishPayer,
-  loadProgram,
+  checkProgram,
   sayHello,
   reportGreetings,
 } from './hello_world';
@@ -19,8 +19,8 @@ async function main() {
   // Determine who pays for the fees
   await establishPayer();
 
-  // Load the program if not already loaded
-  await loadProgram();
+  // Check if the program has been deployed
+  await checkProgram();
 
   // Say hello to an account
   await sayHello();

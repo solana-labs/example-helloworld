@@ -6,8 +6,6 @@
 import {
   Account,
   Connection,
-  BpfLoader,
-  BPF_LOADER_PROGRAM_ID,
   PublicKey,
   LAMPORTS_PER_SOL,
   SystemProgram,
@@ -16,10 +14,10 @@ import {
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import fs from 'mz/fs';
+import path from 'path';
 import * as borsh from 'borsh';
 
-import {url, urlTls} from './util/url';
-import {Store} from './util/store';
+import {url} from './util/url';
 import {newAccountWithLamports} from './util/new-account-with-lamports';
 
 /**
@@ -42,7 +40,24 @@ let programId: PublicKey;
  */
 let greetedPubkey: PublicKey;
 
-const pathToProgram = 'dist/program/helloworld.so';
+/**
+ * Path to program files
+ */
+const PROGRAM_PATH = path.resolve(__dirname, "../../dist/program");
+
+/**
+ * Path to program shared object file which should be deployed on chain.
+ * This file is created when running either:
+ *   - `npm run build:program-c`
+ *   - `npm run build:program-rust`
+ */
+const PROGRAM_SO_PATH = path.join(PROGRAM_PATH, 'helloworld.so');
+
+/**
+ * Path to the keypair of the deployed program.
+ * This file is created when running `solana program deploy dist/program/helloworld.so`
+ */
+const PROGRAM_KEYPAIR_PATH = path.join(PROGRAM_PATH, 'helloworld-keypair.json');
 
 /**
  * The state of a greeting account managed by the hello world program
@@ -86,18 +101,10 @@ export async function establishPayer(): Promise<void> {
     let fees = 0;
     const {feeCalculator} = await connection.getRecentBlockhash();
 
-    // Calculate the cost to load the program
-    const data = await fs.readFile(pathToProgram);
-    const NUM_RETRIES = 500; // allow some number of retries
-    fees +=
-      feeCalculator.lamportsPerSignature *
-        (BpfLoader.getMinNumSignatures(data.length) + NUM_RETRIES) +
-      (await connection.getMinimumBalanceForRentExemption(data.length));
-
     // Calculate the cost to fund the greeter account
     fees += await connection.getMinimumBalanceForRentExemption(GREETING_SIZE);
 
-    // Calculate the cost of sending the transactions
+    // Calculate the cost of sending transactions
     fees += feeCalculator.lamportsPerSignature * 100; // wag
 
     // Fund a new payer via airdrop
@@ -115,64 +122,62 @@ export async function establishPayer(): Promise<void> {
 }
 
 /**
- * Load the hello world BPF program if not already loaded
+ * Check if the hello world BPF program has been deployed
  */
-export async function loadProgram(): Promise<void> {
-  const store = new Store();
-
-  // Check if the program has already been loaded
+export async function checkProgram(): Promise<void> {
+  // Read program id from keypair file
+  let programAccount;
   try {
-    const config = await store.load('config.json');
-    programId = new PublicKey(config.programId);
-    greetedPubkey = new PublicKey(config.greetedPubkey);
-    await connection.getAccountInfo(programId);
-    console.log('Program already loaded to account', programId.toBase58());
-    return;
+    const programKeypairString = await fs.readFile(PROGRAM_KEYPAIR_PATH, {encoding: "utf8"});
+    const programKeypair = Buffer.from(JSON.parse(programKeypairString));
+    programAccount = new Account(programKeypair);
+    programId = programAccount.publicKey;
   } catch (err) {
-    // try to load the program
+    throw new Error(`Failed to read program keypair at '${PROGRAM_KEYPAIR_PATH}' due to error: ${err}. Program may need to be deployed with \`solana program deploy dist/program/helloworld.so\``);
   }
 
-  // Load the program
-  console.log('Loading hello world program...');
-  const data = await fs.readFile(pathToProgram);
-  const programAccount = new Account();
-  await BpfLoader.load(
-    connection,
-    payerAccount,
-    programAccount,
-    data,
-    BPF_LOADER_PROGRAM_ID,
-  );
-  programId = programAccount.publicKey;
-  console.log('Program loaded to account', programId.toBase58());
+  // Check if the program has been deployed
+  const programInfo = await connection.getAccountInfo(programId); 
+  if (programInfo === null) {
+    if (fs.existsSync(PROGRAM_SO_PATH)) {
+      throw new Error('Program needs to be deployed with `solana program deploy dist/program/helloworld.so`');
+    } else {
+      throw new Error('Program needs to be built and deployed');
+    }
+  } else if (!programInfo.executable) {
+    throw new Error(`Program is not executable`)
+  }
+  console.log(`Using program ${programId.toBase58()}`);
 
-  // Create the greeted account
-  const greetedAccount = new Account();
-  greetedPubkey = greetedAccount.publicKey;
-  console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
-  const lamports = await connection.getMinimumBalanceForRentExemption(
-    GREETING_SIZE,
-  );
-  const transaction = new Transaction().add(
-    SystemProgram.createAccount({
-      fromPubkey: payerAccount.publicKey,
-      newAccountPubkey: greetedPubkey,
-      lamports,
-      space: GREETING_SIZE,
-      programId,
-    }),
-  );
-  await sendAndConfirmTransaction(connection, transaction, [
-    payerAccount,
-    greetedAccount,
-  ]);
 
-  // Save this info for next time
-  await store.save('config.json', {
-    url: urlTls,
-    programId: programId.toBase58(),
-    greetedPubkey: greetedPubkey.toBase58(),
-  });
+  // Derive the address of a greeting account from the program so that it's easy to find later.
+  const GREETING_SEED = "hello"
+  greetedPubkey = await PublicKey.createWithSeed(programId, GREETING_SEED, programId);
+
+  // Check if the greeting account has already been created
+  const greetedAccount = await connection.getAccountInfo(greetedPubkey); 
+  if (greetedAccount === null) {
+    console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
+    const lamports = await connection.getMinimumBalanceForRentExemption(
+      GREETING_SIZE,
+    );
+
+    const transaction = new Transaction().add(
+      SystemProgram.createAccountWithSeed({
+        fromPubkey: payerAccount.publicKey,
+        basePubkey: programId,
+        seed: GREETING_SEED,
+        newAccountPubkey: greetedPubkey,
+        lamports,
+        space: GREETING_SIZE,
+        programId,
+      }),
+    );
+
+    // Sign the transaction with the payer to pay for fees and the program keypair because
+    // it's required for creating a derived account from its address
+    await sendAndConfirmTransaction(connection, transaction, [payerAccount, programAccount]);
+  }
 }
 
 /**
@@ -209,6 +214,6 @@ export async function reportGreetings(): Promise<void> {
     greetedPubkey.toBase58(),
     'has been greeted',
     greeting.counter,
-    'times',
+    'time(s)',
   );
 }
