@@ -1,5 +1,5 @@
-use byteorder::{ByteOrder, LittleEndian};
-use solana_bpf_helloworld::process_instruction;
+use borsh::BorshDeserialize;
+use solana_bpf_helloworld::{process_instruction, GreetingAccount};
 use solana_program_test::*;
 use solana_sdk::{
     account::Account,
@@ -37,7 +37,12 @@ async fn test_helloworld() {
         .await
         .expect("get_account")
         .expect("greeted_account not found");
-    assert_eq!(LittleEndian::read_u32(&greeted_account.data), 0);
+    assert_eq!(
+        GreetingAccount::try_from_slice(&greeted_account.data)
+            .unwrap()
+            .counter,
+        0
+    );
 
     // Greet once
     let mut transaction = Transaction::new_with_payer(
@@ -57,7 +62,12 @@ async fn test_helloworld() {
         .await
         .expect("get_account")
         .expect("greeted_account not found");
-    assert_eq!(LittleEndian::read_u32(&greeted_account.data), 1);
+    assert_eq!(
+        GreetingAccount::try_from_slice(&greeted_account.data)
+            .unwrap()
+            .counter,
+        1
+    );
 
     // Greet again
     let mut transaction = Transaction::new_with_payer(
@@ -77,5 +87,10 @@ async fn test_helloworld() {
         .await
         .expect("get_account")
         .expect("greeted_account not found");
-    assert_eq!(LittleEndian::read_u32(&greeted_account.data), 2);
+    assert_eq!(
+        GreetingAccount::try_from_slice(&greeted_account.data)
+            .unwrap()
+            .counter,
+        2
+    );
 }

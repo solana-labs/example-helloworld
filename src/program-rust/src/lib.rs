@@ -1,4 +1,4 @@
-use byteorder::{ByteOrder, LittleEndian};
+use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint,
@@ -7,7 +7,13 @@ use solana_program::{
     program_error::ProgramError,
     pubkey::Pubkey,
 };
-use std::mem;
+
+/// Define the type of state stored in accounts
+#[derive(BorshSerialize, BorshDeserialize, Debug)]
+pub struct GreetingAccount {
+    /// number of greetings
+    pub counter: u32,
+}
 
 // Declare and export the program's entrypoint
 entrypoint!(process_instruction);
@@ -18,7 +24,7 @@ pub fn process_instruction(
     accounts: &[AccountInfo], // The account to say hello to
     _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
 ) -> ProgramResult {
-    msg!("Helloworld Rust program entrypoint");
+    msg!("Hello World Rust program entrypoint");
 
     // Iterating accounts is safer then indexing
     let accounts_iter = &mut accounts.iter();
@@ -32,19 +38,12 @@ pub fn process_instruction(
         return Err(ProgramError::IncorrectProgramId);
     }
 
-    // The data must be large enough to hold a u32 count
-    if account.try_data_len()? < mem::size_of::<u32>() {
-        msg!("Greeted account data length too small for u32");
-        return Err(ProgramError::InvalidAccountData);
-    }
-
     // Increment and store the number of times the account has been greeted
-    let mut data = account.try_borrow_mut_data()?;
-    let mut num_greets = LittleEndian::read_u32(&data);
-    num_greets += 1;
-    LittleEndian::write_u32(&mut data[0..], num_greets);
+    let mut greeting_account = GreetingAccount::try_from_slice(&account.data.borrow())?;
+    greeting_account.counter += 1;
+    greeting_account.serialize(&mut &mut account.data.borrow_mut()[..])?;
 
-    msg!("Hello!");
+    msg!("Greeted {} time(s)!", greeting_account.counter);
 
     Ok(())
 }
@@ -54,6 +53,7 @@ pub fn process_instruction(
 mod test {
     use super::*;
     use solana_program::clock::Epoch;
+    use std::mem;
 
     #[test]
     fn test_sanity() {
@@ -61,7 +61,6 @@ mod test {
         let key = Pubkey::default();
         let mut lamports = 0;
         let mut data = vec![0; mem::size_of::<u32>()];
-        LittleEndian::write_u32(&mut data, 0);
         let owner = Pubkey::default();
         let account = AccountInfo::new(
             &key,
@@ -77,10 +76,25 @@ mod test {
 
         let accounts = vec![account];
 
-        assert_eq!(LittleEndian::read_u32(&accounts[0].data.borrow()), 0);
+        assert_eq!(
+            GreetingAccount::try_from_slice(&accounts[0].data.borrow())
+                .unwrap()
+                .counter,
+            0
+        );
         process_instruction(&program_id, &accounts, &instruction_data).unwrap();
-        assert_eq!(LittleEndian::read_u32(&accounts[0].data.borrow()), 1);
+        assert_eq!(
+            GreetingAccount::try_from_slice(&accounts[0].data.borrow())
+                .unwrap()
+                .counter,
+            1
+        );
         process_instruction(&program_id, &accounts, &instruction_data).unwrap();
-        assert_eq!(LittleEndian::read_u32(&accounts[0].data.borrow()), 2);
+        assert_eq!(
+            GreetingAccount::try_from_slice(&accounts[0].data.borrow())
+                .unwrap()
+                .counter,
+            2
+        );
     }
 }

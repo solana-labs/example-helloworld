@@ -13,12 +13,13 @@ edition = "2018"
 no-entrypoint = []
 
 [dependencies]
-byteorder = "1.3"
-solana-program = "=1.6.1"
+borsh = "0.7.1"
+borsh-derive = "0.8.1"
+solana-program = "=1.6.6"
 
 [dev-dependencies]
-solana-program-test = "=1.6.1"
-solana-sdk = "=1.6.1"
+solana-program-test = "=1.6.6"
+solana-sdk = "=1.6.6"
 
 [lib]
 crate-type = ["cdylib", "lib"]
