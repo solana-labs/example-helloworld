@@ -2,13 +2,12 @@ image:
   file: .gitpod.Dockerfile
 tasks:
   - init: |
-      sh -c "$(curl -sSfL https://release.solana.com/v1.5.8/install)"
+      sh -c "$(curl -sSfL https://release.solana.com/v1.6.6/install)"
       export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
       npm run cluster:devnet
     command: |
-      rustup toolchain link bpf node_modules/@solana/web3.js/bpf-sdk/dependencies/rust-bpf
       gp open README-gitpod.md
 github:
   prebuilds:

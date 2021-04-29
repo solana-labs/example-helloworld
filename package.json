@@ -16,7 +16,7 @@
     "lint:fix": "eslint --ext .ts src/client/* --fix && prettier --write \"src/client/**/*.ts\"",
     "clean": "npm run clean:program-c && npm run clean:program-rust",
     "clean:store": "rm -rf src/client/util/store/config.json",
-    "build:program-c": "rm -f ./dist/program/helloworld.so && V=1 make -C ./src/program-c && npm run clean:store",
+    "build:program-c": "rm -f ./dist/program/helloworld.so && V=1 make -C ./src/program-c helloworld && npm run clean:store",
     "clean:program-c": "V=1 make -C ./src/program-c clean && npm run clean:store",
     "build:program-rust": "cargo build-bpf --manifest-path=./src/program-rust/Cargo.toml --bpf-out-dir=dist/program && mv dist/program/solana_bpf_helloworld.so dist/program/helloworld.so && npm run clean:store",
     "clean:program-rust": "cargo clean --manifest-path=./src/program-rust/Cargo.toml && rm -rf ./dist && npm run clean:store",
@@ -25,6 +25,7 @@
     "cluster:devnet": "npm run clean:store && cp cluster-devnet.env .env",
     "cluster:testnet": "npm run clean:store && cp cluster-testnet.env .env",
     "cluster:mainnet-beta": "npm run clean:store && cp cluster-mainnet-beta.env .env",
+    "install:bpf-sdk": "./src/program-c/bpf-sdk-install.sh",
     "pretty": "prettier --write '{,src/**/}*.js'",
     "postinstall": "cargo update --manifest-path=src/program-rust/Cargo.toml"
   },
