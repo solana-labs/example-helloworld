@@ -6,7 +6,8 @@ tasks:
       export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
-      solana-keygen new
+      solana config set --url localnet
+      solana-keygen new --no-bip39-passphrase
     command: |
       gp open README-gitpod.md
 github:
