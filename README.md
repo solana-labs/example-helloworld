@@ -68,6 +68,22 @@ on your OS, they may already be installed:
 If this is your first time using Rust, these [Installation
 Notes](README-installation-notes.md) might be helpful.
 
+### Configure CLI 
+
+1. Set CLI config url to localhost cluster
+
+```bash
+$ solana config set --url localhost
+```
+
+2. Create CLI Keypair
+
+If this is your first time using the Solana CLI, you will need to generate a new keypair:
+
+```bash
+$ solana-keygen new
+```
+
 ### Start local Solana cluster
 
 This example connects to a local Solana cluster by default.
@@ -80,7 +96,7 @@ $ solana-test-validator
 
 Listen to transaction logs:
 ```bash
-$ solana logs --url localnet
+$ solana logs
 ```
 
 ### Install npm dependencies

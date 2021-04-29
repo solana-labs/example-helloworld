@@ -60,6 +60,22 @@
 
 如果這是您第一次使用 Docker 或 Rust，這些 [安裝筆記](README-installation-notes.md) 可能對您有幫助。
 
+### Configure CLI 
+
+1. Set CLI config url to localhost cluster
+
+```bash
+$ solana config set --url localhost
+```
+
+2. Create CLI Keypair
+
+If this is your first time using the Solana CLI, you will need to generate a new keypair:
+
+```bash
+$ solana-keygen new
+```
+
 ### 啟動本地 Solana 集群
 
 默認情況下，此範例連接到本地Solana集群。
@@ -72,7 +88,7 @@ $ solana-test-validator
 
 Listen to transaction logs:
 ```bash
-$ solana logs --url localnet
+$ solana logs
 ```
 
 ### 安裝 npm 套件
