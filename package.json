@@ -21,7 +21,7 @@
     "clean:program-rust": "cargo clean --manifest-path=./src/program-rust/Cargo.toml && rm -rf ./dist",
     "test:program-rust": "cargo test-bpf --manifest-path=./src/program-rust/Cargo.toml",
     "install:bpf-sdk": "./src/program-c/bpf-sdk-install.sh",
-    "pretty": "prettier --write '{,src/**/}*.js'",
+    "pretty": "prettier --write '{,src/**/}*.ts'",
     "postinstall": "cargo update --manifest-path=src/program-rust/Cargo.toml"
   },
   "dependencies": {
@@ -30,7 +30,8 @@
     "dotenv": "8.2.0",
     "json-to-pretty-yaml": "^1.2.2",
     "mkdirp": "^1.0.4",
-    "mz": "^2.7.0"
+    "mz": "^2.7.0",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -39,6 +40,7 @@
     "@types/mkdirp": "^1.0.1",
     "@types/mz": "^2.7.2",
     "@types/prettier": "^2.1.5",
+    "@types/yaml": "^1.9.7",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
     "eslint": "^7.12.1",

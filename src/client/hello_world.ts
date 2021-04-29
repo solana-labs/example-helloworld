@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import {
   Account,
@@ -17,8 +15,12 @@ import fs from 'mz/fs';
 import path from 'path';
 import * as borsh from 'borsh';
 
-import {url} from './util/url';
-import {newAccountWithLamports} from './util/new-account-with-lamports';
+import {
+  getPayer,
+  getRpcUrl,
+  newAccountWithLamports,
+  readAccountFromFile,
+} from './utils';
 
 /**
  * Connection to the network
@@ -43,7 +45,7 @@ let greetedPubkey: PublicKey;
 /**
  * Path to program files
  */
-const PROGRAM_PATH = path.resolve(__dirname, "../../dist/program");
+const PROGRAM_PATH = path.resolve(__dirname, '../../dist/program');
 
 /**
  * Path to program shared object file which should be deployed on chain.
@@ -88,17 +90,18 @@ const GREETING_SIZE = borsh.serialize(GreetingSchema, new GreetingAccount())
  * Establish a connection to the cluster
  */
 export async function establishConnection(): Promise<void> {
-  connection = new Connection(url, 'confirmed');
+  const rpcUrl = await getRpcUrl();
+  connection = new Connection(rpcUrl, 'confirmed');
   const version = await connection.getVersion();
-  console.log('Connection to cluster established:', url, version);
+  console.log('Connection to cluster established:', rpcUrl, version);
 }
 
 /**
  * Establish an account to pay for everything
  */
 export async function establishPayer(): Promise<void> {
+  let fees = 0;
   if (!payerAccount) {
-    let fees = 0;
     const {feeCalculator} = await connection.getRecentBlockhash();
 
     // Calculate the cost to fund the greeter account
@@ -107,11 +110,25 @@ export async function establishPayer(): Promise<void> {
     // Calculate the cost of sending transactions
     fees += feeCalculator.lamportsPerSignature * 100; // wag
 
-    // Fund a new payer via airdrop
-    payerAccount = await newAccountWithLamports(connection, fees);
+    try {
+      // Get payer from cli config
+      payerAccount = await getPayer();
+    } catch (err) {
+      // Fund a new payer via airdrop
+      payerAccount = await newAccountWithLamports(connection, fees);
+    }
   }
 
   const lamports = await connection.getBalance(payerAccount.publicKey);
+  if (lamports < fees) {
+    // This should only happen when using cli config keypair
+    const sig = await connection.requestAirdrop(
+      payerAccount.publicKey,
+      fees - lamports,
+    );
+    await connection.confirmTransaction(sig);
+  }
+
   console.log(
     'Using account',
     payerAccount.publicKey.toBase58(),
@@ -126,38 +143,47 @@ export async function establishPayer(): Promise<void> {
  */
 export async function checkProgram(): Promise<void> {
   // Read program id from keypair file
-  let programAccount;
   try {
-    const programKeypairString = await fs.readFile(PROGRAM_KEYPAIR_PATH, {encoding: "utf8"});
-    const programKeypair = Buffer.from(JSON.parse(programKeypairString));
-    programAccount = new Account(programKeypair);
+    const programAccount = await readAccountFromFile(PROGRAM_KEYPAIR_PATH);
     programId = programAccount.publicKey;
   } catch (err) {
-    throw new Error(`Failed to read program keypair at '${PROGRAM_KEYPAIR_PATH}' due to error: ${err}. Program may need to be deployed with \`solana program deploy dist/program/helloworld.so\``);
+    const errMsg = (err as Error).message;
+    throw new Error(
+      `Failed to read program keypair at '${PROGRAM_KEYPAIR_PATH}' due to error: ${errMsg}. Program may need to be deployed with \`solana program deploy dist/program/helloworld.so\``,
+    );
   }
 
   // Check if the program has been deployed
-  const programInfo = await connection.getAccountInfo(programId); 
+  const programInfo = await connection.getAccountInfo(programId);
   if (programInfo === null) {
     if (fs.existsSync(PROGRAM_SO_PATH)) {
-      throw new Error('Program needs to be deployed with `solana program deploy dist/program/helloworld.so`');
+      throw new Error(
+        'Program needs to be deployed with `solana program deploy dist/program/helloworld.so`',
+      );
     } else {
       throw new Error('Program needs to be built and deployed');
     }
   } else if (!programInfo.executable) {
-    throw new Error(`Program is not executable`)
+    throw new Error(`Program is not executable`);
   }
   console.log(`Using program ${programId.toBase58()}`);
 
-
   // Derive the address of a greeting account from the program so that it's easy to find later.
-  const GREETING_SEED = "hello"
-  greetedPubkey = await PublicKey.createWithSeed(programId, GREETING_SEED, programId);
+  const GREETING_SEED = 'hello';
+  greetedPubkey = await PublicKey.createWithSeed(
+    payerAccount.publicKey,
+    GREETING_SEED,
+    programId,
+  );
 
   // Check if the greeting account has already been created
-  const greetedAccount = await connection.getAccountInfo(greetedPubkey); 
+  const greetedAccount = await connection.getAccountInfo(greetedPubkey);
   if (greetedAccount === null) {
-    console.log('Creating account', greetedPubkey.toBase58(), 'to say hello to');
+    console.log(
+      'Creating account',
+      greetedPubkey.toBase58(),
+      'to say hello to',
+    );
     const lamports = await connection.getMinimumBalanceForRentExemption(
       GREETING_SIZE,
     );
@@ -165,7 +191,7 @@ export async function checkProgram(): Promise<void> {
     const transaction = new Transaction().add(
       SystemProgram.createAccountWithSeed({
         fromPubkey: payerAccount.publicKey,
-        basePubkey: programId,
+        basePubkey: payerAccount.publicKey,
         seed: GREETING_SEED,
         newAccountPubkey: greetedPubkey,
         lamports,
@@ -173,10 +199,7 @@ export async function checkProgram(): Promise<void> {
         programId,
       }),
     );
-
-    // Sign the transaction with the payer to pay for fees and the program keypair because
-    // it's required for creating a derived account from its address
-    await sendAndConfirmTransaction(connection, transaction, [payerAccount, programAccount]);
+    await sendAndConfirmTransaction(connection, transaction, [payerAccount]);
   }
 }
 
