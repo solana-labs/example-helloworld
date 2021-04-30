@@ -254,7 +254,7 @@ $ solana config set --url devnet
 
 To point back to the local cluster:
 ```bash
-$ solana config set --url localnet
+$ solana config set --url localhost
 ```
 
 ## Expand your skills with advanced examples
