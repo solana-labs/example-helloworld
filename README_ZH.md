@@ -62,15 +62,15 @@
 
 ### 配置命令列
 
-1. 将令列配置的 url 设置成 localhost 集群
+1. 將命令列配置的 url 設置成 localhost 集群
 
 ```bash
 $ solana config set --url localhost
 ```
 
-2. 创建命令列使用的秘钥对
+2. 創建命令列使用的密鑰對
 
-如果这是你第一次使用 solana 命令列，你先得生成一个新的秘钥对
+如果這是你第一次使用 solana 命令列，你先得生成一个新的密鑰對
 
 ```bash
 $ solana-keygen new
@@ -84,9 +84,9 @@ $ solana-keygen new
 ```bash
 $ solana-test-validator
 ```
-**注意: 如果你要用 Windows 的话，你得先设置 WSL，才能用 `solana-test-validator` 的工具**
+**注意: 如果你要用 Windows 的話，你得先設置 WSL，才能用 `solana-test-validator` 的工具**
 
-关注交易日志：
+關注交易日誌：
 ```bash
 $ solana logs
 ```
