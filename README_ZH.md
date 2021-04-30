@@ -60,17 +60,17 @@
 
 如果這是您第一次使用 Docker 或 Rust，這些 [安裝筆記](README-installation-notes.md) 可能對您有幫助。
 
-### Configure CLI 
+### 配置命令列
 
-1. Set CLI config url to localhost cluster
+1. 將命令列配置的 url 設置成 localhost 集群
 
 ```bash
 $ solana config set --url localhost
 ```
 
-2. Create CLI Keypair
+2. 創建命令列使用的密鑰對
 
-If this is your first time using the Solana CLI, you will need to generate a new keypair:
+如果這是你第一次使用 solana 命令列，你先得生成一个新的密鑰對
 
 ```bash
 $ solana-keygen new
@@ -78,15 +78,15 @@ $ solana-keygen new
 
 ### 啟動本地 Solana 集群
 
-默認情況下，此範例連接到本地Solana集群。
+默認情況下，此範例連接到本地 Solana 集群。
 
 啟動本地 Solana 集群：
 ```bash
 $ solana-test-validator
 ```
-**WARNING: `solana-test-validator` is not currently available for native Windows.  Try using WSL, or switch to Linux or macOS**
+**注意: 如果你要用 Windows 的話，你得先設置 WSL，才能用 `solana-test-validator` 的工具**
 
-Listen to transaction logs:
+關注交易日誌：
 ```bash
 $ solana logs
 ```
