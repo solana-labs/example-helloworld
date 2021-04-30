@@ -223,7 +223,7 @@ $ solana config set --url devnet
 
 選擇 `local` 集群:
 ```bash
-$ solana config set --url localnet
+$ solana config set --url localhost
 ```
 
 ## 透過高級的範例擴展你的技能
