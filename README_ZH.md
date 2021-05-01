@@ -137,10 +137,10 @@ Success
 
 #### 沒有達到期望產出？
 
-- 確保您已經 [啟動本地 Solana 集群](#start-local-solana-cluster)，[構建鏈上程式](#構建鏈上程式) 並 [部署鏈上程式](#部署鏈上程式).
+- 確認您已經[啟動了本地 Solana 集群](#start-local-solana-cluster)，[構建](#構建鏈上程式) 并 [部署好了](#部署鏈上程式) 鏈上程式。
 - 集群的輸出日誌應包括程序日誌消息以及程式失敗的原因
   - `program log: <message>`   
-- Inspect the program logs by running `solana logs` to see why the program failed.
+- 運行 `solana logs` 檢查程式日誌找出程式失敗的原因。
   - ```bash
     Transaction executed in slot 5621:
     Signature: 4pya5iyvNfAZj9sVWHzByrxdKB84uA5sCxLceBwr9UyuETX2QwnKg56MgBKWSM4breVRzHmpb1EZQXFPPmJnEtsJ
