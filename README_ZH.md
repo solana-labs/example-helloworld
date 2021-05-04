@@ -178,12 +178,10 @@ Success
 
 客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
 
-### Check if the helloworld on-chain program has been deployed
+### 檢查一下這個 helloworld 鏈上程式是否已經部署好了
 
-The client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
-the public key for the keypair to fetch the program account. If the program doesn't exist, the client halts
-with an error. If the program does exist, it will create a new account with the program assigned as its owner
-to store program state (number of hello's processed).
+客戶端從 `./dist/program/helloworld-keypair.json` 這個文件加載程式的密鑰對。客戶端使用那個密鑰對的公鑰訪問程式帳戶。如果程式帳戶不存在，
+客戶端就會報錯並停止運行。如果程式存在，客戶端會創建一個對於該程式指定好的帳戶。
 
 ### 發送 `Hello` 交易至鏈上
 
