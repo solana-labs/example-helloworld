@@ -59,7 +59,7 @@ If you decide to open in Gitpod then refer to
 The following dependencies are required to build and run this example, depending
 on your OS, they may already be installed:
 
-- Install node
+- Install node (v14 recommended)
 - Install npm
 - Install the latest Rust stable from https://rustup.rs/
 - Install Solana v1.6.6 or later from
