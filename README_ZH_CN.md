@@ -12,11 +12,11 @@
 
 # Solana 的 Hello world 实例
 
-此专案将展示如何使用 [Solana Javascript API](https://github.com/solana-labs/solana-web3.js) 在 Solana 区块链上和程式交互。
+此专案将展示如何使用 [Solana Javascript API](https://github.com/solana-labs/solana-web3.js) 在 Solana 区块链上和程序交互。
 
 此专案包含：
 
-* 链上的 Hello World 程式
+* 链上的 Hello World 程序
 * 可以向帐户发送 hello 并获取 hello 的发送次数。
 
 ## 翻译
@@ -27,20 +27,20 @@
   - [快速开始](#快速開始)
     - [启动本地 Solana 集群](#啟動本地-solana-集群)
     - [安装 npm 套件](#安裝-npm-套件)
-    - [部署链上程式](#部署鏈上程式)
+    - [部署链上程序](#部署鏈上程序)
     - [启动客户端](#啟動客戶端)
     - [期望产出](#期望產出)
       - [没有达到期望产出？](#沒有達到期望產出)
-    - [自定义程式](#自定義程式)
+    - [自定义程序](#自定義程序)
   - [学习 Solana](#學習-solana)
   - [学习 Client](#學習-client)
     - [进入点](#進入點)
     - [建立与集群的连接](#建立與集群的連接)
-    - [载入链上程式 Hello World（如果尚未加载）](#載入鏈上程式-hello-world如果尚未加載)
+    - [载入链上程序 Hello World（如果尚未加载）](#載入鏈上程序-hello-world如果尚未加載)
     - [发送 Hello 交易至链上](#發送-Hello-交易至鏈上)
     - [查询使用过 Hello 交易的 Solana 帐户](#查詢使用過-Hello-交易的-Solana-帳戶)
-  - [学习链上程式](#學習鏈上程式)
-    - [在 Solana 上编写程式](#在-Solana-上編寫程式)
+  - [学习链上程序](#學習鏈上程序)
+    - [在 Solana 上编写程序](#在-Solana-上編寫程序)
   - [指向公开 Solana 集群](#指向公開的-Solana-集群)
   - [透过高级的范例扩展你的技能](#透過高級的範例擴展你的技能)
 
@@ -98,9 +98,9 @@ $ solana logs
 $ npm install
 ```
 
-### 构建链上程式
+### 构建链上程序
 
-链上程式有 Rust 版本和 C 版本，最新的版本是运行范例时使用的版本。
+链上程序有 Rust 版本和 C 版本，最新的版本是运行范例时使用的版本。
 
 ```bash
 $ npm run build:program-rust
@@ -110,7 +110,7 @@ $ npm run build:program-rust
 $ npm run build:program-c
 ```
 
-### 部署链上程式
+### 部署链上程序
 
 ```bash
 $ solana program deploy dist/program/helloworld.so
@@ -137,10 +137,10 @@ Success
 ```
 
 #### 没有达到期望产出？
-- 确认您已经启动了本地 Solana 集群，构建 并 部署好了 链上程式。
-- 集群的输出日志应包括程序日志消息以及程式失败的原因
+- 确认您已经启动了本地 Solana 集群，构建 并 部署好了 链上程序。
+- 集群的输出日志应包括程序日志消息以及程序失败的原因
   - program log: <message>
-- 运行 solana logs 检查程式日志找出程式失败的原因。
+- 运行 solana logs 检查程序日志找出程序失败的原因。
   - ```bash
     Transaction executed in slot 5621:
     Signature: 4pya5iyvNfAZj9sVWHzByrxdKB84uA5sCxLceBwr9UyuETX2QwnKg56MgBKWSM4breVRzHmpb1EZQXFPPmJnEtsJ
@@ -152,9 +152,9 @@ Success
       Program failed to complete: exceeded maximum number of instructions allowed (200000) at instruction #334
       Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA failed: Program failed to complete
 
-### 自定义程式
+### 自定义程序
 
-要自定义示例，请更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你将需要重新构建链上程式 并 重新部署链上程式。
+要自定义示例，请更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你将需要重新构建链上程序 并 重新部署链上程序。
 
 现在，当您重新运行 `npm run start` 时，您应该看到更改的结果。
 
@@ -188,26 +188,26 @@ Solana 文件提供了有关 Solana 的更多消息并且所有的源代码都�
 
 ### 发送 `Hello` 交易至链上
 
-客户端将通过调用 sayHello 并向程式发送 Hello 交易。此交易包含一条非常简单的指令，此指令主要呼叫 helloworld 程式的帐户公钥希望向 greeter 帐户说 Hello。
+客户端将通过调用 sayHello 并向程序发送 Hello 交易。此交易包含一条非常简单的指令，此指令主要呼叫 helloworld 程序的帐户公钥希望向 greeter 帐户说 Hello。
 
 ### 查询使用过 Hello 交易的 Solana 帐户
 
-客户端每次对帐户说 Hello 时，程式都会在 greeter 帐户的数据中增加一个计数。客户端查询 greeter 帐户的数据，并透过 reportHellos 查询此帐户当前被访问的次数。
+客户端每次对帐户说 Hello 时，程序都会在 greeter 帐户的数据中增加一个计数。客户端查询 greeter 帐户的数据，并透过 reportHellos 查询此帐户当前被访问的次数。
 
 
-## 学习链上程式
+## 学习链上程序
 
-链上 HelloWorld 程式 是一个 Rust 程式编译成 Berkley Packet Format (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
+链上 HelloWorld 程序 是一个 Rust 程序编译成 Berkley Packet Format (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
 
-此程式是使用以下程式编写：
+此程序是使用以下程序编写：
 
 - Solana Rust SDK
 
-### 在 Solana 上编写程式
+### 在 Solana 上编写程序
 
-要了解有关 Solana 程式设计模型的更多讯息，请参阅程式设计模型概述。
+要了解有关 Solana 程序设计模型的更多讯息，请参阅程序设计模型概述。
 
-要了解有关在 Solana 上开发程式的更多讯息，请参阅已部署程式概述。
+要了解有关在 Solana 上开发程序的更多讯息，请参阅已部署程序概述。
 
 ## 指向公开的 Solana 集群
 
