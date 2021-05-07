@@ -197,19 +197,19 @@ Solana 文件提供了有关 Solana 的更多消息并且所有的源代码都�
 
 ## 学习链上程序
 
-链上 HelloWorld 程序 是一个 Rust 程序编译成 Berkley Packet Format (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
+Solana 链上程序存储的可执行字节码都是 Berkley Packet Filter (BPF) 字节码。
+Solana 命令列工具可以把 Rust 和 C 代码编译成 BPF 字节码。
 
-此程序是使用以下程序编写：
+所有 Rust 的链上程序都是使用以下程序套件编写：
 
 - Solana Rust SDK
 
-### 在 Solana 上编写程序
+### 在 Solana 平台上编写程序
 
-要了解有关 Solana 程序设计模型的更多讯息，请参阅程序设计模型概述。
+要了解 Solana 程序设计模型的更多信息，请参阅程序设计模型概述。
+要了解在 Solana 上开发程序的更多信息，请参阅已部署程序概述。
 
-要了解有关在 Solana 上开发程序的更多讯息，请参阅已部署程序概述。
-
-## 指向公开的 Solana 集群
+## 如何配置建立 Solana 集群的连接
 
 Solana 有三个公开集群：
 
