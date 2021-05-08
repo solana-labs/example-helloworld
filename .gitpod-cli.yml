@@ -1,0 +1,6 @@
+---
+json_rpc_url: "http://localhost:8899"
+websocket_url: ""
+keypair_path: /workspace/keypair.json
+address_labels: {}
+commitment: confirmed
