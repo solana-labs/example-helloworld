@@ -10,7 +10,8 @@ tasks:
       gp env PATH=~/.local/share/solana/install/active_release/bin:$PATH
       gp open README-gitpod.md
       solana-keygen new --no-bip39-passphrase -o keypair.json
-      solana config set --config /workspace/.gitpod-cli.yml
+      solana config set --keypair keypair.json
+      solana config set --url localhost
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
