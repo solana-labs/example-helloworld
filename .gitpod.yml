@@ -4,10 +4,10 @@ tasks:
   - init: |
       sh -c "$(curl -sSfL https://release.solana.com/v1.6.6/install)"
       export PATH=~/.local/share/solana/install/active_release/bin:$PATH
+      gp env PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
     command: |
-      gp env PATH=~/.local/share/solana/install/active_release/bin:$PATH
       gp open README-gitpod.md
       solana-keygen new --no-bip39-passphrase -o keypair.json
       solana config set --keypair keypair.json
