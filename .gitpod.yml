@@ -6,10 +6,12 @@ tasks:
       export PATH=~/.local/share/solana/install/active_release/bin:$PATH
       npm install
       npm run build:program-rust
-      solana config set --url localhost
-      solana-keygen new --no-bip39-passphrase
     command: |
+      gp env PATH=~/.local/share/solana/install/active_release/bin:$PATH
       gp open README-gitpod.md
+      solana-keygen new --no-bip39-passphrase -o keypair.json
+      solana config set --keypair keypair.json
+      solana config set --url localhost
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
