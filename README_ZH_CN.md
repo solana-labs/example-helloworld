@@ -12,52 +12,51 @@
 
 # Solana 的 Hello world 实例
 
-此专案将展示如何使用 [Solana Javascript API](https://github.com/solana-labs/solana-web3.js) 在 Solana 区块链上和程序交互。
+本文将展示如何在 Solana 区块链使用 [Solana Javascript API](https://github.com/solana-labs/solana-web3.js) 进行编程交互。
 
-此专案包含：
+此教程包含以下内容：
 
-* 链上的 Hello World 程序
-* 可以向帐户发送 hello 并获取 hello 的发送次数。
+* 链上的 Hello World 编程
+* 向某个帐户发送 hello 并获取发送次数。
 
-## 翻译
+## 翻译版本
 - [英文](README.md)
+- [繁体](README_ZH_TW.md)
 
 ## 目录
-- [Hello world on Solana](#hello-world-on-solana)
-  - [快速开始](#快速開始)
-    - [启动本地 Solana 集群](#啟動本地-solana-集群)
+- [Solana 的 Hello world 实例](#hello-world-on-solana)
+  - [快速开始](#快速开始)
+    - [启动本地 Solana 集群](#启动本地-solana-集群)
     - [安装 npm 套件](#安裝-npm-套件)
-    - [部署链上程序](#部署鏈上程序)
-    - [启动客户端](#啟動客戶端)
-    - [期望产出](#期望產出)
-      - [没有达到期望产出？](#沒有達到期望產出)
-    - [自定义程序](#自定義程序)
-  - [学习 Solana](#學習-solana)
-  - [学习 Client](#學習-client)
-    - [进入点](#進入點)
-    - [建立与集群的连接](#建立與集群的連接)
-    - [载入链上程序 Hello World（如果尚未加载）](#載入鏈上程序-hello-world如果尚未加載)
-    - [发送 Hello 交易至链上](#發送-Hello-交易至鏈上)
+    - [部署链上程序](#部署链上程序)
+    - [启动客户端](#启动客户端)
+    - [期望输出](#期望输出)
+      - [没有输出期望值？](#没有输出期望值)
+    - [自定义程序](#自定义程序)
+  - [学习 Solana](#学习-solana)
+  - [学习 Client](#学习-client)
+    - [进入端点](#进入端点)
+    - [与集群建立连接](#与集群建立连接)
+    - [加载链上 Hello World 编程](#加载链上-hello-world-编程)
+    - [发送 Hello 交易到区块链](#发送-Hello-交易到区块链)
     - [查询使用过 Hello 交易的 Solana 帐户](#查詢使用過-Hello-交易的-Solana-帳戶)
-  - [学习链上程序](#學習鏈上程序)
-    - [在 Solana 上编写程序](#在-Solana-上編寫程序)
+  - [学习链上程序](#学习链上程序)
+    - [编写 Solana 程序](#编在-Solana-程序)
   - [指向公开 Solana 集群](#指向公開的-Solana-集群)
-  - [透过高级的范例扩展你的技能](#透過高級的範例擴展你的技能)
+  - [透过高级的范例扩展你的技能](#透过高级的范例扩展你的技能)
 
 ## 快速开始
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
+[![在 Gitpod 打开](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/solana-labs/example-helloworld)
 
-如果您决定在 Gitpod 中打开，请参考 [README-gitpod.md](README-gitpod.md)，否则请继续阅读。
+如果需要在 Gitpod 中打开，请参考 [README-gitpod.md](README-gitpod.md)，否则请继续阅读。
 
-
-要创建和运行此范例，请确认并安装以下套件
+要创建和运行此范例，请确认并安装以下套件：
 
 - 安装 node
 - 安装 npm
 - 从 https://rustup.rs/ 安装最新的 Rust 稳定版本
 - 从 https://docs.solana.com/cli/install-solana-cli-tools 安装 v1.6.6 的 Solana 命令列管理工具
-
 
 如果这是您第一次使用 Docker 或 Rust，这些 安装笔记 可能对您有帮助。
 
@@ -85,9 +84,9 @@ $ solana-keygen new
 $ solana-test-validator
 ```
 
-**注意: 如果你要用 Windows 的话，你得先设置 WSL，才能用 `solana-test-validator` 的工具**
+**注意: 如果使用 Windows 系统，则需要先设置 WSL，才能用 `solana-test-validator` 工具**
 
-关注交易日志：
+### 查看交易日志：
 ```bash
 $ solana logs
 ```
@@ -122,8 +121,9 @@ $ solana program deploy dist/program/helloworld.so
 $ npm run start
 ```
 
-### 期望产出
-公钥将会有所不同：
+### 期望输出
+
+输出的公钥和示例不同：
 
 ```bash
 Let's say hello to a Solana account...
@@ -136,7 +136,8 @@ Saying hello to 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A
 Success
 ```
 
-#### 没有达到期望产出？
+#### 没有输出期望值？
+
 - 确认您已经启动了本地 Solana 集群，构建 并 部署好了 链上程序。
 - 集群的输出日志应包括程序日志消息以及程序失败的原因
   - program log: <message>
@@ -154,16 +155,15 @@ Success
 
 ### 自定义程序
 
-要自定义示例，请更改 `/src` 下的文件。如果您更改 `/src/program-rust` 或 `/src/program-c` 下的任何文件，你将需要重新构建链上程序 并 重新部署链上程序。
+要自定义示例，请更改 `/src` 目录的文件。如果更改了 `/src/program-rust` 或 `/src/program-c` 下的任何文件，您需要重新构建链上程序 并 重新部署链上程序。
 
-现在，当您重新运行 `npm run start` 时，您应该看到更改的结果。
+现在，重新运行 `npm run start` 时，您应该看到更改的结果。
 
 ## 学习 Solana
 
-Solana 文件提供了有关 Solana 的更多消息并且所有的源代码都在 github 上。
+Solana 开发文档提供了有关 Solana 的更多资料，并且所有的源代码都在 github 上。
 
-
-更多的问题？在 [Discord](https://discordapp.com/invite/pquxPsq) 告诉我们。
+遇到更多的问题？在 [Discord](https://discordapp.com/invite/pquxPsq) 告诉我们。
 
 ## 学习 Client
 
@@ -173,18 +173,17 @@ Solana 文件提供了有关 Solana 的更多消息并且所有的源代码都�
 - Solana web3 API
 
 
-### 进入点
+### 进入端点
 
-客户端入口点做了四件事
+客户端入口点做了四件事：
 
-
-### 建立与集群的连接
+### 与集群建立连接
 
 客户端通过调用 establishConnection 与客户端建立连接.
 
 ### 检查 helloworld 链上程序是否已经部署
 
-客户端从 `./dist/program/helloworld-keypair.jso`n 加载已部署程序的密钥对，并使用密钥的公共密钥来获取程序帐户。如果该程序不存在，则客户端会因错误而暂停。如果程序确实存在，它将创建一个新帐户，并以该程序作为其所有者来存储程序状态（已处理的hello数量）。
+客户端从 `./dist/program/helloworld-keypair.json` 加载已部署程序的密钥对，并使用密钥的公共密钥来获取程序帐户。如果该程序不存在，则客户端会因错误而暂停。如果程序确实存在，它将创建一个新帐户，并以该程序作为其所有者来存储程序状态（已处理的 hello 数量）。
 
 ### 发送 `Hello` 交易至链上
 
@@ -194,20 +193,20 @@ Solana 文件提供了有关 Solana 的更多消息并且所有的源代码都�
 
 客户端每次对帐户说 Hello 时，程序都会在 greeter 帐户的数据中增加一个计数。客户端查询 greeter 帐户的数据，并透过 reportHellos 查询此帐户当前被访问的次数。
 
-
 ## 学习链上程序
 
-链上 HelloWorld 程序 是一个 Rust 程序编译成 Berkley Packet Format (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
+链上 HelloWorld 编程 是一个 Rust 编程编译成 Berkley Packet Filter (BPF) 并储存为可执行和可链接格式（ELF）共享对象.
+Solana 链上程序存储的可执行字节码都是 Berkley Packet Filter (BPF) 字节码。
+Solana 命令列工具可以把 Rust 和 C 代码编译成 BPF 字节码。
 
-此程序是使用以下程序编写：
+所有 Rust 的链上程序都是使用以下程序套件编写：
 
 - Solana Rust SDK
 
-### 在 Solana 上编写程序
+### 在 Solana 上编写编程
 
-要了解有关 Solana 程序设计模型的更多讯息，请参阅程序设计模型概述。
-
-要了解有关在 Solana 上开发程序的更多讯息，请参阅已部署程序概述。
+要了解 Solana 程序设计模型的更多信息，请参阅程序设计模型概述。
+要了解在 Solana 上开发程序的更多信息，请参阅已部署程序概述。
 
 ## 指向公开的 Solana 集群
 
