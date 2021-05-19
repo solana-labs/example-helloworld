@@ -188,12 +188,18 @@ The client in this example is written in TypeScript using:
 
 The [client's
 entrypoint](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)
-does four things
+does five things.
 
 ### Establish a connection to the cluster
 
 The client establishes a connection with the cluster by calling
 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92).
+
+### Establish an account to pay for transactions
+
+The client ensures there is an account available to pay for transactions,
+and creates one if there is not, by calling
+[`establishPayer`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L102).
 
 ### Check if the helloworld on-chain program has been deployed
 
