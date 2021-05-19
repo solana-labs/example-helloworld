@@ -187,13 +187,13 @@ The client in this example is written in JavaScript using:
 ### Entrypoint
 
 The [client's
-entrypoint](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)
+entrypoint](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)
 does four things
 
 ### Establish a connection to the cluster
 
 The client establishes a connection with the cluster by calling
-[`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45).
+[`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92).
 
 ### Check if the helloworld on-chain program has been deployed
 
@@ -206,7 +206,7 @@ to store program state (number of hello's processed).
 
 The client then constructs and sends a "Hello" transaction to the program by
 calling
-[`sayHello`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121).
+[`sayHello`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L209).
 The transaction contains a single very simple instruction that primarily carries
 the public key of the helloworld program account to call and the "greeter"
 account to which the client wishes to say "Hello" to.
@@ -217,7 +217,7 @@ Each time the client says "Hello" to an account, the program increments a
 numerical count in the "greeter" account's data.  The client queries the
 "greeter" account's data to discover the current number of times the account has
 been greeted by calling
-[`reportHellos`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L138.)
+[`reportGreetings`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L226).
 
 ## Learn about the on-chain program
 
