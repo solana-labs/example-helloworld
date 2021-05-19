@@ -180,7 +180,7 @@ Further questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
 
 ## Learn about the client
 
-The client in this example is written in JavaScript using:
+The client in this example is written in TypeScript using:
 - [Solana web3.js SDK](https://github.com/solana-labs/solana-web3.js)
 - [Solana web3 API](https://solana-labs.github.io/solana-web3.js)
 
