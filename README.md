@@ -180,24 +180,31 @@ Further questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
 
 ## Learn about the client
 
-The client in this example is written in JavaScript using:
+The client in this example is written in TypeScript using:
 - [Solana web3.js SDK](https://github.com/solana-labs/solana-web3.js)
 - [Solana web3 API](https://solana-labs.github.io/solana-web3.js)
 
 ### Entrypoint
 
 The [client's
-entrypoint](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)
-does four things
+entrypoint](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)
+does five things.
 
 ### Establish a connection to the cluster
 
 The client establishes a connection with the cluster by calling
-[`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45).
+[`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92).
+
+### Establish an account to pay for transactions
+
+The client ensures there is an account available to pay for transactions,
+and creates one if there is not, by calling
+[`establishPayer`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L102).
 
 ### Check if the helloworld on-chain program has been deployed
 
-The client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
+In [`checkProgram`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L144),
+the client loads the keypair of the deployed program from `./dist/program/helloworld-keypair.json` and uses
 the public key for the keypair to fetch the program account. If the program doesn't exist, the client halts
 with an error. If the program does exist, it will create a new account with the program assigned as its owner
 to store program state (number of hello's processed).
@@ -206,7 +213,7 @@ to store program state (number of hello's processed).
 
 The client then constructs and sends a "Hello" transaction to the program by
 calling
-[`sayHello`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121).
+[`sayHello`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L209).
 The transaction contains a single very simple instruction that primarily carries
 the public key of the helloworld program account to call and the "greeter"
 account to which the client wishes to say "Hello" to.
@@ -217,7 +224,7 @@ Each time the client says "Hello" to an account, the program increments a
 numerical count in the "greeter" account's data.  The client queries the
 "greeter" account's data to discover the current number of times the account has
 been greeted by calling
-[`reportHellos`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L138.)
+[`reportGreetings`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L226).
 
 ## Learn about the on-chain program
 
