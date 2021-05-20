@@ -235,9 +235,8 @@ The program is written using:
 To learn more about Solana programming model refer to the [Programming Model
 Overview](https://docs.solana.com/developing/programming-model/overview).
 
-To learn more about developing programs on Solana refer to the [Deployed
-Programs
-Overview](https://docs.solana.com/developing/deployed-programs/overview)
+To learn more about developing programs on Solana refer to the [On-Chain 
+Programs Overview](https://docs.solana.com/developing/on-chain-programs/overview)
 
 ## Pointing to a public Solana cluster
 
