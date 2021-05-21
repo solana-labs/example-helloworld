@@ -83,8 +83,10 @@ const GreetingSchema = new Map([
 /**
  * The expected size of each greeting account.
  */
-const GREETING_SIZE = borsh.serialize(GreetingSchema, new GreetingAccount())
-  .length;
+const GREETING_SIZE = borsh.serialize(
+  GreetingSchema,
+  new GreetingAccount(),
+).length;
 
 /**
  * Establish a connection to the cluster
