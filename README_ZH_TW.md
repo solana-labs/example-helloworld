@@ -70,7 +70,7 @@ $ solana config set --url localhost
 
 2. 創建命令列使用的密鑰對
 
-如果這是你第一次使用 solana 命令列，你先得生成一个新的密鑰對
+如果這是你第一次使用 solana 命令列，你先得生成一個新的密鑰對
 
 ```bash
 $ solana-keygen new
@@ -137,7 +137,7 @@ Success
 
 #### 沒有達到期望產出？
 
-- 確認您已經[啟動了本地 Solana 集群](#start-local-solana-cluster)，[構建](#構建鏈上程式) 并 [部署好了](#部署鏈上程式) 鏈上程式。
+- 確認您已經[啟動了本地 Solana 集群](#start-local-solana-cluster)，[構建](#構建鏈上程式) 並 [部署好了](#部署鏈上程式) 鏈上程式。
 - 集群的輸出日誌應包括程序日誌消息以及程式失敗的原因
   - `program log: <message>`   
 - 運行 `solana logs` 檢查程式日誌找出程式失敗的原因。
@@ -224,9 +224,9 @@ $ solana config set --url devnet
 $ solana config set --url localhost
 ```
 
-## 透過高級的範例擴展你的技能
+## 透過進階的範例擴展你的技能
 
-還有更多的東西要學習。以下範例展示了更多高級功能，例如自定義錯誤、高級帳戶處理、數據序列化建議、基準測試...等。
+還有更多的東西要學習。以下範例展示了更多進階功能，例如自定義錯誤、進階帳戶處理、數據序列化建議、基準測試...等。
 
 - [Programming Examples](https://github.com/solana-labs/solana-program-library/tree/master/examples)
 - [Token Program](https://github.com/solana-labs/solana-program-library/tree/master/token)
