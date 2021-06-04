@@ -32,7 +32,7 @@ jobs:
           sudo apt-get install -y clang-7 --allow-unauthenticated
           sudo apt-get install -y libssl1.1 --allow-unauthenticated
           clang-7 --version
-          nvm install node
+          npm install node
           node --version
           npm install
           sh -c "$(curl -sSfL https://release.solana.com/v1.6.6/install)"
