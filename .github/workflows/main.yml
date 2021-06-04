@@ -12,26 +12,24 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
     steps:
-      - name: Cache multiple paths
+      - name: multiple paths
         uses: actions/cache@v2
         with:
           path: ~/.npm
           key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
       - uses: actions/checkout@v2
-      - run: rustup install nightly
-      - run: cargo --version
-      - run: docker --version
-      - run: >-
+      - run: |
+          rustup install nightly
+          cargo --version
+          docker --version
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      - run: >-
           sudo apt-add-repository "deb http://apt.llvm.org/bionic/llvm-toolchain-bionic-10 main"
-      - run: | 
           sudo apt-get update
-          sudo apt-get install -y clang-7 --allow-unauthenticated
           sudo apt-get install -y openssl --allow-unauthenticated
           sudo apt-get install -y libssl-dev --allow-unauthenticated
+          sudo apt-get install -y clang-7 --allow-unauthenticated
           sudo apt-get install -y libssl1.1 --allow-unauthenticated
           clang-7 --version
           npm install node
