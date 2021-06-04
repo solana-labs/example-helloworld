@@ -24,8 +24,9 @@ jobs:
       - run: cargo --version
       - run: docker --version
       - run: >-
-            wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-            sudo apt-add-repository "deb http://apt.llvm.org/bionic/llvm-toolchain-bionic-10 main"
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      - run: >-
+          sudo apt-add-repository "deb http://apt.llvm.org/bionic/llvm-toolchain-bionic-10 main"
       - run: | 
           sudo apt-get update
           sudo apt-get install -y clang-7 --allow-unauthenticated
