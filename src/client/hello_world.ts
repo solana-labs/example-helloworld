@@ -28,7 +28,7 @@ import {
 let connection: Connection;
 
 /**
- * Connection to the network
+ * Account (keypair)
  */
 let payerAccount: Account;
 
