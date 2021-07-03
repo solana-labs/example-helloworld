@@ -6,7 +6,7 @@ import os from 'os';
 import fs from 'mz/fs';
 import path from 'path';
 import yaml from 'yaml';
-import {Account, Connection} from '@solana/web3.js';
+import {Keypair, Connection} from '@solana/web3.js';
 
 // zzz
 export function sleep(ms: number): Promise<void> {
@@ -16,8 +16,8 @@ export function sleep(ms: number): Promise<void> {
 export async function newAccountWithLamports(
   connection: Connection,
   lamports = 1000000,
-): Promise<Account> {
-  const account = new Account();
+): Promise<Keypair> {
+  const account = Keypair.generate();
   const signature = await connection.requestAirdrop(
     account.publicKey,
     lamports,
@@ -61,7 +61,7 @@ export async function getRpcUrl(): Promise<string> {
 /**
  * Load and parse the Solana CLI config file to determine which payer to use
  */
-export async function getPayer(): Promise<Account> {
+export async function getPayer(): Promise<Keypair> {
   try {
     const config = await getConfig();
     if (!config.keypair_path) throw new Error('Missing keypair path');
@@ -70,15 +70,15 @@ export async function getPayer(): Promise<Account> {
     console.warn(
       'Failed to read keypair from CLI config file, falling back to new random keypair',
     );
-    return new Account();
+    return Keypair.generate();
   }
 }
 
 /**
  * Create an Account from a keypair file
  */
-export async function readAccountFromFile(filePath: string): Promise<Account> {
+export async function readAccountFromFile(filePath: string): Promise<Keypair> {
   const keypairString = await fs.readFile(filePath, {encoding: 'utf8'});
-  const keypairBuffer = Buffer.from(JSON.parse(keypairString));
-  return new Account(keypairBuffer);
+  const keypairBuffer = Uint8Array.from(JSON.parse(keypairString));
+  return Keypair.fromSecretKey(keypairBuffer);
 }
