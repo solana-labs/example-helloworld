@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import {
-  Account,
+  Keypair,
   Connection,
   PublicKey,
   LAMPORTS_PER_SOL,
@@ -30,7 +30,7 @@ let connection: Connection;
 /**
  * Account (keypair)
  */
-let payerAccount: Account;
+let payerAccount: Keypair;
 
 /**
  * Hello world's program id
