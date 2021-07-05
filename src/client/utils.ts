@@ -8,11 +8,6 @@ import path from 'path';
 import yaml from 'yaml';
 import {Keypair, Connection} from '@solana/web3.js';
 
-// zzz
-export function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 export async function newAccountWithLamports(
   connection: Connection,
   lamports = 1000000,
