@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import {
-  Account,
+  Keypair,
   Connection,
   PublicKey,
   LAMPORTS_PER_SOL,
@@ -19,7 +19,7 @@ import {
   getPayer,
   getRpcUrl,
   newAccountWithLamports,
-  readAccountFromFile,
+  createKeypairFromFile,
 } from './utils';
 
 /**
@@ -28,9 +28,9 @@ import {
 let connection: Connection;
 
 /**
- * Account (keypair)
+ * Keypair associated to the fees' payer
  */
-let payerAccount: Account;
+let payer: Keypair;
 
 /**
  * Hello world's program id
@@ -103,7 +103,7 @@ export async function establishConnection(): Promise<void> {
  */
 export async function establishPayer(): Promise<void> {
   let fees = 0;
-  if (!payerAccount) {
+  if (!payer) {
     const {feeCalculator} = await connection.getRecentBlockhash();
 
     // Calculate the cost to fund the greeter account
@@ -114,18 +114,18 @@ export async function establishPayer(): Promise<void> {
 
     try {
       // Get payer from cli config
-      payerAccount = await getPayer();
+      payer = await getPayer();
     } catch (err) {
       // Fund a new payer via airdrop
-      payerAccount = await newAccountWithLamports(connection, fees);
+      payer = await newAccountWithLamports(connection, fees);
     }
   }
 
-  const lamports = await connection.getBalance(payerAccount.publicKey);
+  const lamports = await connection.getBalance(payer.publicKey);
   if (lamports < fees) {
     // This should only happen when using cli config keypair
     const sig = await connection.requestAirdrop(
-      payerAccount.publicKey,
+      payer.publicKey,
       fees - lamports,
     );
     await connection.confirmTransaction(sig);
@@ -133,7 +133,7 @@ export async function establishPayer(): Promise<void> {
 
   console.log(
     'Using account',
-    payerAccount.publicKey.toBase58(),
+    payer.publicKey.toBase58(),
     'containing',
     lamports / LAMPORTS_PER_SOL,
     'SOL to pay for fees',
@@ -146,8 +146,8 @@ export async function establishPayer(): Promise<void> {
 export async function checkProgram(): Promise<void> {
   // Read program id from keypair file
   try {
-    const programAccount = await readAccountFromFile(PROGRAM_KEYPAIR_PATH);
-    programId = programAccount.publicKey;
+    const programKeypair = await createKeypairFromFile(PROGRAM_KEYPAIR_PATH);
+    programId = programKeypair.publicKey;
   } catch (err) {
     const errMsg = (err as Error).message;
     throw new Error(
@@ -170,10 +170,10 @@ export async function checkProgram(): Promise<void> {
   }
   console.log(`Using program ${programId.toBase58()}`);
 
-  // Derive the address of a greeting account from the program so that it's easy to find later.
+  // Derive the address (public key) of a greeting account from the program so that it's easy to find later.
   const GREETING_SEED = 'hello';
   greetedPubkey = await PublicKey.createWithSeed(
-    payerAccount.publicKey,
+    payer.publicKey,
     GREETING_SEED,
     programId,
   );
@@ -192,8 +192,8 @@ export async function checkProgram(): Promise<void> {
 
     const transaction = new Transaction().add(
       SystemProgram.createAccountWithSeed({
-        fromPubkey: payerAccount.publicKey,
-        basePubkey: payerAccount.publicKey,
+        fromPubkey: payer.publicKey,
+        basePubkey: payer.publicKey,
         seed: GREETING_SEED,
         newAccountPubkey: greetedPubkey,
         lamports,
@@ -201,7 +201,7 @@ export async function checkProgram(): Promise<void> {
         programId,
       }),
     );
-    await sendAndConfirmTransaction(connection, transaction, [payerAccount]);
+    await sendAndConfirmTransaction(connection, transaction, [payer]);
   }
 }
 
@@ -218,7 +218,7 @@ export async function sayHello(): Promise<void> {
   await sendAndConfirmTransaction(
     connection,
     new Transaction().add(instruction),
-    [payerAccount],
+    [payer],
   );
 }
 
