@@ -1,5 +1,6 @@
 use borsh::BorshDeserialize;
 use helloworld::{process_instruction, GreetingAccount};
+use solana_program::borsh::get_packed_len as borsh_packed_len;
 use solana_program_test::*;
 use solana_sdk::{
     account::Account,
@@ -8,7 +9,6 @@ use solana_sdk::{
     signature::Signer,
     transaction::Transaction,
 };
-use std::mem;
 
 #[tokio::test]
 async fn test_helloworld() {
@@ -24,7 +24,7 @@ async fn test_helloworld() {
         greeted_pubkey,
         Account {
             lamports: 5,
-            data: vec![0_u8; mem::size_of::<u32>()],
+            data: vec![0_u8; borsh_packed_len::<GreetingAccount>()],
             owner: program_id,
             ..Account::default()
         },
