@@ -1,11 +1,22 @@
 version: 2
 updates:
+- package-ecosystem: cargo
+  directory: "/src/program-rust"
+  schedule:
+    interval: daily
+    time: "01:00"
+    timezone: America/Los_Angeles
+  labels:
+   - "automerge"
+  open-pull-requests-limit: 3
 - package-ecosystem: npm
   directory: "/"
   schedule:
     interval: daily
     time: "01:00"
     timezone: America/Los_Angeles
+  labels:
+    - "automerge"
   open-pull-requests-limit: 3
   ignore:
   - dependency-name: eslint-config-prettier
