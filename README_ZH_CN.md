@@ -56,7 +56,7 @@
 - 安装 node
 - 安装 npm
 - 从 https://rustup.rs/ 安装最新的 Rust 稳定版本
-- 从 https://docs.solana.com/cli/install-solana-cli-tools 安装 v1.6.6 的 Solana 命令列管理工具
+- 从 https://docs.solana.com/cli/install-solana-cli-tools 安装 v1.7.8 的 Solana 命令列管理工具
 
 如果这是您第一次使用 Docker 或 Rust，这些 安装笔记 可能对您有帮助。
 
@@ -127,7 +127,7 @@ $ npm run start
 
 ```bash
 Let's say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { 'feature-set': 3714435735, 'solana-core': '1.6.6' }
+Connection to cluster established: http://localhost:8899 { 'feature-set': 2045430982, 'solana-core': '1.7.8' }
 Using account AiT1QgeYaK86Lf9kudqKthQPCWwpG8vFA1bAAioBoF4X containing 0.00141872 SOL to pay for fees
 Using program Dro9uk45fxMcKWGb1eWALujbTssh6DW8mb4x8x3Eq5h6
 Creating account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A to say hello to

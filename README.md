@@ -63,7 +63,7 @@ on your OS, they may already be installed:
 - Install node (v14 recommended)
 - Install npm
 - Install the latest Rust stable from https://rustup.rs/
-- Install Solana v1.6.6 or later from
+- Install Solana v1.7.8 or later from
   https://docs.solana.com/cli/install-solana-cli-tools
 
 If this is your first time using Rust, these [Installation
@@ -137,7 +137,7 @@ Public key values will differ:
 
 ```bash
 Let's say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { 'feature-set': 3714435735, 'solana-core': '1.6.6' }
+Connection to cluster established: http://localhost:8899 { 'feature-set': 2045430982, 'solana-core': '1.7.8' }
 Using account AiT1QgeYaK86Lf9kudqKthQPCWwpG8vFA1bAAioBoF4X containing 0.00141872 SOL to pay for fees
 Using program Dro9uk45fxMcKWGb1eWALujbTssh6DW8mb4x8x3Eq5h6
 Creating account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A to say hello to
