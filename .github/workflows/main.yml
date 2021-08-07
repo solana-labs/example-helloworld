@@ -8,11 +8,7 @@ on:
       - master
 jobs:
   Build:
-    runs-on: '${{ matrix.os }}'
-    strategy:
-      matrix:
-        os:
-          - ubuntu-20.04
+    runs-on: ubuntu-20.04
     steps:
       - name: multiple paths
         uses: actions/cache@v2
