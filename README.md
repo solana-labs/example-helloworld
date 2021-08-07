@@ -71,6 +71,8 @@ Notes](README-installation-notes.md) might be helpful.
 
 ### Configure CLI 
 
+> If you're on Windows, it is recommended to use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to run these commands
+
 1. Set CLI config url to localhost cluster
 
 ```bash
@@ -93,7 +95,7 @@ Start a local Solana cluster:
 ```bash
 $ solana-test-validator
 ```
-**WARNING: `solana-test-validator` is not currently available for native Windows.  Try using WSL, or switch to Linux or macOS**
+> **Note**: You may need to do some [system tuning](https://docs.solana.com/running-validator/validator-start#system-tuning) (and restart your computer) to get the validator to run
 
 Listen to transaction logs:
 ```bash
