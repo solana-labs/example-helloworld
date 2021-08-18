@@ -8,19 +8,6 @@ import path from 'path';
 import yaml from 'yaml';
 import {Keypair, Connection} from '@solana/web3.js';
 
-export async function newAccountWithLamports(
-  connection: Connection,
-  lamports = 1000000,
-): Promise<Keypair> {
-  const keypair = Keypair.generate();
-  const signature = await connection.requestAirdrop(
-    keypair.publicKey,
-    lamports,
-  );
-  await connection.confirmTransaction(signature);
-  return keypair;
-}
-
 /**
  * @private
  */
@@ -60,7 +47,7 @@ export async function getPayer(): Promise<Keypair> {
   try {
     const config = await getConfig();
     if (!config.keypair_path) throw new Error('Missing keypair path');
-    return createKeypairFromFile(config.keypair_path);
+    return await createKeypairFromFile(config.keypair_path);
   } catch (err) {
     console.warn(
       'Failed to create keypair from CLI config file, falling back to new random keypair',

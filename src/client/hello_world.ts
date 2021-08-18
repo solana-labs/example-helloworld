@@ -18,7 +18,6 @@ import * as borsh from 'borsh';
 import {
   getPayer,
   getRpcUrl,
-  newAccountWithLamports,
   createKeypairFromFile,
 } from './utils';
 
@@ -112,23 +111,18 @@ export async function establishPayer(): Promise<void> {
     // Calculate the cost of sending transactions
     fees += feeCalculator.lamportsPerSignature * 100; // wag
 
-    try {
-      // Get payer from cli config
-      payer = await getPayer();
-    } catch (err) {
-      // Fund a new payer via airdrop
-      payer = await newAccountWithLamports(connection, fees);
-    }
+    payer = await getPayer();
   }
 
-  const lamports = await connection.getBalance(payer.publicKey);
+  let lamports = await connection.getBalance(payer.publicKey);
   if (lamports < fees) {
-    // This should only happen when using cli config keypair
+    // If current balance is not enough to pay for fees, request an airdrop
     const sig = await connection.requestAirdrop(
       payer.publicKey,
       fees - lamports,
     );
     await connection.confirmTransaction(sig);
+    lamports = await connection.getBalance(payer.publicKey);
   }
 
   console.log(
