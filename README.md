@@ -31,9 +31,12 @@ The project comprises of:
 - [Hello world on Solana](#hello-world-on-solana)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
+    - [Configure CLI](#configure-cli)
     - [Start local Solana cluster](#start-local-solana-cluster)
+    - [Install npm dependencies](#install-npm-dependencies)
     - [Build the on-chain program](#build-the-on-chain-program)
-    - [Run the client](#run-the-client)
+    - [Deploy the on-chain program](#deploy-the-on-chain-program)
+    - [Run the JavaScript client](#run-the-javascript-client)
     - [Expected output](#expected-output)
       - [Not seeing the expected output?](#not-seeing-the-expected-output)
     - [Customizing the Program](#customizing-the-program)
@@ -69,7 +72,7 @@ on your OS, they may already be installed:
 If this is your first time using Rust, these [Installation
 Notes](README-installation-notes.md) might be helpful.
 
-### Configure CLI 
+### Configure CLI
 
 > If you're on Windows, it is recommended to use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to run these commands
 
