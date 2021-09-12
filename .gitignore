@@ -5,3 +5,4 @@
 .env
 src/client/util/store
 test-ledger/
+.DS_Store
