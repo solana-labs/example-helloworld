@@ -15,11 +15,7 @@ import fs from 'mz/fs';
 import path from 'path';
 import * as borsh from 'borsh';
 
-import {
-  getPayer,
-  getRpcUrl,
-  createKeypairFromFile,
-} from './utils';
+import {getPayer, getRpcUrl, createKeypairFromFile} from './utils';
 
 /**
  * Connection to the network
