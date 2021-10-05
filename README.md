@@ -234,8 +234,8 @@ been greeted by calling
 ## Learn about the on-chain program
 
 The [on-chain helloworld program](/src/program-rust/Cargo.toml) is a Rust program
-compiled to [Berkley Packet Format
-(BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) and stored as an
+compiled to [Berkeley Packet Filter
+(BPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter) bytecode and stored as an
 [Executable and Linkable Format (ELF) shared
 object](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format).
 
