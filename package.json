@@ -37,7 +37,7 @@
     "@types/yaml": "^1.9.7",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
-    "eslint": "^7.12.1",
+    "eslint": "^8.0.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.1.2",
