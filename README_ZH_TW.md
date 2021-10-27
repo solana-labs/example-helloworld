@@ -114,6 +114,25 @@ $ npm run build:program-c
 $ solana program deploy dist/program/helloworld.so
 ```
 
+如果這是你第一次部署，你會遇到以下錯誤：
+```
+==============================================================================
+Recover the intermediate account's ephemeral keypair file with
+`solana-keygen recover` and the following 12-word seed phrase:
+==============================================================================
+service news caution bicycle armor solve seek miracle then civil fancy eternal
+==============================================================================
+To resume a deploy, pass the recovered keypair as
+the [PROGRAM_ADDRESS_SIGNER] argument to `solana deploy` or
+as the [BUFFER_SIGNER] to `solana program deploy` or `solana write-buffer'.
+Or to recover the account's lamports, pass it as the
+[BUFFER_ACCOUNT_ADDRESS] argument to `solana program close`.
+==============================================================================
+Error: Account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A has insufficient funds for spend (0.42437208 SOL) + fee (0.000325 SOL)
+```
+
+請執行 `solana airdrop 1` 後再試一次。
+
 ### 啟動客戶端
 
 ```bash
