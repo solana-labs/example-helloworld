@@ -65,8 +65,8 @@ on your OS, they may already be installed:
 
 - Install node (v14 recommended)
 - Install npm
-- Install the latest Rust stable from https://rustup.rs/
-- Install Solana v1.7.11 or later from
+- Install Rust v1.56.1 or later from https://rustup.rs/
+- Install Solana v1.8.2 or later from
   https://docs.solana.com/cli/install-solana-cli-tools
 
 If this is your first time using Rust, these [Installation

@@ -55,8 +55,8 @@
 
 - 安装 node
 - 安装 npm
-- 从 https://rustup.rs/ 安装最新的 Rust 稳定版本
-- 从 https://docs.solana.com/cli/install-solana-cli-tools 安装 v1.7.8 的 Solana 命令列管理工具
+- 从 https://rustup.rs/ 安装最新的 Rust（v1.56.1+）稳定版本
+- 从 https://docs.solana.com/cli/install-solana-cli-tools 安装 v1.8.2+ 的 Solana 命令列管理工具
 
 如果这是您第一次使用 Docker 或 Rust，这些 安装笔记 可能对您有帮助。
 
