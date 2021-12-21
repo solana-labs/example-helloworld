@@ -43,7 +43,7 @@ jobs:
           npm run build:program-rust
           npm run test:program-rust
           cargo test-bpf --manifest-path=./src/program-rust/Cargo.toml
-          solana config set --url localhost
+          solana config set --url http://127.0.0.1:8899
           solana program deploy dist/program/helloworld.so
           npm run start
           npm run build:program-c
