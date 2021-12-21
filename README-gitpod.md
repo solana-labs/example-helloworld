@@ -36,9 +36,19 @@ The project comprises of:
 Using this example in Gitpod connects to the public Solana `devnet` cluster. Use
 the environment variable `CLUSTER` to choose a different Solana cluster.
 
+Start a local Solana cluster:
+```bash
+solana-test-validator
+```
+
+Deploy the on-chain program:
+```bash
+solana program deploy ./dist/program/helloworld.so
+```
+
 Run the client to load and interact with the on-chain program:
 ```bash
-$ npm run start
+npm run start
 ```
 
 The remaining sections of this document point back to the non-Gitpod version of
