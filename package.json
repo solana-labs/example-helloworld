@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@solana/web3.js": "^1.7.0",
-    "borsh": "^0.6.0",
+    "borsh": "^0.7.0",
     "mz": "^2.7.0",
     "yaml": "^1.10.2"
   },
