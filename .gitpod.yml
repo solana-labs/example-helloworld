@@ -1,10 +1,7 @@
-image:
-  file: .gitpod.Dockerfile
 tasks:
   - init: |
       sh -c "$(curl -sSfL https://release.solana.com/v1.8.2/install)"
-      export PATH=~/.local/share/solana/install/active_release/bin:$PATH
-      gp env PATH=~/.local/share/solana/install/active_release/bin:$PATH
+      eval $(gp env -e PATH=$HOME/.local/share/solana/install/active_release/bin:$PATH)
       npm install
       npm run build:program-rust
     command: |
