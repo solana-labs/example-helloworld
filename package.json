@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
-    "@types/eslint": "^7.2.4",
+    "@types/eslint": "^8.2.2",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/mz": "^2.7.2",
     "@types/prettier": "^2.1.5",
