@@ -111,6 +111,18 @@ export async function establishPayer(): Promise<void> {
   }
 
   let lamports = await connection.getBalance(payer.publicKey);
+  console.log('\nPayer Account ID: [' + payer.publicKey + '].');
+  console.log('\nPayer Account Balance (Before Airdrop): ' + lamports/LAMPORTS_PER_SOL + ' SOL.');
+
+  // Request an Airdrop (although not needed) 1 SOL (LAMPORTS_PER_SOL)
+  const myAirDrop = await connection.requestAirdrop(
+    payer.publicKey,
+    LAMPORTS_PER_SOL
+  );
+  await connection.confirmTransaction(myAirDrop);
+  lamports = await connection.getBalance(payer.publicKey);
+  console.log('\nPayer Account Balance (After Airdrop): ' + lamports/LAMPORTS_PER_SOL + ' SOL.');
+
   if (lamports < fees) {
     // If current balance is not enough to pay for fees, request an airdrop
     const sig = await connection.requestAirdrop(
@@ -217,6 +229,7 @@ export async function sayHello(): Promise<void> {
  */
 export async function reportGreetings(): Promise<void> {
   const accountInfo = await connection.getAccountInfo(greetedPubkey);
+  
   if (accountInfo === null) {
     throw 'Error: cannot find the greeted account';
   }

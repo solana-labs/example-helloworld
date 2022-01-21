@@ -25,7 +25,7 @@ uint64_t helloworld(SolParameters *params) {
     return ERROR_INVALID_ACCOUNT_DATA;
   }
 
-  // Increment and store the number of times the account has been greeted
+  // Increment and store the number of times the account has been greeted 
   uint32_t *num_greets = (uint32_t *)greeted_account->data;
   *num_greets += 1;
 
