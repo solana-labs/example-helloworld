@@ -8,7 +8,7 @@ use solana_program::{
     pubkey::Pubkey,
 };
 
-/// Define the type of state stored in accounts
+// Define the type of state stored in accounts
 #[derive(BorshSerialize, BorshDeserialize, Debug)]
 pub struct GreetingAccount {
     /// number of greetings
