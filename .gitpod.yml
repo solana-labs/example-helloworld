@@ -1,6 +1,7 @@
 tasks:
   - init: |
-      sh -c "$(curl -sSfL https://release.solana.com/v1.8.2/install)"
+      sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+      export PATH="/home/gitpod/.local/share/solana/install/active_release/bin:$PATH"
       eval $(gp env -e PATH=$HOME/.local/share/solana/install/active_release/bin:$PATH)
       npm install
       npm run build:program-rust
