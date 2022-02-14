@@ -34,7 +34,7 @@ jobs:
           npm install node
           node --version
           npm install
-          sh -c "$(curl -sSfL https://release.solana.com/v1.8.2/install)"
+          sh -c "$(curl -sSfL https://release.solana.com/v1.8.14/install)"
           export PATH=~/.local/share/solana/install/active_release/bin:$PATH
           solana-install info
           solana-keygen new --no-bip39-passphrase
