@@ -96,6 +96,7 @@ This example connects to a local Solana cluster by default.
 
 Start a local Solana cluster:
 ```bash
+cd ~
 solana-test-validator
 ```
 > **Note**: You may need to do some [system tuning](https://docs.solana.com/running-validator/validator-start#system-tuning) (and restart your computer) to get the validator to run
