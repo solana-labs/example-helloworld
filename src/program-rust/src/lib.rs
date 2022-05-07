@@ -22,12 +22,21 @@ entrypoint!(process_instruction);
 pub fn process_instruction(
     program_id: &Pubkey, // Public key of the account the hello world program was loaded into
     accounts: &[AccountInfo], // The account to say hello to
-    _instruction_data: &[u8], // Ignored, all helloworld instructions are hellos
+    instruction_data: &[u8], // The message from the greeter
 ) -> ProgramResult {
     msg!("Hello World Rust program entrypoint");
 
     // Iterating accounts is safer than indexing
     let accounts_iter = &mut accounts.iter();
+
+    let message_from_sender = String::from_utf8_lossy(instruction_data);
+
+    if message_from_sender != "hello" {
+        msg!("You Forgot To Say 'hello'");
+        msg!("You said '{:?}'",String::from_utf8_lossy(instruction_data));
+
+        return Err(ProgramError::InvalidInstructionData);
+    }
 
     // Get the account to say hello to
     let account = next_account_info(accounts_iter)?;

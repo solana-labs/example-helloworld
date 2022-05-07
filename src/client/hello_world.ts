@@ -203,7 +203,7 @@ export async function sayHello(): Promise<void> {
   const instruction = new TransactionInstruction({
     keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
     programId,
-    data: Buffer.alloc(0), // All instructions are hellos
+    data: Buffer.from('hello', 'utf8'), // say 'hello'
   });
   await sendAndConfirmTransaction(
     connection,
