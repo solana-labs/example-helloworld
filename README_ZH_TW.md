@@ -35,14 +35,15 @@
   - [學習 Solana](#學習-solana)
   - [學習 Client](#學習-client)
     - [進入點](#進入點)
-    - [建立與集群的連接](#建立與集群的連接)
-    - [載入鏈上程式 Hello World（如果尚未加載）](#載入鏈上程式-hello-world如果尚未加載)
-    - [發送 `Hello` 交易至鏈上](#發送-Hello-交易至鏈上)
-    - [查詢使用過 `Hello` 交易的 Solana 帳戶](#查詢使用過-Hello-交易的-Solana-帳戶)
+    - [建立與集群的連接](#建立與集群的連線)
+    - [建立交易支付帳戶](#建立交易支付帳戶)
+    - [檢查 helloworld 鏈上程式是否已經部署](#檢查-helloworld-鏈上程式是否已經部署)
+    - [發送 Hello 交易至鏈上](#發送-hello-交易至鏈上)
+    - [查詢在 Hello 交易中使用的 Solana 帳戶](#查詢在-hello-交易中使用的-solana-帳戶)
   - [學習鏈上程式](#學習鏈上程式)
-    - [在 Solana 上編寫程式](#在-Solana-上編寫程式)
-  - [指向公開 Solana 集群](#指向公開的-Solana-集群)
-  - [透過高級的範例擴展你的技能](#透過高級的範例擴展你的技能)
+    - [在 Solana 上編寫程式](#在-solana-上編寫程式)
+  - [指向公開 Solana 集群](#指向公開的-solana-集群)
+  - [透過高級的範例擴展你的技能](#透過進階的範例擴展你的技能)
 
 ## 快速開始
 
@@ -172,24 +173,28 @@ Success
 
 ### 進入點
 
-[客戶端入口點](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/main.js#L14)做了四件事
+[客戶端入口點](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/main.ts#L13)做了 5 件事
 
-### 建立與集群的連接
+### 建立與集群的連線
 
-客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L45) 與客戶端建立連接.
+客戶端通過調用 [`establishConnection`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L92) 與集群(cluster)建立連線。
 
-### 檢查一下這個 helloworld 鏈上程式是否已經部署好了
+### 建立交易支付帳戶
+
+客戶端確認有支付帳戶存在，且該帳戶有足夠的代幣支付交易費用。如果支付帳戶不存在，則調用 [`establishPayer`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L102) 建立一個。
+
+### 檢查 helloworld 鏈上程式是否已經部署
 
 客戶端從 `./dist/program/helloworld-keypair.json` 這個文件加載程式的密鑰對。客戶端使用那個密鑰對的公鑰訪問程式帳戶。如果程式帳戶不存在，
-客戶端就會報錯並停止運行。如果程式存在，客戶端會創建一個對於該程式指定好的帳戶。
+客戶端就會報錯並停止運行。如果程式存在，客戶端將創建一個新帳戶用於儲存狀態(說 hello 的次數)，並將該帳戶的擁有權(owner)指定給 `helloworld` 程式。
 
-### 發送 `Hello` 交易至鏈上
+### 發送 Hello 交易至鏈上
 
-客戶端將通過調用 [`sayHello`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L121) 並向程式發送 `Hello` 交易。此交易包含一條非常簡單的指令，此指令主要呼叫 `helloworld` 程式的帳戶公鑰希望向 `greeter` 帳戶說 `Hello`。
+客戶端將通過調用 [`sayHello`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L209) 向程式發送 Hello 交易。此交易只包含一條非常簡單的指令，該指令主要帶有 2 個參數： `helloworld` 程式的帳戶公鑰、與欲對其說 hello 的帳戶地址(greeter account)。
 
-### 查詢使用過 `Hello` 交易的 Solana 帳戶
+### 查詢在 Hello 交易中使用的 Solana 帳戶
 
-客戶端每次對帳戶說 `Hello` 時，程式都會在 `greeter` 帳戶的數據中增加一個計數。客戶端查詢 `greeter` 帳戶的數據，並透過 [`reportHellos`](https://github.com/solana-labs/example-helloworld/blob/e936ab42e168f1939df0164d5996adf9ca635bd0/src/client/hello_world.js#L138.) 查詢此帳戶當前被訪問的次數。
+客戶端每次對 greeter 帳戶說 Hello 時，程式都會在 greeter 帳戶的數據中增加一個計數。客戶端透過 [`reportGreeting`](https://github.com/solana-labs/example-helloworld/blob/ad52dc719cdc96d45ad8e308e8759abf4792b667/src/client/hello_world.ts#L226) 查詢 greeter 帳戶的數據，以此得知此帳戶被訪問的次數。
 
 ## 學習鏈上程式
 
