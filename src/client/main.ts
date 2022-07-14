@@ -6,8 +6,11 @@ import {
   establishConnection,
   establishPayer,
   checkProgram,
-  sayHello,
+  setCounter,
   reportGreetings,
+  sayHello,
+  takeSnapshot,
+  reportSnapshot,
 } from './hello_world';
 
 async function main() {
@@ -22,11 +25,24 @@ async function main() {
   // Check if the program has been deployed
   await checkProgram();
 
-  // Say hello to an account
-  await sayHello();
+  // // Say hello 3 times to an account
+  // await sayHello();
+  // await sayHello();
+  // await sayHello();
 
-  // Find out how many times that account has been greeted
-  await reportGreetings();
+  // // Find out how many times that account has been greeted
+  // await reportGreetings();
+
+  // // Set counter back to 2
+  // await setCounter(2);
+
+  // // Find out how many times that account has been greeted
+  // await reportGreetings();
+
+  // Take snapshot
+  await takeSnapshot();
+
+  await reportSnapshot();
 
   console.log('Success');
 }

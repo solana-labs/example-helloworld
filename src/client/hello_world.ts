@@ -11,6 +11,7 @@ import {
   Transaction,
   sendAndConfirmTransaction,
 } from '@solana/web3.js';
+import BN from 'bn.js';
 import fs from 'mz/fs';
 import path from 'path';
 import * as borsh from 'borsh';
@@ -36,6 +37,11 @@ let programId: PublicKey;
  * The public key of the account we are saying hello to
  */
 let greetedPubkey: PublicKey;
+
+/**
+ * The public key of the account we are storing slot number and timestamp
+ */
+let snapshotPubkey: PublicKey;
 
 /**
  * Path to program files
@@ -81,6 +87,46 @@ const GreetingSchema = new Map([
 const GREETING_SIZE = borsh.serialize(
   GreetingSchema,
   new GreetingAccount(),
+).length;
+
+/**
+ * The state of a snapshot account managed by the hello world program
+ */
+class SnapshotAccount {
+  timestamp = 0;
+  slot = 0;
+  constructor(
+    fields: {timestamp: number; slot: number} | undefined = undefined,
+  ) {
+    if (fields) {
+      this.timestamp = fields.timestamp;
+      this.slot = fields.slot;
+    }
+  }
+}
+
+/**
+ * Borsh schema definition for snapshot accounts
+ */
+const SnapshotSchema = new Map([
+  [
+    SnapshotAccount,
+    {
+      kind: 'struct',
+      fields: [
+        ['timestamp', 'u64'],
+        ['slot', 'u64'],
+      ],
+    },
+  ],
+]);
+
+/**
+ * The expected size of each snapshot account.
+ */
+const SNAPSHOT_SIZE = borsh.serialize(
+  SnapshotSchema,
+  new SnapshotAccount(),
 ).length;
 
 /**
@@ -193,6 +239,40 @@ export async function checkProgram(): Promise<void> {
     );
     await sendAndConfirmTransaction(connection, transaction, [payer]);
   }
+
+  // Derive the address (public key) of a greeting account from the program so that it's easy to find later.
+  const SNAPSHOT_SEED = 'snapshot';
+  snapshotPubkey = await PublicKey.createWithSeed(
+    payer.publicKey,
+    SNAPSHOT_SEED,
+    programId,
+  );
+
+  // Check if the snapshot account has already been created
+  const snapshotAccount = await connection.getAccountInfo(snapshotPubkey);
+  if (snapshotAccount === null) {
+    console.log(
+      'Creating account',
+      snapshotPubkey.toBase58(),
+      'to say hello to',
+    );
+    const lamports = await connection.getMinimumBalanceForRentExemption(
+      SNAPSHOT_SIZE,
+    );
+
+    const transaction = new Transaction().add(
+      SystemProgram.createAccountWithSeed({
+        fromPubkey: payer.publicKey,
+        basePubkey: payer.publicKey,
+        seed: SNAPSHOT_SEED,
+        newAccountPubkey: snapshotPubkey,
+        lamports,
+        space: SNAPSHOT_SIZE,
+        programId,
+      }),
+    );
+    await sendAndConfirmTransaction(connection, transaction, [payer]);
+  }
 }
 
 /**
@@ -203,7 +283,41 @@ export async function sayHello(): Promise<void> {
   const instruction = new TransactionInstruction({
     keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
     programId,
-    data: Buffer.alloc(0), // All instructions are hellos
+    data: Buffer.from(Uint8Array.of(0)),
+  });
+  await sendAndConfirmTransaction(
+    connection,
+    new Transaction().add(instruction),
+    [payer],
+  );
+}
+
+/**
+ * Set counter
+ */
+export async function setCounter(counter: number): Promise<void> {
+  console.log(`Set counter of ${greetedPubkey.toBase58()} to ${counter}`);
+  const instruction = new TransactionInstruction({
+    keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
+    programId,
+    data: Buffer.from(Uint8Array.of(1, ...new BN(counter).toArray('le', 4))),
+  });
+  await sendAndConfirmTransaction(
+    connection,
+    new Transaction().add(instruction),
+    [payer],
+  );
+}
+
+/**
+ * Take snapshot
+ */
+export async function takeSnapshot(): Promise<void> {
+  console.log('Take snapshot and save to', snapshotPubkey.toBase58());
+  const instruction = new TransactionInstruction({
+    keys: [{pubkey: snapshotPubkey, isSigner: false, isWritable: true}],
+    programId,
+    data: Buffer.from(Uint8Array.of(2)),
   });
   await sendAndConfirmTransaction(
     connection,
@@ -230,5 +344,27 @@ export async function reportGreetings(): Promise<void> {
     'has been greeted',
     greeting.counter,
     'time(s)',
+  );
+}
+
+/**
+ * Report the number of times the greeted account has been said hello to
+ */
+export async function reportSnapshot(): Promise<void> {
+  const accountInfo = await connection.getAccountInfo(snapshotPubkey);
+  if (accountInfo === null) {
+    throw 'Error: cannot find the greeted account';
+  }
+  const snapshot = borsh.deserialize(
+    SnapshotSchema,
+    SnapshotAccount,
+    accountInfo.data,
+  );
+  console.log(
+    snapshotPubkey.toBase58(),
+    'timestamp: ',
+    snapshot.timestamp.toString(),
+    'slot: ',
+    snapshot.slot.toString(),
   );
 }
