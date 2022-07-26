@@ -105,7 +105,7 @@ export async function establishPayer(): Promise<void> {
     fees += await connection.getMinimumBalanceForRentExemption(GREETING_SIZE);
 
     // Calculate the cost of sending transactions
-    fees += feeCalculator.lamportsPerSignature * 100; // wag
+    fees += feeCalculator.lamportsPerSignature * 100; // avg
 
     payer = await getPayer();
   }
