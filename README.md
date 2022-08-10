@@ -44,11 +44,11 @@ The project comprises of:
   - [Learn about the client](#learn-about-the-client)
     - [Entrypoint](#entrypoint)
     - [Establish a connection to the cluster](#establish-a-connection-to-the-cluster)
-    - [Load the helloworld on-chain program if not already loaded](#load-the-helloworld-on-chain-program-if-not-already-loaded)
+    - [Check if the helloworld on-chain program has been deployed](#check-if-the-helloworld-on-chain-program-has-been-deployed)
     - [Send a "Hello" transaction to the on-chain program](#send-a-hello-transaction-to-the-on-chain-program)
     - [Query the Solana account used in the "Hello" transaction](#query-the-solana-account-used-in-the-hello-transaction)
   - [Learn about the on-chain program](#learn-about-the-on-chain-program)
-    - [Programming on Solana](#programming-on-Solana)
+    - [Programming on Solana](#programming-on-solana)
   - [Pointing to a public Solana cluster](#pointing-to-a-public-solana-cluster)
   - [Expand your skills with advanced examples](#expand-your-skills-with-advanced-examples)
 
