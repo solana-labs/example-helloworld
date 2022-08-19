@@ -19,6 +19,7 @@ jobs:
       - run: |
           rustup install stable
           cargo --version
+          rustc --version
           docker --version
       - run: >-
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
