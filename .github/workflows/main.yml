@@ -26,6 +26,8 @@ jobs:
       - run: >-
           sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main"
       - run: |
+          rustup install 1.63
+          rustup default 1.63
           sudo apt-get update
           sudo apt-get install -y openssl --allow-unauthenticated
           sudo apt-get install -y libssl-dev --allow-unauthenticated
