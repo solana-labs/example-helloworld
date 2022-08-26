@@ -79,7 +79,7 @@ Notes](README-installation-notes.md) might be helpful.
 1. Set CLI config url to localhost cluster
 
 ```bash
-solana config set --url localhost
+solana config set --url http://127.0.0.1:8899
 ```
 
 2. Create CLI Keypair
@@ -142,7 +142,7 @@ Public key values will differ:
 
 ```bash
 Let's say hello to a Solana account...
-Connection to cluster established: http://localhost:8899 { 'feature-set': 2045430982, 'solana-core': '1.7.8' }
+Connection to cluster established: http://127.0.0.1:8899 { 'feature-set': 2045430982, 'solana-core': '1.7.8' }
 Using account AiT1QgeYaK86Lf9kudqKthQPCWwpG8vFA1bAAioBoF4X containing 0.00141872 SOL to pay for fees
 Using program Dro9uk45fxMcKWGb1eWALujbTssh6DW8mb4x8x3Eq5h6
 Creating account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A to say hello to
@@ -266,7 +266,7 @@ solana config set --url devnet
 
 To point back to the local cluster:
 ```bash
-solana config set --url localhost
+solana config set --url http://127.0.0.1:8899
 ```
 
 ## Writing the client in Rust
