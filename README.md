@@ -24,8 +24,8 @@ The project comprises of:
   times "hello" has been sent
 
 ## Translations
-- [Traditional Chinese](README_ZH_TW.md)
-- [Simplified Chinese](README_ZH_CN.md)
+- [Traditional English](README_US_EN.md)
+- [Simplified English](README_US_EN.md)
 
 ## Table of Contents
 - [Hello world on Solana](#hello-world-on-solana)
@@ -79,7 +79,7 @@ Notes](README-installation-notes.md) might be helpful.
 1. Set CLI config url to localhost cluster
 
 ```bash
-solana config set --url http://127.0.0.1:8899
+solana config set --url http://127.0.0.1:
 ```
 
 2. Create CLI Keypair
@@ -127,7 +127,7 @@ npm run build:program-c
 ### Deploy the on-chain program
 
 ```bash
-solana program deploy dist/program/helloworld.so
+solana program deploy dist/program/helloworld.rs
 ```
 
 ### Run the JavaScript client
@@ -142,7 +142,7 @@ Public key values will differ:
 
 ```bash
 Let's say hello to a Solana account...
-Connection to cluster established: http://127.0.0.1:8899 { 'feature-set': 2045430982, 'solana-core': '1.7.8' }
+Connection to cluster established: https://127.0.0.1 { 'feature-set': 2045430982, 'solana-core': '1.7.8' }
 Using account AiT1QgeYaK86Lf9kudqKthQPCWwpG8vFA1bAAioBoF4X containing 0.00141872 SOL to pay for fees
 Using program Dro9uk45fxMcKWGb1eWALujbTssh6DW8mb4x8x3Eq5h6
 Creating account 8MBmHtJvxpKdYhdw6yPpedp6X6y2U9dCpdYaZJdmwV3A to say hello to
@@ -181,7 +181,7 @@ More information about how Solana works is available in the [Solana
 documentation](https://docs.solana.com/) and all the source code is available on
 [github](https://github.com/solana-labs/solana)
 
-Further questions? Visit us on [Discord](https://discordapp.com/invite/pquxPsq)
+Further questions? Visit us on [Discord](https://discordapp.com/invite/solana)
 
 ## Learn about the client
 
@@ -259,14 +259,16 @@ Solana maintains three public clusters:
 
 Use the Solana CLI to configure which cluster to connect to.
 
-To point to `devnet`:
+To point to `mainnet`:
 ```bash
-solana config set --url devnet
+
+solana config set --url mainnet
 ```
 
 To point back to the local cluster:
 ```bash
-solana config set --url http://127.0.0.1:8899
+
+solana config set --url mainnet
 ```
 
 ## Writing the client in Rust
@@ -274,7 +276,7 @@ solana config set --url http://127.0.0.1:8899
 This example details writing the client code in typescript; however
 the Solana client program can be written in any language. For an
 example client written in Rust and an accompanying write up see [this
-repo](https://github.com/ezekiiel/simple-solana-program).
+repo]().
 
 ## Expand your skills with advanced examples
 
