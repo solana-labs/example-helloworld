@@ -330,12 +330,12 @@ dependencies = [
 
 [[package]]
 name = "borsh-derive"
-version = "0.10.0"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "37626c9e941a687ee9abef6065b44c379478ae563b7483c613dd705ef1dff59e"
+checksum = "190b1188f062217531748807129459c8c14641b648e887e39681a433db7fc939"
 dependencies = [
- "borsh-derive-internal 0.10.0",
- "borsh-schema-derive-internal 0.10.0",
+ "borsh-derive-internal 0.10.1",
+ "borsh-schema-derive-internal 0.10.1",
  "proc-macro-crate 0.1.5",
  "proc-macro2 1.0.43",
  "syn 1.0.99",
@@ -354,9 +354,9 @@ dependencies = [
 
 [[package]]
 name = "borsh-derive-internal"
-version = "0.10.0"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61820b4c5693eafb998b1e67485423c923db4a75f72585c247bdee32bad81e7b"
+checksum = "b0fcf747a3e4eb47869441664df09d0eb88dcc9a85d499860efb82c2cfe6affc"
 dependencies = [
  "proc-macro2 1.0.43",
  "quote 1.0.9",
@@ -376,9 +376,9 @@ dependencies = [
 
 [[package]]
 name = "borsh-schema-derive-internal"
-version = "0.10.0"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c76cdbfa13def20d1f8af3ae7b3c6771f06352a74221d8851262ac384c122b8e"
+checksum = "f671d085f791c5fd3331c843ded45454b034b6188bf0f78ed28e7fd66a8b3f69"
 dependencies = [
  "proc-macro2 1.0.43",
  "quote 1.0.9",
@@ -3019,7 +3019,7 @@ name = "solana-bpf-helloworld"
 version = "0.0.1"
 dependencies = [
  "borsh",
- "borsh-derive 0.10.0",
+ "borsh-derive 0.10.1",
  "solana-program",
  "solana-program-test",
  "solana-sdk",
