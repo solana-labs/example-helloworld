@@ -14,7 +14,7 @@ no-entrypoint = []
 
 [dependencies]
 borsh = "0.9.3"
-borsh-derive = "0.10.0"
+borsh-derive = "0.10.3"
 solana-program = "~1.10.35"
 
 [dev-dependencies]
