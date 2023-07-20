@@ -90,7 +90,7 @@ export async function establishConnection(): Promise<void> {
   const rpcUrl = await getRpcUrl();
   connection = new Connection(rpcUrl, 'confirmed');
   const version = await connection.getVersion();
-  console.log('Connection to cluster established:', rpcUrl, version);
+  console.log('\nConnection to Solana cluster established:', rpcUrl, version);
 }
 
 /**
@@ -111,6 +111,18 @@ export async function establishPayer(): Promise<void> {
   }
 
   let lamports = await connection.getBalance(payer.publicKey);
+  console.log('\nPayer Account ID: [' + payer.publicKey + '].');
+  console.log('\nPayer Account Balance (Before Airdrop): ' + lamports/LAMPORTS_PER_SOL + ' SOL.');
+
+  // Request an Airdrop (although not needed) 1 SOL (LAMPORTS_PER_SOL)
+  const myAirDrop = await connection.requestAirdrop(
+    payer.publicKey,
+    LAMPORTS_PER_SOL
+  );
+  await connection.confirmTransaction(myAirDrop);
+  lamports = await connection.getBalance(payer.publicKey);
+  console.log('\nPayer Account Balance (After Airdrop): ' + lamports/LAMPORTS_PER_SOL + ' SOL.');
+
   if (lamports < fees) {
     // If current balance is not enough to pay for fees, request an airdrop
     const sig = await connection.requestAirdrop(
@@ -122,11 +134,11 @@ export async function establishPayer(): Promise<void> {
   }
 
   console.log(
-    'Using account',
-    payer.publicKey.toBase58(),
+    '\nUsing Solana blockchain account: ',
+    '[' + payer.publicKey.toBase58() + ']',
     'containing',
     lamports / LAMPORTS_PER_SOL,
-    'SOL to pay for fees',
+    'SOL to pay for fees.',
   );
 }
 
@@ -158,7 +170,7 @@ export async function checkProgram(): Promise<void> {
   } else if (!programInfo.executable) {
     throw new Error(`Program is not executable`);
   }
-  console.log(`Using program ${programId.toBase58()}`);
+  console.log(`\nUsing Solana blockchain program ID: [${programId.toBase58()}].`);
 
   // Derive the address (public key) of a greeting account from the program so that it's easy to find later.
   const GREETING_SEED = 'hello';
@@ -172,7 +184,7 @@ export async function checkProgram(): Promise<void> {
   const greetedAccount = await connection.getAccountInfo(greetedPubkey);
   if (greetedAccount === null) {
     console.log(
-      'Creating account',
+      '\nCreating account',
       greetedPubkey.toBase58(),
       'to say hello to',
     );
@@ -199,7 +211,7 @@ export async function checkProgram(): Promise<void> {
  * Say hello
  */
 export async function sayHello(): Promise<void> {
-  console.log('Saying hello to', greetedPubkey.toBase58());
+  console.log('\nNow saying hello to Solana blockchain account ID: [' + greetedPubkey.toBase58() + '].');
   const instruction = new TransactionInstruction({
     keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
     programId,
@@ -217,6 +229,7 @@ export async function sayHello(): Promise<void> {
  */
 export async function reportGreetings(): Promise<void> {
   const accountInfo = await connection.getAccountInfo(greetedPubkey);
+  
   if (accountInfo === null) {
     throw 'Error: cannot find the greeted account';
   }
@@ -225,10 +238,10 @@ export async function reportGreetings(): Promise<void> {
     GreetingAccount,
     accountInfo.data,
   );
-  console.log(
-    greetedPubkey.toBase58(),
+  console.log('\nSolana blockchain account ID: ' + 
+    '[' + greetedPubkey.toBase58() + ']',
     'has been greeted',
     greeting.counter,
-    'time(s)',
+    'time(s) so far!',
   );
 }
