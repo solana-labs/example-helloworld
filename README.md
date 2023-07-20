@@ -109,6 +109,9 @@ solana logs
 
 ```bash
 npm install
+npm install -g typescript
+npm install -g ts-node
+npm install --save-dev @tsconfig/recommended
 ```
 
 ### Build the on-chain program
@@ -166,6 +169,9 @@ Success
       Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA consumed 200000 of 200000 compute units
       Program failed to complete: exceeded maximum number of instructions allowed (200000) at instruction #334
       Program G5bbS1ipWzqQhekkiCLn6u7Y1jJdnGK85ceSYLx2kKbA failed: Program failed to complete
+
+- ``` error TS6053: File '@tsconfig/recommended/tsconfig.json' not found. ```
+   - Ensure to follow Install npm dependencies steps above, most likely due to ``` npm install --save-dev @tsconfig/recommended ``` not being installed 
 
 ### Customizing the Program
 
