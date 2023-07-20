@@ -105,6 +105,13 @@ Listen to transaction logs:
 solana logs
 ```
 
+### Airdrop SOL into your default account
+
+If your keypair account balance is zero request SOL from your local Solana cluster faucet
+```bash
+solana airdrop 1
+```
+
 ### Install npm dependencies
 
 ```bash
