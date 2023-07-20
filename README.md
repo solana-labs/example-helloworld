@@ -278,7 +278,7 @@ repo](https://github.com/ezekiiel/simple-solana-program).
 
 ## Expand your skills with advanced examples
 
-There is lots more to learn; The following examples demonstrate more advanced
+There is lots more to learn. The following examples demonstrate more advanced
 features like custom errors, advanced account handling, suggestions for data
 serialization, benchmarking, etc...
 
