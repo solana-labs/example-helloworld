@@ -1,0 +1,8 @@
+/node_modules
+*.sw[po]
+/.cargo
+/dist
+.env
+src/client/util/store
+test-ledger/
+.DS_Store
