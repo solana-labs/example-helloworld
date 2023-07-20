@@ -1,0 +1,44 @@
+dist: bionic
+sudo: required
+language: rust
+services:
+- docker
+cache:
+  cargo: true
+  directories:
+  - "~/.npm"
+notifications:
+  email: false
+
+install:
+  - rustup install nightly
+  - cargo --version
+  - docker --version
+  - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+  - sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main"
+  - sudo apt-get update
+  - sudo apt-get install -y clang-7 --allow-unauthenticated
+  - sudo apt-get install -y openssl --allow-unauthenticated
+  - sudo apt-get install -y libssl-dev --allow-unauthenticated
+  - sudo apt-get install -y libssl1.1 --allow-unauthenticated
+  - clang-7 --version
+  - nvm install node
+  - node --version
+  - npm install
+  - sh -c "$(curl -sSfL https://release.solana.com/v1.10.35/install)"
+  - export PATH=~/.local/share/solana/install/active_release/bin:$PATH
+  - solana-install info
+
+script:
+  - solana-keygen new --no-bip39-passphrase
+  - solana-test-validator --quiet &
+  - npm run lint
+  - npm run build:program-rust
+  - npm run test:program-rust
+  - cargo test-bpf --manifest-path=./src/program-rust/Cargo.toml
+  - solana config set --url localhost
+  - solana program deploy dist/program/helloworld.so
+  - npm run start
+  - npm run build:program-c
+  - solana program deploy dist/program/helloworld.so
+  - npm run start

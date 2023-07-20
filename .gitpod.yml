@@ -1,0 +1,33 @@
+tasks:
+  - init: |
+      sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+      export PATH="/home/gitpod/.local/share/solana/install/active_release/bin:$PATH"
+      eval $(gp env -e PATH=$HOME/.local/share/solana/install/active_release/bin:$PATH)
+      npm install
+      npm run build:program-rust
+    command: |
+      gp open README-gitpod.md
+      solana-keygen new --no-bip39-passphrase -o keypair.json
+      solana config set --keypair keypair.json
+      solana config set --url localhost
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: false
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: true
+ports:
+  - port: 1024
+    onOpen: ignore
+  - port: 8899
+    onOpen: ignore
+  - port: 8900
+    onOpen: ignore
+  - port: 9900
+    onOpen: ignore
