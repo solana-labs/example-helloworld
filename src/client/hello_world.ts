@@ -17,25 +17,10 @@ import * as borsh from 'borsh';
 
 import {getPayer, getRpcUrl, createKeypairFromFile} from './utils';
 
-/**
- * Connection to the network
- */
-let connection: Connection;
-
-/**
- * Keypair associated to the fees' payer
- */
-let payer: Keypair;
-
-/**
- * Hello world's program id
- */
-let programId: PublicKey;
-
-/**
- * The public key of the account we are saying hello to
- */
-let greetedPubkey: PublicKey;
+let connection: Connection | undefined;
+let payer: Keypair | undefined;
+let programId: PublicKey | undefined;
+let greetedPubkey: PublicKey | undefined;
 
 /**
  * Path to program files
