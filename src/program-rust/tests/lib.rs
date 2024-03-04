@@ -31,7 +31,7 @@ async fn test_helloworld() {
     );
     let (mut banks_client, payer, recent_blockhash) = program_test.start().await;
 
-    // Verify account has zero greetings
+    // Verify account has zero greetings - try again, make with attention
     let greeted_account = banks_client
         .get_account(greeted_pubkey)
         .await
